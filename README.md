@@ -18,7 +18,9 @@ fastJson 升级 fastJson2
 
 常用工具迁移
 
-新建包
+mybatis 分页工具
 
 
+
+数据库定义，可用业务迁移
 
