@@ -140,4 +140,8 @@ public class AuthClientController {
     public CommonResult<SaBaseClientLoginUser> getLoginUser() {
         return CommonResult.data(authService.getClientLoginUser());
     }
+
+    /**
+     * TODO 重置密码接口
+     */
 }

@@ -24,6 +24,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vip.xiaonuo.auth.api.ClientLoginUserApi;
@@ -43,6 +44,7 @@ import vip.xiaonuo.auth.modular.login.param.AuthPhoneValidCodeLoginParam;
 import vip.xiaonuo.auth.modular.login.result.AuthPicValidCodeResult;
 import vip.xiaonuo.auth.modular.login.service.AuthService;
 import vip.xiaonuo.common.cache.CommonCacheOperator;
+import vip.xiaonuo.common.cache.RedisUtils;
 import vip.xiaonuo.common.exception.CommonException;
 import vip.xiaonuo.common.util.CommonCryptogramUtil;
 import vip.xiaonuo.common.util.CommonEmailUtil;
@@ -60,426 +62,416 @@ import java.util.stream.Collectors;
  * @date 2021/12/23 21:52
  */
 @Service
+@Slf4j
 public class AuthServiceImpl implements AuthService {
 
-    private static final String SNOWY_SYS_DEFAULT_CAPTCHA_OPEN_KEY = "SNOWY_SYS_DEFAULT_CAPTCHA_OPEN";
+	private static final String SNOWY_SYS_DEFAULT_CAPTCHA_OPEN_KEY = "SNOWY_SYS_DEFAULT_CAPTCHA_OPEN";
 
-    private static final String AUTH_VALID_CODE_CACHE_KEY = "auth-validCode:";
+	private static final String AUTH_VALID_CODE_CACHE_KEY = "auth-validCode:";
 
-    private static final String LOGIN_ERROR_TIMES_KEY_PREFIX = "login-error-times:";
+	private static final String LOGIN_ERROR_TIMES_KEY_PREFIX = "login-error-times:";
 
-    @Autowired
-    private SysLoginUserApi sysLoginUserApi;
+	@Autowired
+	private SysLoginUserApi sysLoginUserApi;
 
-    @Autowired
-    private ClientLoginUserApi clientSysLoginUserApi;
+	@Autowired
+	private ClientLoginUserApi clientSysLoginUserApi;
 
-    @Resource
-    private DevConfigApi devConfigApi;
+	@Resource
+	private DevConfigApi devConfigApi;
 
-    @Resource
-    private DevSmsApi devSmsApi;
+	@Resource
+	private DevSmsApi devSmsApi;
 
-    @Resource
-    private CommonCacheOperator commonCacheOperator;
+	@Resource
+	private CommonCacheOperator commonCacheOperator;
 
-    @Override
-    public AuthPicValidCodeResult getPicCaptcha() {
-        // 生成验证码，随机4位字符
-        CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(100, 38, 4, 10);
-        // 定义返回结果
-        AuthPicValidCodeResult authPicValidCodeResult = new AuthPicValidCodeResult();
-        // 获取验证码的值
-        String validCode = circleCaptcha.getCode();
-        // 获取验证码的base64
-        String validCodeBase64 = circleCaptcha.getImageBase64Data();
-        // 生成请求号
-        String validCodeReqNo = IdWorker.getIdStr();
-        // 将base64返回前端
-        authPicValidCodeResult.setValidCodeBase64(validCodeBase64);
-        // 将请求号返回前端
-        authPicValidCodeResult.setValidCodeReqNo(validCodeReqNo);
-        // 将请求号作为key，验证码的值作为value放到redis，用于校验，5分钟有效
-        commonCacheOperator.put(AUTH_VALID_CODE_CACHE_KEY + validCodeReqNo, validCode, 5 * 60);
-        return authPicValidCodeResult;
-    }
+	@Override
+	public AuthPicValidCodeResult getPicCaptcha() {
+		// 生成验证码，随机4位字符
+		CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(100, 38, 4, 10);
+		// 定义返回结果
+		AuthPicValidCodeResult authPicValidCodeResult = new AuthPicValidCodeResult();
+		// 获取验证码的值
+		String validCode = circleCaptcha.getCode();
+		// 获取验证码的base64
+		String validCodeBase64 = circleCaptcha.getImageBase64Data();
+		// 生成请求号
+		String validCodeReqNo = IdWorker.getIdStr();
+		// 将base64返回前端
+		authPicValidCodeResult.setValidCodeBase64(validCodeBase64);
+		// 将请求号返回前端
+		authPicValidCodeResult.setValidCodeReqNo(validCodeReqNo);
+		// 将请求号作为key，验证码的值作为value放到redis，用于校验，5分钟有效
+		String key = AUTH_VALID_CODE_CACHE_KEY + validCodeReqNo;
+		RedisUtils.setValue(key, validCode, 5 * 60);
+		System.out.println("图片验证码key = " + key);
+		System.out.println("图片验证码 = " + validCode);
+		return authPicValidCodeResult;
+	}
 
-    @Override
-    public String getPhoneValidCode(AuthGetPhoneValidCodeParam authGetPhoneValidCodeParam, String type) {
-        // 手机号
-        String phone = authGetPhoneValidCodeParam.getPhone();
-        // 验证码
-        String validCode = authGetPhoneValidCodeParam.getValidCode();
-        // 验证码请求号
-        String validCodeReqNo = authGetPhoneValidCodeParam.getValidCodeReqNo();
-        // 校验参数
-        validPhoneValidCodeParam(null, validCode, validCodeReqNo, type);
-        // 生成手机验证码的值，随机6为数字
-        String phoneValidCode = RandomUtil.randomNumbers(6);
-        // 生成手机验证码的请求号
-        String phoneValidCodeReqNo = IdWorker.getIdStr();
+	@Override
+	public String getPhoneValidCode(AuthGetPhoneValidCodeParam authGetPhoneValidCodeParam, String type) {
+		// 手机号
+		String phone = authGetPhoneValidCodeParam.getPhone();
+		// 验证码
+		String validCode = authGetPhoneValidCodeParam.getValidCode();
+		// 验证码请求号
+		String validCodeReqNo = authGetPhoneValidCodeParam.getValidCodeReqNo();
+		// 校验参数
+		validPhoneValidCodeParam(null, validCode, validCodeReqNo, type);
+		// 生成手机验证码的值，随机6为数字
+		String phoneValidCode = RandomUtil.randomNumbers(6);
+		// 生成手机验证码的请求号
+		String phoneValidCodeReqNo = IdWorker.getIdStr();
 
-        // TODO 使用阿里云执行发送验证码，将验证码作为短信内容的参数变量放入，
-        // TODO 签名不传则使用系统默认配置的签名，支持传入多个参数，示例：{"name":"张三","number":"15038****76"}
-        //devSmsApi.sendSmsAliyun(phone, null, "验证码模板号", JSONUtil.toJsonStr(JSONUtil.createObj().set("validCode", phoneValidCode)));
+		// TODO 使用阿里云执行发送验证码，将验证码作为短信内容的参数变量放入，
+		// TODO 签名不传则使用系统默认配置的签名，支持传入多个参数，示例：{"name":"张三","number":"15038****76"}
+		//devSmsApi.sendSmsAliyun(phone, null, "验证码模板号", JSONUtil.toJsonStr(JSONUtil.createObj().set("validCode", phoneValidCode)));
 
-        // TODO 使用腾讯云执行发送验证码，将验证码作为短信内容的参数变量放入，
-        // TODO sdkAppId和签名不传则使用系统默认配置的sdkAppId和签名，支持传入多个参数，逗号拼接，示例："张三,15038****76,进行中"
-        devSmsApi.sendSmsTencent("sdkAppId", phone, "签名", "模板编码", phoneValidCode);
+		// TODO 使用腾讯云执行发送验证码，将验证码作为短信内容的参数变量放入，
+		// TODO sdkAppId和签名不传则使用系统默认配置的sdkAppId和签名，支持传入多个参数，逗号拼接，示例："张三,15038****76,进行中"
+		devSmsApi.sendSmsTencent("sdkAppId", phone, "签名", "模板编码", phoneValidCode);
 
-        // 将请求号作为key，验证码的值作为value放到redis，用于校验，5分钟有效
-        commonCacheOperator.put(AUTH_VALID_CODE_CACHE_KEY + phone + StrUtil.UNDERLINE + phoneValidCodeReqNo, phoneValidCode, 5 * 60);
-        // 返回请求号
-        return phoneValidCodeReqNo;
-    }
+		// 将请求号作为key，验证码的值作为value放到redis，用于校验，5分钟有效
+		commonCacheOperator.put(AUTH_VALID_CODE_CACHE_KEY + phone + StrUtil.UNDERLINE + phoneValidCodeReqNo, phoneValidCode, 5 * 60);
+		// 返回请求号
+		return phoneValidCodeReqNo;
+	}
 
-    /**
-     * 校验验证码方法
-     *
-     * @author xuyuxiang
-     * @date 2022/8/25 15:26
-     **/
-    private void validValidCode(String phoneOrEmail, String validCode, String validCodeReqNo) {
-        // 依据请求号，取出缓存中的验证码进行校验
-        Object existValidCode;
-        if(ObjectUtil.isEmpty(phoneOrEmail)) {
-            existValidCode = commonCacheOperator.get(AUTH_VALID_CODE_CACHE_KEY + validCodeReqNo);
-        } else {
-            existValidCode = commonCacheOperator.get(AUTH_VALID_CODE_CACHE_KEY + phoneOrEmail + StrUtil.UNDERLINE + validCodeReqNo);
-        }
-        // 为空则直接验证码错误
-        if(ObjectUtil.isEmpty(existValidCode)) {
-            throw new CommonException(AuthExceptionEnum.VALID_CODE_ERROR.getValue());
-        }
-        // 移除该验证码
-        if(ObjectUtil.isEmpty(phoneOrEmail)) {
-            commonCacheOperator.remove(AUTH_VALID_CODE_CACHE_KEY + validCodeReqNo);
-        } else {
-            commonCacheOperator.remove(AUTH_VALID_CODE_CACHE_KEY + phoneOrEmail + StrUtil.UNDERLINE + validCodeReqNo);
-        }
-        // 不一致则直接验证码错误
-        if (!validCode.equals(Convert.toStr(existValidCode).toLowerCase())) {
-            throw new CommonException("验证码错误");
-        }
-    }
+	/**
+	 * 校验验证码方法
+	 *
+	 * @author xuyuxiang
+	 * @date 2022/8/25 15:26
+	 **/
+	private void validValidCode(String phoneOrEmail, String validCode, String validCodeReqNo) {
+		// 依据请求号，取出缓存中的验证码进行校验
+		Object existValidCode;
+		String key;
+		if (ObjectUtil.isEmpty(phoneOrEmail)) {
+			key = AUTH_VALID_CODE_CACHE_KEY + validCodeReqNo;
+			existValidCode = RedisUtils.getString(key);
+		} else {
+			key = AUTH_VALID_CODE_CACHE_KEY + phoneOrEmail + StrUtil.UNDERLINE + validCodeReqNo;
+			existValidCode = RedisUtils.getString(key);
+		}
+		log.info("校验验证码key= " + key);
+		// 移除该验证码
+		commonCacheOperator.remove(key);
+		// 不一致则直接验证码错误
+		if (!validCode.equals(Convert.toStr(existValidCode).toLowerCase())) {
+			throw new CommonException("验证码错误");
+		}
+	}
 
-    /**
-     * 校验手机号与验证码等参数
-     *
-     * @author xuyuxiang
-     * @date 2022/8/25 14:29
-     **/
-    private void validPhoneValidCodeParam(String phoneOrEmail, String validCode, String validCodeReqNo, String type) {
-        // 验证码正确则校验手机号格式
-        if(ObjectUtil.isEmpty(phoneOrEmail)) {
-            // 执行校验验证码
-            validValidCode(null, validCode, validCodeReqNo);
-        } else {
-            if(!PhoneUtil.isMobile(phoneOrEmail) && !CommonEmailUtil.isEmail(phoneOrEmail)) {
-                throw new CommonException(AuthExceptionEnum.PHONE_FORMAT_ERROR.getValue());
-            }
-            // 执行校验验证码
-            validValidCode(phoneOrEmail, validCode, validCodeReqNo);
+	/**
+	 * 校验手机号与验证码等参数
+	 *
+	 * @author xuyuxiang
+	 * @date 2022/8/25 14:29
+	 **/
+	private void validPhoneValidCodeParam(String phoneOrEmail, String validCode, String validCodeReqNo, String type) {
+		// 验证码正确则校验手机号格式
+		if (ObjectUtil.isEmpty(phoneOrEmail)) {
+			// 执行校验验证码
+			validValidCode(null, validCode, validCodeReqNo);
+		} else {
+			if (!PhoneUtil.isMobile(phoneOrEmail) && !CommonEmailUtil.isEmail(phoneOrEmail)) {
+				throw new CommonException(AuthExceptionEnum.PHONE_FORMAT_ERROR.getValue());
+			}
+			// 执行校验验证码
+			validValidCode(phoneOrEmail, validCode, validCodeReqNo);
 
-            // 根据手机号获取用户信息，判断用户是否存在，根据B端或C端判断
-            if(SaClientTypeEnum.B.getValue().equals(type)) {
-                if (ObjectUtil.isEmpty(sysLoginUserApi.getUserByPhone(phoneOrEmail))) {
-                    throw new CommonException(AuthExceptionEnum.PHONE_ERROR.getValue());
-                }
-            } else {
-                if (ObjectUtil.isEmpty(clientSysLoginUserApi.getClientUserByPhone(phoneOrEmail))) {
-                    throw new CommonException(AuthExceptionEnum.PHONE_ERROR.getValue());
-                }
-            }
-        }
-    }
+			// 根据手机号获取用户信息，判断用户是否存在，根据B端或C端判断
+			if (SaClientTypeEnum.B.getValue().equals(type)) {
+				if (ObjectUtil.isEmpty(sysLoginUserApi.getUserByPhone(phoneOrEmail))) {
+					throw new CommonException(AuthExceptionEnum.PHONE_ERROR.getValue());
+				}
+			} else {
+				if (ObjectUtil.isEmpty(clientSysLoginUserApi.getClientUserByPhone(phoneOrEmail))) {
+					throw new CommonException(AuthExceptionEnum.PHONE_ERROR.getValue());
+				}
+			}
+		}
+	}
 
-    @Override
-    public String doRegisterByImgCode(AuthImgValidCodeRegisterParam authPhoneValidCodeLoginParam) {
-        // 校验参数
-        validPhoneValidCodeParam(null, authPhoneValidCodeLoginParam.getValidCode(), authPhoneValidCodeLoginParam.getValidCodeReqNo(), null);
-        // 设备
-        String device = authPhoneValidCodeLoginParam.getDevice();
-        // 默认指定为PC，如在小程序跟移动端的情况下，自行指定即可
-        if (ObjectUtil.isEmpty(device)) {
-            device = AuthDeviceTypeEnum.PC.getValue();
-        } else {
-            AuthDeviceTypeEnum.validate(device);
-        }
-        // 注册账号
-        clientSysLoginUserApi.createUserValidCode(authPhoneValidCodeLoginParam.buildSaBaseRegisterUser());
-        SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserByAccount(authPhoneValidCodeLoginParam.getNickname());
-        // 执行C端登录
-        return execLoginC(saBaseClientLoginUser, device);
-    }
+	@Override
+	public String doRegisterByImgCode(AuthImgValidCodeRegisterParam authPhoneValidCodeLoginParam) {
+		// 校验参数
+		validPhoneValidCodeParam(null, authPhoneValidCodeLoginParam.getValidCode(), authPhoneValidCodeLoginParam.getValidCodeReqNo(), null);
+		// 设备
+		String device = authPhoneValidCodeLoginParam.getDevice();
+		// 默认指定为PC，如在小程序跟移动端的情况下，自行指定即可
+		if (ObjectUtil.isEmpty(device)) {
+			device = AuthDeviceTypeEnum.PC.getValue();
+		} else {
+			AuthDeviceTypeEnum.validate(device);
+		}
+		// 注册账号
+		clientSysLoginUserApi.createUserValidCode(authPhoneValidCodeLoginParam.buildSaBaseRegisterUser());
+		SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserByAccount(authPhoneValidCodeLoginParam.getNickname());
+		// 执行C端登录
+		return execLoginC(saBaseClientLoginUser, device);
+	}
 
-    @Override
-    public String doLogin(AuthAccountPasswordLoginParam authAccountPasswordLoginParam, String type) {
-        // 判断账号是否被封禁
-        isDisableTime(authAccountPasswordLoginParam.getAccount());
-        // 获取账号
-        String account = authAccountPasswordLoginParam.getAccount();
-        // 获取密码
-        String password = authAccountPasswordLoginParam.getPassword();
-        // 获取设备
-        String device = authAccountPasswordLoginParam.getDevice();
-        // 默认指定为PC，如在小程序跟移动端的情况下，自行指定即可
-        if(ObjectUtil.isEmpty(device)) {
-            device = AuthDeviceTypeEnum.PC.getValue();
-        } else {
-            AuthDeviceTypeEnum.validate(device);
-        }
-        // 校验验证码
-        String defaultCaptchaOpen = devConfigApi.getValueByKey(SNOWY_SYS_DEFAULT_CAPTCHA_OPEN_KEY);
-        if(ObjectUtil.isNotEmpty(defaultCaptchaOpen)) {
-            if (Boolean.TRUE.equals(Convert.toBool(defaultCaptchaOpen))) {
-                // 获取验证码
-                String validCode = authAccountPasswordLoginParam.getValidCode();
-                // 获取验证码请求号
-                String validCodeReqNo = authAccountPasswordLoginParam.getValidCodeReqNo();
-                // 开启验证码则必须传入验证码
-                if (ObjectUtil.isEmpty(validCode)) {
-                    throw new CommonException(AuthExceptionEnum.VALID_CODE_EMPTY.getValue());
-                }
-                // 开启验证码则必须传入验证码请求号
-                if (ObjectUtil.isEmpty(validCodeReqNo)) {
-                    throw new CommonException(AuthExceptionEnum.VALID_CODE_REQ_NO_EMPTY.getValue());
-                }
-                // 执行校验验证码
-                validValidCode(null, validCode, validCodeReqNo);
-            }
-        }
-        // SM2解密并获得前端传来的密码哈希值
-        String passwordHash;
-        try {
-            // 解密，并做哈希值
-            passwordHash = CommonCryptogramUtil.doHashValue(CommonCryptogramUtil.doSm2Decrypt(password));
-        } catch (Exception e) {
-            throw new CommonException(AuthExceptionEnum.PWD_DECRYPT_ERROR.getValue());
-        }
-        // 根据账号获取用户信息，根据B端或C端判断
-        if(SaClientTypeEnum.B.getValue().equals(type)) {
-            SaBaseLoginUser saBaseLoginUser = sysLoginUserApi.getUserByAccount(account);
-            if(ObjectUtil.isEmpty(saBaseLoginUser)) {
-                throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
-            }
-            if (!saBaseLoginUser.getPassword().equals(passwordHash)) {
-                // 记录登录次数 和 过期时间
-                saveLoginTimes(account);
-                throw new CommonException(AuthExceptionEnum.PWD_ERROR.getValue());
-            }
-            // 删除redis 中的key
-            clearLoginErrorTimes(account);
-            // 执行B端登录
-            return execLoginB(saBaseLoginUser, device);
-        } else {
-            SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserByAccount(account);
-            if(ObjectUtil.isEmpty(saBaseClientLoginUser)) {
-                throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
-            }
-            if (!saBaseClientLoginUser.getPassword().equals(passwordHash)) {
-                throw new CommonException(AuthExceptionEnum.PWD_ERROR.getValue());
-            }
-            // 执行C端登录
-            return execLoginC(saBaseClientLoginUser, device);
-        }
-    }
+	@Override
+	public String doLogin(AuthAccountPasswordLoginParam authAccountPasswordLoginParam, String type) {
+		// 判断账号是否被封禁
+		isDisableTime(authAccountPasswordLoginParam.getAccount());
+		// 获取账号
+		String account = authAccountPasswordLoginParam.getAccount();
+		// 获取密码
+		String password = authAccountPasswordLoginParam.getPassword();
+		// 获取设备
+		String device = authAccountPasswordLoginParam.getDevice();
+		// 默认指定为PC，如在小程序跟移动端的情况下，自行指定即可
+		if (ObjectUtil.isEmpty(device)) {
+			device = AuthDeviceTypeEnum.PC.getValue();
+		} else {
+			AuthDeviceTypeEnum.validate(device);
+		}
+		// 校验验证码
+		String defaultCaptchaOpen = devConfigApi.getValueByKey(SNOWY_SYS_DEFAULT_CAPTCHA_OPEN_KEY);
+		if (ObjectUtil.isNotEmpty(defaultCaptchaOpen)) {
+			if (Boolean.TRUE.equals(Convert.toBool(defaultCaptchaOpen))) {
+				// 获取验证码
+				String validCode = authAccountPasswordLoginParam.getValidCode();
+				// 获取验证码请求号
+				String validCodeReqNo = authAccountPasswordLoginParam.getValidCodeReqNo();
+				// 开启验证码则必须传入验证码
+				if (ObjectUtil.isEmpty(validCode)) {
+					throw new CommonException(AuthExceptionEnum.VALID_CODE_EMPTY.getValue());
+				}
+				// 开启验证码则必须传入验证码请求号
+				if (ObjectUtil.isEmpty(validCodeReqNo)) {
+					throw new CommonException(AuthExceptionEnum.VALID_CODE_REQ_NO_EMPTY.getValue());
+				}
+				// 执行校验验证码
+				validValidCode(null, validCode, validCodeReqNo);
+			}
+		}
+		// SM2解密并获得前端传来的密码哈希值
+		String passwordHash;
+		try {
+			// 解密，并做哈希值
+			passwordHash = CommonCryptogramUtil.doHashValue(CommonCryptogramUtil.doSm2Decrypt(password));
+		} catch (Exception e) {
+			throw new CommonException(AuthExceptionEnum.PWD_DECRYPT_ERROR.getValue());
+		}
+		// 根据账号获取用户信息，根据B端或C端判断
+		if (SaClientTypeEnum.B.getValue().equals(type)) {
+			SaBaseLoginUser saBaseLoginUser = sysLoginUserApi.getUserByAccount(account);
+			if (ObjectUtil.isEmpty(saBaseLoginUser)) {
+				throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
+			}
+			if (!saBaseLoginUser.getPassword().equals(passwordHash)) {
+				// 记录登录次数 和 过期时间
+				saveLoginTimes(account);
+				throw new CommonException(AuthExceptionEnum.PWD_ERROR.getValue());
+			}
+			// 删除redis 中的key
+			clearLoginErrorTimes(account);
+			// 执行B端登录
+			return execLoginB(saBaseLoginUser, device);
+		} else {
+			SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserByAccount(account);
+			if (ObjectUtil.isEmpty(saBaseClientLoginUser)) {
+				throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
+			}
+			if (!saBaseClientLoginUser.getPassword().equals(passwordHash)) {
+				throw new CommonException(AuthExceptionEnum.PWD_ERROR.getValue());
+			}
+			// 执行C端登录
+			return execLoginC(saBaseClientLoginUser, device);
+		}
+	}
 
-    @Override
-    public String doLoginByPhone(AuthPhoneValidCodeLoginParam authPhoneValidCodeLoginParam, String type) {
-        // 手机号
-        String phone = authPhoneValidCodeLoginParam.getPhone();
-        // 校验参数
-        validPhoneValidCodeParam(phone, authPhoneValidCodeLoginParam.getValidCode(), authPhoneValidCodeLoginParam.getValidCodeReqNo(), type);
-        // 设备
-        String device = authPhoneValidCodeLoginParam.getDevice();
-        // 默认指定为PC，如在小程序跟移动端的情况下，自行指定即可
-        if(ObjectUtil.isEmpty(device)) {
-            device = AuthDeviceTypeEnum.PC.getValue();
-        } else {
-            AuthDeviceTypeEnum.validate(device);
-        }
-        // 根据手机号获取用户信息，根据B端或C端判断
-        if(SaClientTypeEnum.B.getValue().equals(type)) {
-            SaBaseLoginUser saBaseLoginUser = sysLoginUserApi.getUserByPhone(phone);
-            if(ObjectUtil.isEmpty(saBaseLoginUser)) {
-                throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
-            }
-            // 执行B端登录
-            return execLoginB(saBaseLoginUser, device);
-        } else {
-            SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserByPhone(phone);
-            if(ObjectUtil.isEmpty(saBaseClientLoginUser)) {
-                throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
-            }
-            // 执行C端登录
-            return execLoginC(saBaseClientLoginUser, device);
-        }
-    }
+	@Override
+	public String doLoginByPhone(AuthPhoneValidCodeLoginParam authPhoneValidCodeLoginParam, String type) {
+		// 手机号
+		String phone = authPhoneValidCodeLoginParam.getPhone();
+		// 校验参数
+		validPhoneValidCodeParam(phone, authPhoneValidCodeLoginParam.getValidCode(), authPhoneValidCodeLoginParam.getValidCodeReqNo(), type);
+		// 设备
+		String device = authPhoneValidCodeLoginParam.getDevice();
+		// 默认指定为PC，如在小程序跟移动端的情况下，自行指定即可
+		if (ObjectUtil.isEmpty(device)) {
+			device = AuthDeviceTypeEnum.PC.getValue();
+		} else {
+			AuthDeviceTypeEnum.validate(device);
+		}
+		// 根据手机号获取用户信息，根据B端或C端判断
+		if (SaClientTypeEnum.B.getValue().equals(type)) {
+			SaBaseLoginUser saBaseLoginUser = sysLoginUserApi.getUserByPhone(phone);
+			if (ObjectUtil.isEmpty(saBaseLoginUser)) {
+				throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
+			}
+			// 执行B端登录
+			return execLoginB(saBaseLoginUser, device);
+		} else {
+			SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserByPhone(phone);
+			if (ObjectUtil.isEmpty(saBaseClientLoginUser)) {
+				throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
+			}
+			// 执行C端登录
+			return execLoginC(saBaseClientLoginUser, device);
+		}
+	}
 
-    /**
-     * 是否封禁状态
-     * 如果被封禁了，执行以下逻辑，返回前端还需等待的时间
-     */
-    private void isDisableTime(String userAccount) {
-        // disableTime = -2表示未被封禁
-        long disableTime = StpUtil.getDisableTime(userAccount);
-        if (disableTime > 0) {
-            if (disableTime > 60) {
-                throw new CommonException(userAccount + "账号已被封禁, 请再"+ disableTime/60+ "分钟后重新尝试登录!!");
-            }
-            throw new CommonException(userAccount + "账号已被封禁, 请再"+ disableTime+ "秒后重新尝试登录!!");
-        }
-    }
+	/**
+	 * 是否封禁状态
+	 * 如果被封禁了，执行以下逻辑，返回前端还需等待的时间
+	 */
+	private void isDisableTime(String userAccount) {
+		// disableTime = -2表示未被封禁
+		long disableTime = StpUtil.getDisableTime(userAccount);
+		if (disableTime > 0) {
+			if (disableTime > 60) {
+				throw new CommonException(userAccount + "账号已被封禁, 请再" + disableTime / 60 + "分钟后重新尝试登录!!");
+			}
+			throw new CommonException(userAccount + "账号已被封禁, 请再" + disableTime + "秒后重新尝试登录!!");
+		}
+	}
 
-    // redis中保存登录错误次数
-    private void saveLoginTimes(String userAccount){
-        String loginErrorKey = LOGIN_ERROR_TIMES_KEY_PREFIX + userAccount;
-        Integer number = (Integer) commonCacheOperator.get(loginErrorKey);
-        if (number == null) {
-            // 如果redis中没有保存，代表失败第一次
-            number = 2;
-            commonCacheOperator.put(loginErrorKey, number,5 * 60);
-            return;
-        }
-        if (number < 5) {
-            number++;
-            commonCacheOperator.put(loginErrorKey, number,5 * 60);
-            return;
-        }
-        // 第五次封禁账号,第六次进入isDisableTime方法，返回用户还需等待时间
-        StpUtil.disable(userAccount, 5 * 60);
-        // 删除redis 中的key
-        clearLoginErrorTimes(userAccount);
+	// redis中保存登录错误次数
+	private void saveLoginTimes(String userAccount) {
+		String loginErrorKey = LOGIN_ERROR_TIMES_KEY_PREFIX + userAccount;
+		Integer number = (Integer) commonCacheOperator.get(loginErrorKey);
+		if (number == null) {
+			// 如果redis中没有保存，代表失败第一次
+			number = 2;
+			commonCacheOperator.put(loginErrorKey, number, 5 * 60);
+			return;
+		}
+		if (number < 5) {
+			number++;
+			commonCacheOperator.put(loginErrorKey, number, 5 * 60);
+			return;
+		}
+		// 第五次封禁账号,第六次进入isDisableTime方法，返回用户还需等待时间
+		StpUtil.disable(userAccount, 5 * 60);
+		// 删除redis 中的key
+		clearLoginErrorTimes(userAccount);
 
-    }
+	}
 
-    /**
-     * 登录成功、清空登录次数
-     * @param userAccount 账号
-     */
-    private void clearLoginErrorTimes(String userAccount) {
-        String loginErrorKey = LOGIN_ERROR_TIMES_KEY_PREFIX + userAccount;
-        // 删除redis中的key
-        commonCacheOperator.remove(loginErrorKey);
-    }
+	/**
+	 * 登录成功、清空登录次数
+	 *
+	 * @param userAccount 账号
+	 */
+	private void clearLoginErrorTimes(String userAccount) {
+		String loginErrorKey = LOGIN_ERROR_TIMES_KEY_PREFIX + userAccount;
+		// 删除redis中的key
+		commonCacheOperator.remove(loginErrorKey);
+	}
 
-    /**
-     * 执行B端登录
-     *
-     * @author xuyuxiang
-     * @date 2022/8/25 14:36
-     **/
-    private String execLoginB(SaBaseLoginUser saBaseLoginUser, String device) {
-        // 校验状态
-        if(!saBaseLoginUser.getEnabled()) {
-            throw new CommonException(AuthExceptionEnum.ACCOUNT_DISABLED.getValue());
-        }
-        // 执行登录
-        StpUtil.login(saBaseLoginUser.getId(), new SaLoginModel().setDevice(device).setExtra("name", saBaseLoginUser.getName()));
-        // 角色集合
-        List<JSONObject> roleList = sysLoginUserApi.getRoleListByUserId(saBaseLoginUser.getId());
-        // 角色id集合
-        List<String> roleIdList = roleList.stream().map(jsonObject -> jsonObject.getStr("id")).collect(Collectors.toList());
-        // 角色码集合
-        List<String> roleCodeList = roleList.stream().map(jsonObject -> jsonObject.getStr("code")).collect(Collectors.toList());
-        // 角色id和用户id集合
-        List<String> userAndRoleIdList = CollectionUtil.unionAll(roleIdList, CollectionUtil.newArrayList(saBaseLoginUser.getId()));
-        // 获取按钮码
-        saBaseLoginUser.setButtonCodeList(sysLoginUserApi.getButtonCodeListListByUserAndRoleIdList(userAndRoleIdList));
-        // 获取移动端按钮码
-        saBaseLoginUser.setMobileButtonCodeList(sysLoginUserApi.getMobileButtonCodeListListByUserIdAndRoleIdList(userAndRoleIdList));
-        // 获取数据范围
-        saBaseLoginUser.setDataScopeList(Convert.toList(SaBaseLoginUser.DataScope.class,
-                sysLoginUserApi.getPermissionListByUserIdAndRoleIdList(userAndRoleIdList, saBaseLoginUser.getOrgId())));
-        // 获取权限码
-        saBaseLoginUser.setPermissionCodeList(saBaseLoginUser.getDataScopeList().stream()
-                .map(SaBaseLoginUser.DataScope::getApiUrl).collect(Collectors.toList()));
-        // 获取角色码
-        saBaseLoginUser.setRoleCodeList(roleCodeList);
-        // 缓存用户信息，此处使用TokenSession为了指定时间内无操作则自动下线
-        StpUtil.getTokenSession().set("loginUser", saBaseLoginUser);
-        // 返回token
-        return StpUtil.getTokenInfo().tokenValue;
-    }
+	/**
+	 * 执行B端登录
+	 *
+	 * @author xuyuxiang
+	 * @date 2022/8/25 14:36
+	 **/
+	private String execLoginB(SaBaseLoginUser saBaseLoginUser, String device) {
+		// 校验状态
+		if (!saBaseLoginUser.getEnabled()) {
+			throw new CommonException(AuthExceptionEnum.ACCOUNT_DISABLED.getValue());
+		}
+		// 执行登录
+		StpUtil.login(saBaseLoginUser.getId(), new SaLoginModel().setDevice(device).setExtra("name", saBaseLoginUser.getName()));
+		// 角色集合
+		List<JSONObject> roleList = sysLoginUserApi.getRoleListByUserId(saBaseLoginUser.getId());
+		// 角色id集合
+		List<String> roleIdList = roleList.stream().map(jsonObject -> jsonObject.getStr("id")).collect(Collectors.toList());
+		// 角色码集合
+		List<String> roleCodeList = roleList.stream().map(jsonObject -> jsonObject.getStr("code")).collect(Collectors.toList());
+		// 角色id和用户id集合
+		List<String> userAndRoleIdList = CollectionUtil.unionAll(roleIdList, CollectionUtil.newArrayList(saBaseLoginUser.getId()));
+		// 获取按钮码
+		saBaseLoginUser.setButtonCodeList(sysLoginUserApi.getButtonCodeListListByUserAndRoleIdList(userAndRoleIdList));
+		// 获取移动端按钮码
+		saBaseLoginUser.setMobileButtonCodeList(sysLoginUserApi.getMobileButtonCodeListListByUserIdAndRoleIdList(userAndRoleIdList));
+		// 获取数据范围
+		saBaseLoginUser.setDataScopeList(Convert.toList(SaBaseLoginUser.DataScope.class,
+				sysLoginUserApi.getPermissionListByUserIdAndRoleIdList(userAndRoleIdList, saBaseLoginUser.getOrgId())));
+		// 获取权限码
+		saBaseLoginUser.setPermissionCodeList(saBaseLoginUser.getDataScopeList().stream()
+				.map(SaBaseLoginUser.DataScope::getApiUrl).collect(Collectors.toList()));
+		// 获取角色码
+		saBaseLoginUser.setRoleCodeList(roleCodeList);
+		// 缓存用户信息，此处使用TokenSession为了指定时间内无操作则自动下线
+		StpUtil.getTokenSession().set("loginUser", saBaseLoginUser);
+		// 返回token
+		return StpUtil.getTokenInfo().tokenValue;
+	}
 
-    /**
-     * 执行C端登录
-     *
-     * @author xuyuxiang
-     * @date 2022/8/25 14:37
-     **/
-    private String execLoginC(SaBaseClientLoginUser saBaseClientLoginUser, String device) {
-        // 校验状态
-        if (Boolean.FALSE.equals(saBaseClientLoginUser.getEnabled())) {
-            throw new CommonException(AuthExceptionEnum.ACCOUNT_DISABLED.getValue());
-        }
-        // 执行登录
-        StpClientUtil.login(saBaseClientLoginUser.getId(), new SaLoginModel().setDevice(device).setExtra("name", saBaseClientLoginUser.getName()));
-        // 角色集合
-        List<JSONObject> roleList = sysLoginUserApi.getRoleListByUserId(saBaseClientLoginUser.getId());
-        // 角色id集合
-        List<String> roleIdList = roleList.stream().map(jsonObject -> jsonObject.getStr("id")).collect(Collectors.toList());
-        // 角色码集合
-        List<String> roleCodeList = roleList.stream().map(jsonObject -> jsonObject.getStr("code")).collect(Collectors.toList());
-        // 获取权限码
-        saBaseClientLoginUser.setPermissionCodeList(saBaseClientLoginUser.getDataScopeList().stream()
-                .map(SaBaseClientLoginUser.DataScope::getApiUrl).collect(Collectors.toList()));
-        // 获取角色码
-        saBaseClientLoginUser.setRoleCodeList(roleCodeList);
-        // 缓存用户信息，此处使用TokenSession为了指定时间内无操作则自动下线
-        StpClientUtil.getTokenSession().set("loginUser", saBaseClientLoginUser);
-        // 返回token
-        return StpClientUtil.getTokenInfo().tokenValue;
-    }
+	/**
+	 * 执行C端登录
+	 *
+	 * @author xuyuxiang
+	 * @date 2022/8/25 14:37
+	 **/
+	private String execLoginC(SaBaseClientLoginUser saBaseClientLoginUser, String device) {
+		// 校验状态
+		if (Boolean.FALSE.equals(saBaseClientLoginUser.getEnabled())) {
+			throw new CommonException(AuthExceptionEnum.ACCOUNT_DISABLED.getValue());
+		}
+		// 执行登录
+		StpClientUtil.login(saBaseClientLoginUser.getId(), new SaLoginModel().setDevice(device).setExtra("name", saBaseClientLoginUser.getName()));
+		// 缓存用户信息，此处使用TokenSession为了指定时间内无操作则自动下线
+		StpClientUtil.getTokenSession().set("loginUser", saBaseClientLoginUser);
+		// 返回token
+		return StpClientUtil.getTokenInfo().tokenValue;
+	}
 
-    /**
-     * 获取B端登录用户信息
-     *
-     * @author xuyuxiang
-     * @date 2021/10/12 15:59
-     **/
-    @Override
-    public SaBaseLoginUser getLoginUser() {
-        SaBaseLoginUser saBaseLoginUser = StpLoginUserUtil.getLoginUser();
-        saBaseLoginUser.setPassword(null);
-        saBaseLoginUser.setPermissionCodeList(null);
-        saBaseLoginUser.setDataScopeList(null);
-        return saBaseLoginUser;
-    }
+	/**
+	 * 获取B端登录用户信息
+	 *
+	 * @author xuyuxiang
+	 * @date 2021/10/12 15:59
+	 **/
+	@Override
+	public SaBaseLoginUser getLoginUser() {
+		SaBaseLoginUser saBaseLoginUser = StpLoginUserUtil.getLoginUser();
+		saBaseLoginUser.setPassword(null);
+		saBaseLoginUser.setPermissionCodeList(null);
+		saBaseLoginUser.setDataScopeList(null);
+		return saBaseLoginUser;
+	}
 
-    /**
-     * 获取C端登录用户信息
-     *
-     * @author xuyuxiang
-     * @date 2021/10/12 15:59
-     **/
-    @Override
-    public SaBaseClientLoginUser getClientLoginUser() {
-        SaBaseClientLoginUser saBaseClientLoginUser = StpClientLoginUserUtil.getClientLoginUser();
-        saBaseClientLoginUser.setPassword(null);
-        saBaseClientLoginUser.setPermissionCodeList(null);
-        saBaseClientLoginUser.setDataScopeList(null);
-        return saBaseClientLoginUser;
-    }
+	/**
+	 * 获取C端登录用户信息
+	 *
+	 * @author xuyuxiang
+	 * @date 2021/10/12 15:59
+	 **/
+	@Override
+	public SaBaseClientLoginUser getClientLoginUser() {
+		SaBaseClientLoginUser saBaseClientLoginUser = StpClientLoginUserUtil.getClientLoginUser();
+		saBaseClientLoginUser.setPassword(null);
+		saBaseClientLoginUser.setPermissionCodeList(null);
+		saBaseClientLoginUser.setDataScopeList(null);
+		return saBaseClientLoginUser;
+	}
 
-    @Override
-    public String doLoginById(String userId, String device, String type) {
-        // 根据id获取用户信息，根据B端或C端判断
-        if(SaClientTypeEnum.B.getValue().equals(type)) {
-            SaBaseLoginUser saBaseLoginUser = sysLoginUserApi.getUserById(userId);
-            if (ObjectUtil.isEmpty(saBaseLoginUser)) {
-                throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
-            }
-            // 执行B端登录
-            return execLoginB(saBaseLoginUser, device);
-        } else {
-            SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserById(userId);
-            if (ObjectUtil.isEmpty(saBaseClientLoginUser)) {
-                throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
-            }
-            // 执行C端登录
-            return execLoginC(saBaseClientLoginUser, device);
-        }
-    }
+	@Override
+	public String doLoginById(String userId, String device, String type) {
+		// 根据id获取用户信息，根据B端或C端判断
+		if (SaClientTypeEnum.B.getValue().equals(type)) {
+			SaBaseLoginUser saBaseLoginUser = sysLoginUserApi.getUserById(userId);
+			if (ObjectUtil.isEmpty(saBaseLoginUser)) {
+				throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
+			}
+			// 执行B端登录
+			return execLoginB(saBaseLoginUser, device);
+		} else {
+			SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserById(userId);
+			if (ObjectUtil.isEmpty(saBaseClientLoginUser)) {
+				throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
+			}
+			// 执行C端登录
+			return execLoginC(saBaseClientLoginUser, device);
+		}
+	}
 }

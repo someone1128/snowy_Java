@@ -121,8 +121,8 @@ public class GlobalConfigure implements WebMvcConfigurer {
             /* 认证相关 */
             "/auth/c/getPicCaptcha",
             "/auth/c/getPhoneValidCode",
-            "/auth/c/doLogin",
-            "/auth/c/doLoginByPhone",
+            "/auth/c/doLogin**",
+            "/auth/c/doRegister**",
 
             "/auth/b/getPicCaptcha",
             "/auth/b/getPhoneValidCode",
