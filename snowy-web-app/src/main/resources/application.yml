@@ -1,0 +1,109 @@
+#########################################
+# spring profiles configuration
+#########################################
+spring:
+  #########################################
+  # jackson configuration
+  #########################################
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    locale: zh_CN
+    time-zone: GMT+8
+  profiles:
+    active: test
+  data:
+    mongodb:
+      uri: mongodb://041128:hzy3500412648@182.42.103.228:27017/seo_data
+#########################################
+# easy-trans configuration
+#########################################
+easy-trans:
+  is-enable-global: true
+  is-enable-redis: true
+  is-enable-tile: true
+#########################################
+# knife4j 接口文档配置
+#########################################
+knife4j:
+  basic:
+    enable: true
+    password: 123456
+    username: admin
+  enable: true
+  production: false
+  setting:
+    enableFooter: false
+    enableFooterCustom: true
+    enableOpenApi: false
+    enableSwaggerModels: false
+    footerCustomContent: Apache License 2.0 | Copyright 2022-[SNOWY](https://www.xiaonuo.vip)
+#########################################
+# mybatis-plus configuration
+#########################################
+mybatis-plus:
+  configuration:
+    jdbc-type-for-null: 'null'
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: DELETE_FLAG
+      logic-delete-value: DELETED
+      logic-not-delete-value: NOT_DELETE
+  # 指定烧苗路径
+  mapper-locations:
+    - classpath*:vip/xiaonuo/**/mapping/*.xml
+    - classpath*:mappers/**/*.xml
+    - classpath*:mappers/*.xml
+  type-handlers-package: vip.xiaonuo.common.handler
+#########################################
+# sa-token配置
+#########################################
+sa-token:
+  # token临时有效期 [指定时间内无操作就视为token过期] (单位: 秒), 默认-1 代表不限制(例如可以设置为1800代表30分钟内无操作就过期)
+  activity-timeout: -1
+  # sa-token 独立Redis配置
+  alone-redis:
+    database: ${spring.redis.database}
+    # 其他的配置引用框架本身的Redis配置
+    host: ${spring.redis.host}
+    lettuce:
+      pool:
+        max-active: ${spring.redis.lettuce.pool.max-active}
+        max-idle: ${spring.redis.lettuce.pool.max-idle}
+        max-wait: ${spring.redis.lettuce.pool.max-wait}
+        min-idle: ${spring.redis.lettuce.pool.min-idle}
+    password: ${spring.redis.password}
+    port: ${spring.redis.port}
+    timeout: ${spring.redis.timeout}
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 是否打印操作日志
+  is-log: false
+  # 是否在初始化配置时打印版本字符画
+  is-print: false
+  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+  is-share: false
+  #  同一账号最大登录数量，-1代表不限 （只有在 isConcurrent=true, isShare=false 时此配置才有效）
+  max-login-count: -1
+  # token的长久有效期(单位:秒) 默认30天, -1代表永久
+  timeout: 2592000
+  # token名称 (同时也是cookie名称)
+  token-name: token
+  # token风格(默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik)
+  token-style: random-32
+#########################################
+# server configuration
+#########################################
+server:
+  port: 8822
+  servlet:
+    output:
+      buffering: false
+#########################################
+# snowy configuration
+#########################################
+snowy:
+  config:
+    common:
+      backend-url: http://localhost:8822
+      front-url: http://localhost:81
