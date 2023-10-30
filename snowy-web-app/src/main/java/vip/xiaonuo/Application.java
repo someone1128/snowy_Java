@@ -33,7 +33,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @RestController
 @EnableRetry
 @MapperScan({"vip.xiaonuo.*.mapper"})
-@SpringBootApplication(scanBasePackages = {"vip.xiaonuo"})
+@SpringBootApplication
 public class Application {
 
     /* 解决druid 日志报错：discard long time none received connection:xxx */

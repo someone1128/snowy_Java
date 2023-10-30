@@ -27,9 +27,11 @@ import vip.xiaonuo.auth.core.pojo.SaBaseClientLoginUser;
 import vip.xiaonuo.auth.core.util.StpClientUtil;
 import vip.xiaonuo.auth.modular.login.param.AuthAccountPasswordLoginParam;
 import vip.xiaonuo.auth.modular.login.param.AuthGetPhoneValidCodeParam;
+import vip.xiaonuo.auth.modular.login.param.AuthImgValidCodeRegisterParam;
 import vip.xiaonuo.auth.modular.login.param.AuthPhoneValidCodeLoginParam;
 import vip.xiaonuo.auth.modular.login.result.AuthPicValidCodeResult;
 import vip.xiaonuo.auth.modular.login.service.AuthService;
+import vip.xiaonuo.common.annotation.RemoveBlank;
 import vip.xiaonuo.common.pojo.CommonResult;
 
 import javax.annotation.Resource;
@@ -60,12 +62,11 @@ public class AuthClientController {
     @ApiOperation("C端获取图片验证码")
     @GetMapping("/auth/c/getPicCaptcha")
     public CommonResult<AuthPicValidCodeResult> getPicCaptcha() {
-        return CommonResult.data(authService.getPicCaptcha(SaClientTypeEnum.C.getValue()));
+        return CommonResult.data(authService.getPicCaptcha());
     }
 
     /**
      * C端获取手机验证码
-     *
      * @author xuyuxiang
      * @date 2022/7/8 9:26
      **/
@@ -86,7 +87,16 @@ public class AuthClientController {
     @ApiOperation("C端账号密码登录")
     @PostMapping("/auth/c/doLogin")
     public CommonResult<String> doLogin(@RequestBody @Valid AuthAccountPasswordLoginParam authAccountPasswordLoginParam) {
+        System.out.println("authAccountPasswordLoginParam = " + authAccountPasswordLoginParam);
         return CommonResult.data(authService.doLogin(authAccountPasswordLoginParam, SaClientTypeEnum.C.getValue()));
+    }
+
+    @ApiOperation("C端图片验证码注册")
+    @RemoveBlank
+    @PostMapping("/auth/c/doRegisterByImgCode")
+    public CommonResult<String> doRegisterByImgCode(@RequestBody @Valid AuthImgValidCodeRegisterParam authPhoneValidCodeLoginParam) {
+        System.out.println("authPhoneValidCodeLoginParam = " + authPhoneValidCodeLoginParam);
+        return CommonResult.data(authService.doRegisterByImgCode(authPhoneValidCodeLoginParam));
     }
 
     /**

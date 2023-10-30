@@ -26,8 +26,10 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vip.xiaonuo.auth.api.SaBaseLoginUserApi;
+import vip.xiaonuo.auth.api.ClientLoginUserApi;
+import vip.xiaonuo.auth.api.SysLoginUserApi;
 import vip.xiaonuo.auth.core.util.StpClientUtil;
 import vip.xiaonuo.auth.modular.monitor.param.AuthExitSessionParam;
 import vip.xiaonuo.auth.modular.monitor.param.AuthExitTokenParam;
@@ -38,7 +40,6 @@ import vip.xiaonuo.auth.modular.monitor.service.AuthSessionService;
 import vip.xiaonuo.common.page.CommonPageRequest;
 import vip.xiaonuo.common.util.CommonTimeFormatUtil;
 
-import javax.annotation.Resource;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -53,11 +54,11 @@ import java.util.stream.Collectors;
 @Service
 public class AuthSessionServiceImpl implements AuthSessionService {
 
-    @Resource(name = "loginUserApi")
-    private SaBaseLoginUserApi loginUserApi;
+    @Autowired
+    private SysLoginUserApi sysLoginUserApi;
 
-    @Resource(name = "clientLoginUserApi")
-    private SaBaseLoginUserApi clientLoginUserApi;
+    @Autowired
+    private ClientLoginUserApi clientSysLoginUserApi;
 
     @Override
     public AuthSessionAnalysisResult analysis() {
@@ -118,7 +119,7 @@ public class AuthSessionServiceImpl implements AuthSessionService {
                     Convert.toInt(defaultPage.getSize()), true).stream().map(sessionId ->
                     StrUtil.split(sessionId, StrUtil.COLON).get(3)).collect(Collectors.toList());
             if (ObjectUtil.isNotEmpty(userIdList)) {
-                List<AuthSessionPageResult> authSessionPageResultList = loginUserApi.listUserByUserIdList(userIdList).stream().map(userJsonObject -> {
+                List<AuthSessionPageResult> authSessionPageResultList = sysLoginUserApi.listUserByUserIdList(userIdList).stream().map(userJsonObject -> {
                     SaSession saSession = StpUtil.getSessionByLoginId(userJsonObject.getStr("id"), false);
                     AuthSessionPageResult authSessionPageResult = JSONUtil.toBean(userJsonObject, AuthSessionPageResult.class);
                     authSessionPageResult.setSessionId(saSession.getId());
@@ -181,7 +182,7 @@ public class AuthSessionServiceImpl implements AuthSessionService {
                     Convert.toInt(defaultPage.getSize()), true).stream().map(sessionId ->
                     StrUtil.split(sessionId, StrUtil.COLON).get(3)).collect(Collectors.toList());
             if (ObjectUtil.isNotEmpty(userIdList)) {
-                List<AuthSessionPageResult> authSessionPageResultList = clientLoginUserApi.listUserByUserIdList(userIdList).stream().map(userJsonObject -> {
+                List<AuthSessionPageResult> authSessionPageResultList = clientSysLoginUserApi.listUserByUserIdList(userIdList).stream().map(userJsonObject -> {
                     SaSession saSession = StpClientUtil.getSessionByLoginId(userJsonObject.getStr("id"), false);
                     AuthSessionPageResult authSessionPageResult = JSONUtil.toBean(userJsonObject, AuthSessionPageResult.class);
                     authSessionPageResult.setSessionId(saSession.getId());

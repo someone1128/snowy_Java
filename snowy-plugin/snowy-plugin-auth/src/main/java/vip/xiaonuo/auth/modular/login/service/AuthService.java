@@ -16,6 +16,7 @@ import vip.xiaonuo.auth.core.pojo.SaBaseClientLoginUser;
 import vip.xiaonuo.auth.core.pojo.SaBaseLoginUser;
 import vip.xiaonuo.auth.modular.login.param.AuthAccountPasswordLoginParam;
 import vip.xiaonuo.auth.modular.login.param.AuthGetPhoneValidCodeParam;
+import vip.xiaonuo.auth.modular.login.param.AuthImgValidCodeRegisterParam;
 import vip.xiaonuo.auth.modular.login.param.AuthPhoneValidCodeLoginParam;
 import vip.xiaonuo.auth.modular.login.result.AuthPicValidCodeResult;
 
@@ -33,7 +34,7 @@ public interface AuthService {
      * @author xuyuxiang
      * @date 2021/12/28 14:46
      **/
-    AuthPicValidCodeResult getPicCaptcha(String type);
+    AuthPicValidCodeResult getPicCaptcha();
 
     /**
      * 获取手机验证码
@@ -82,4 +83,12 @@ public interface AuthService {
      * @date 2022/7/9 14:44
      */
     String doLoginById(String userId, String device, String type);
+
+    /**
+     * 图片验证码注册
+     *
+     * @param authPhoneValidCodeLoginParam
+     * @return
+     */
+    String doRegisterByImgCode(AuthImgValidCodeRegisterParam authPhoneValidCodeLoginParam);
 }

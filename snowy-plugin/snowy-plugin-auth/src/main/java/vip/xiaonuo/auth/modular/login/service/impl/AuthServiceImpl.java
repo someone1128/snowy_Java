@@ -24,8 +24,10 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vip.xiaonuo.auth.api.SaBaseLoginUserApi;
+import vip.xiaonuo.auth.api.ClientLoginUserApi;
+import vip.xiaonuo.auth.api.SysLoginUserApi;
 import vip.xiaonuo.auth.core.enums.SaClientTypeEnum;
 import vip.xiaonuo.auth.core.pojo.SaBaseClientLoginUser;
 import vip.xiaonuo.auth.core.pojo.SaBaseLoginUser;
@@ -36,6 +38,7 @@ import vip.xiaonuo.auth.modular.login.enums.AuthDeviceTypeEnum;
 import vip.xiaonuo.auth.modular.login.enums.AuthExceptionEnum;
 import vip.xiaonuo.auth.modular.login.param.AuthAccountPasswordLoginParam;
 import vip.xiaonuo.auth.modular.login.param.AuthGetPhoneValidCodeParam;
+import vip.xiaonuo.auth.modular.login.param.AuthImgValidCodeRegisterParam;
 import vip.xiaonuo.auth.modular.login.param.AuthPhoneValidCodeLoginParam;
 import vip.xiaonuo.auth.modular.login.result.AuthPicValidCodeResult;
 import vip.xiaonuo.auth.modular.login.service.AuthService;
@@ -65,11 +68,11 @@ public class AuthServiceImpl implements AuthService {
 
     private static final String LOGIN_ERROR_TIMES_KEY_PREFIX = "login-error-times:";
 
-    @Resource(name = "loginUserApi")
-    private SaBaseLoginUserApi loginUserApi;
+    @Autowired
+    private SysLoginUserApi sysLoginUserApi;
 
-    @Resource(name = "clientLoginUserApi")
-    private SaBaseLoginUserApi clientLoginUserApi;
+    @Autowired
+    private ClientLoginUserApi clientSysLoginUserApi;
 
     @Resource
     private DevConfigApi devConfigApi;
@@ -81,7 +84,7 @@ public class AuthServiceImpl implements AuthService {
     private CommonCacheOperator commonCacheOperator;
 
     @Override
-    public AuthPicValidCodeResult getPicCaptcha(String type) {
+    public AuthPicValidCodeResult getPicCaptcha() {
         // 生成验证码，随机4位字符
         CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(100, 38, 4, 10);
         // 定义返回结果
@@ -180,15 +183,34 @@ public class AuthServiceImpl implements AuthService {
 
             // 根据手机号获取用户信息，判断用户是否存在，根据B端或C端判断
             if(SaClientTypeEnum.B.getValue().equals(type)) {
-                if(ObjectUtil.isEmpty(loginUserApi.getUserByPhone(phoneOrEmail))) {
+                if (ObjectUtil.isEmpty(sysLoginUserApi.getUserByPhone(phoneOrEmail))) {
                     throw new CommonException(AuthExceptionEnum.PHONE_ERROR.getValue());
                 }
             } else {
-                if(ObjectUtil.isEmpty(clientLoginUserApi.getClientUserByPhone(phoneOrEmail))) {
+                if (ObjectUtil.isEmpty(clientSysLoginUserApi.getClientUserByPhone(phoneOrEmail))) {
                     throw new CommonException(AuthExceptionEnum.PHONE_ERROR.getValue());
                 }
             }
         }
+    }
+
+    @Override
+    public String doRegisterByImgCode(AuthImgValidCodeRegisterParam authPhoneValidCodeLoginParam) {
+        // 校验参数
+        validPhoneValidCodeParam(null, authPhoneValidCodeLoginParam.getValidCode(), authPhoneValidCodeLoginParam.getValidCodeReqNo(), null);
+        // 设备
+        String device = authPhoneValidCodeLoginParam.getDevice();
+        // 默认指定为PC，如在小程序跟移动端的情况下，自行指定即可
+        if (ObjectUtil.isEmpty(device)) {
+            device = AuthDeviceTypeEnum.PC.getValue();
+        } else {
+            AuthDeviceTypeEnum.validate(device);
+        }
+        // 注册账号
+        clientSysLoginUserApi.createUserValidCode(authPhoneValidCodeLoginParam.buildSaBaseRegisterUser());
+        SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserByAccount(authPhoneValidCodeLoginParam.getNickname());
+        // 执行C端登录
+        return execLoginC(saBaseClientLoginUser, device);
     }
 
     @Override
@@ -210,17 +232,17 @@ public class AuthServiceImpl implements AuthService {
         // 校验验证码
         String defaultCaptchaOpen = devConfigApi.getValueByKey(SNOWY_SYS_DEFAULT_CAPTCHA_OPEN_KEY);
         if(ObjectUtil.isNotEmpty(defaultCaptchaOpen)) {
-            if(Convert.toBool(defaultCaptchaOpen)) {
+            if (Boolean.TRUE.equals(Convert.toBool(defaultCaptchaOpen))) {
                 // 获取验证码
                 String validCode = authAccountPasswordLoginParam.getValidCode();
                 // 获取验证码请求号
                 String validCodeReqNo = authAccountPasswordLoginParam.getValidCodeReqNo();
                 // 开启验证码则必须传入验证码
-                if(ObjectUtil.isEmpty(validCode)) {
+                if (ObjectUtil.isEmpty(validCode)) {
                     throw new CommonException(AuthExceptionEnum.VALID_CODE_EMPTY.getValue());
                 }
                 // 开启验证码则必须传入验证码请求号
-                if(ObjectUtil.isEmpty(validCodeReqNo)) {
+                if (ObjectUtil.isEmpty(validCodeReqNo)) {
                     throw new CommonException(AuthExceptionEnum.VALID_CODE_REQ_NO_EMPTY.getValue());
                 }
                 // 执行校验验证码
@@ -237,7 +259,7 @@ public class AuthServiceImpl implements AuthService {
         }
         // 根据账号获取用户信息，根据B端或C端判断
         if(SaClientTypeEnum.B.getValue().equals(type)) {
-            SaBaseLoginUser saBaseLoginUser = loginUserApi.getUserByAccount(account);
+            SaBaseLoginUser saBaseLoginUser = sysLoginUserApi.getUserByAccount(account);
             if(ObjectUtil.isEmpty(saBaseLoginUser)) {
                 throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
             }
@@ -251,7 +273,7 @@ public class AuthServiceImpl implements AuthService {
             // 执行B端登录
             return execLoginB(saBaseLoginUser, device);
         } else {
-            SaBaseClientLoginUser saBaseClientLoginUser = clientLoginUserApi.getClientUserByAccount(account);
+            SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserByAccount(account);
             if(ObjectUtil.isEmpty(saBaseClientLoginUser)) {
                 throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
             }
@@ -279,14 +301,14 @@ public class AuthServiceImpl implements AuthService {
         }
         // 根据手机号获取用户信息，根据B端或C端判断
         if(SaClientTypeEnum.B.getValue().equals(type)) {
-            SaBaseLoginUser saBaseLoginUser = loginUserApi.getUserByPhone(phone);
+            SaBaseLoginUser saBaseLoginUser = sysLoginUserApi.getUserByPhone(phone);
             if(ObjectUtil.isEmpty(saBaseLoginUser)) {
                 throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
             }
             // 执行B端登录
             return execLoginB(saBaseLoginUser, device);
         } else {
-            SaBaseClientLoginUser saBaseClientLoginUser = clientLoginUserApi.getClientUserByPhone(phone);
+            SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserByPhone(phone);
             if(ObjectUtil.isEmpty(saBaseClientLoginUser)) {
                 throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
             }
@@ -356,7 +378,7 @@ public class AuthServiceImpl implements AuthService {
         // 执行登录
         StpUtil.login(saBaseLoginUser.getId(), new SaLoginModel().setDevice(device).setExtra("name", saBaseLoginUser.getName()));
         // 角色集合
-        List<JSONObject> roleList = loginUserApi.getRoleListByUserId(saBaseLoginUser.getId());
+        List<JSONObject> roleList = sysLoginUserApi.getRoleListByUserId(saBaseLoginUser.getId());
         // 角色id集合
         List<String> roleIdList = roleList.stream().map(jsonObject -> jsonObject.getStr("id")).collect(Collectors.toList());
         // 角色码集合
@@ -364,12 +386,12 @@ public class AuthServiceImpl implements AuthService {
         // 角色id和用户id集合
         List<String> userAndRoleIdList = CollectionUtil.unionAll(roleIdList, CollectionUtil.newArrayList(saBaseLoginUser.getId()));
         // 获取按钮码
-        saBaseLoginUser.setButtonCodeList(loginUserApi.getButtonCodeListListByUserAndRoleIdList(userAndRoleIdList));
+        saBaseLoginUser.setButtonCodeList(sysLoginUserApi.getButtonCodeListListByUserAndRoleIdList(userAndRoleIdList));
         // 获取移动端按钮码
-        saBaseLoginUser.setMobileButtonCodeList(loginUserApi.getMobileButtonCodeListListByUserIdAndRoleIdList(userAndRoleIdList));
+        saBaseLoginUser.setMobileButtonCodeList(sysLoginUserApi.getMobileButtonCodeListListByUserIdAndRoleIdList(userAndRoleIdList));
         // 获取数据范围
         saBaseLoginUser.setDataScopeList(Convert.toList(SaBaseLoginUser.DataScope.class,
-                loginUserApi.getPermissionListByUserIdAndRoleIdList(userAndRoleIdList, saBaseLoginUser.getOrgId())));
+                sysLoginUserApi.getPermissionListByUserIdAndRoleIdList(userAndRoleIdList, saBaseLoginUser.getOrgId())));
         // 获取权限码
         saBaseLoginUser.setPermissionCodeList(saBaseLoginUser.getDataScopeList().stream()
                 .map(SaBaseLoginUser.DataScope::getApiUrl).collect(Collectors.toList()));
@@ -389,26 +411,17 @@ public class AuthServiceImpl implements AuthService {
      **/
     private String execLoginC(SaBaseClientLoginUser saBaseClientLoginUser, String device) {
         // 校验状态
-        if(!saBaseClientLoginUser.getEnabled()) {
+        if (Boolean.FALSE.equals(saBaseClientLoginUser.getEnabled())) {
             throw new CommonException(AuthExceptionEnum.ACCOUNT_DISABLED.getValue());
         }
         // 执行登录
         StpClientUtil.login(saBaseClientLoginUser.getId(), new SaLoginModel().setDevice(device).setExtra("name", saBaseClientLoginUser.getName()));
         // 角色集合
-        List<JSONObject> roleList = loginUserApi.getRoleListByUserId(saBaseClientLoginUser.getId());
+        List<JSONObject> roleList = sysLoginUserApi.getRoleListByUserId(saBaseClientLoginUser.getId());
         // 角色id集合
         List<String> roleIdList = roleList.stream().map(jsonObject -> jsonObject.getStr("id")).collect(Collectors.toList());
         // 角色码集合
         List<String> roleCodeList = roleList.stream().map(jsonObject -> jsonObject.getStr("code")).collect(Collectors.toList());
-        // 角色id和用户id集合
-        List<String> userAndRoleIdList = CollectionUtil.unionAll(roleIdList, CollectionUtil.newArrayList(saBaseClientLoginUser.getId()));
-        // 获取按钮码
-        saBaseClientLoginUser.setButtonCodeList(clientLoginUserApi.getButtonCodeListListByUserAndRoleIdList(userAndRoleIdList));
-        // 获取移动端按钮码
-        saBaseClientLoginUser.setMobileButtonCodeList(clientLoginUserApi.getMobileButtonCodeListListByUserIdAndRoleIdList(userAndRoleIdList));
-        // 获取数据范围
-        saBaseClientLoginUser.setDataScopeList(Convert.toList(SaBaseClientLoginUser.DataScope.class,
-                clientLoginUserApi.getPermissionListByUserIdAndRoleIdList(userAndRoleIdList, null)));
         // 获取权限码
         saBaseClientLoginUser.setPermissionCodeList(saBaseClientLoginUser.getDataScopeList().stream()
                 .map(SaBaseClientLoginUser.DataScope::getApiUrl).collect(Collectors.toList()));
@@ -454,14 +467,14 @@ public class AuthServiceImpl implements AuthService {
     public String doLoginById(String userId, String device, String type) {
         // 根据id获取用户信息，根据B端或C端判断
         if(SaClientTypeEnum.B.getValue().equals(type)) {
-            SaBaseLoginUser saBaseLoginUser = loginUserApi.getUserById(userId);
+            SaBaseLoginUser saBaseLoginUser = sysLoginUserApi.getUserById(userId);
             if (ObjectUtil.isEmpty(saBaseLoginUser)) {
                 throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
             }
             // 执行B端登录
             return execLoginB(saBaseLoginUser, device);
         } else {
-            SaBaseClientLoginUser saBaseClientLoginUser = clientLoginUserApi.getClientUserById(userId);
+            SaBaseClientLoginUser saBaseClientLoginUser = clientSysLoginUserApi.getClientUserById(userId);
             if (ObjectUtil.isEmpty(saBaseClientLoginUser)) {
                 throw new CommonException(AuthExceptionEnum.ACCOUNT_ERROR.getValue());
             }

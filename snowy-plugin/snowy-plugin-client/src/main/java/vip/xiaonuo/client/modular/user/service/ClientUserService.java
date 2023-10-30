@@ -118,4 +118,14 @@ public interface ClientUserService extends IService<ClientUser> {
      * @date 2022/4/24 21:18
      */
     ClientUser queryEntity(String id);
+
+    String getIdByInvitationCode(String invitationCode);
+
+    /**
+     * 根据注册IP查询用户数量
+     *
+     * @param ipAddress
+     * @return
+     */
+    Long getCountByRegisterIp(String ipAddress);
 }

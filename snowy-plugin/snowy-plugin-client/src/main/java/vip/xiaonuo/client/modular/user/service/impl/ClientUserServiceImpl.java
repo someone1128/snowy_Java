@@ -35,6 +35,7 @@ import vip.xiaonuo.client.modular.user.param.ClientUserIdParam;
 import vip.xiaonuo.client.modular.user.param.ClientUserPageParam;
 import vip.xiaonuo.client.modular.user.result.ClientLoginUser;
 import vip.xiaonuo.client.modular.user.service.ClientUserService;
+import vip.xiaonuo.common.constants.SqlConstants;
 import vip.xiaonuo.common.enums.CommonSortOrderEnum;
 import vip.xiaonuo.common.exception.CommonException;
 import vip.xiaonuo.common.page.CommonPageRequest;
@@ -217,7 +218,7 @@ public class ClientUserServiceImpl extends ServiceImpl<ClientUserMapper, ClientU
         clientUser.setLastLoginAddress(clientUser.getLatestLoginAddress());
         clientUser.setLastLoginDevice(clientUser.getLatestLoginDevice());
         clientUser.setLatestLoginTime(DateTime.now());
-        String ip = IpAddressUtils.getIp(CommonServletUtil.getRequest());
+        String ip = IpAddressUtils.getIpAddress(CommonServletUtil.getRequest());
         clientUser.setLatestLoginIp(ip);
         clientUser.setLatestLoginAddress(IpAddressUtils.getCityInfo(ip));
         clientUser.setLatestLoginDevice(device);
@@ -227,9 +228,25 @@ public class ClientUserServiceImpl extends ServiceImpl<ClientUserMapper, ClientU
     @Override
     public ClientUser queryEntity(String id) {
         ClientUser clientUser = this.getById(id);
-        if(ObjectUtil.isEmpty(clientUser)) {
+        if (ObjectUtil.isEmpty(clientUser)) {
             throw new CommonException("用户不存在，id值为：{}", id);
         }
         return clientUser;
     }
+
+    @Override
+    public String getIdByInvitationCode(String invitationCode) {
+        return ObjectUtils.filterObjectNull(this.lambdaQuery()
+                        .select(ClientUser::getId)
+                        .eq(ClientUser::getInvitationCode, invitationCode)
+                        .last(SqlConstants.LIMIT_1)
+                        .one(), ClientUser.class)
+                .getId();
+    }
+
+    @Override
+    public Long getCountByRegisterIp(String ipAddress) {
+        return this.lambdaQuery().eq(ClientUser::getRegisterIp, ipAddress).count();
+    }
+
 }

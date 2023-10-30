@@ -13,7 +13,6 @@
 package vip.xiaonuo.auth.api;
 
 import cn.hutool.json.JSONObject;
-import vip.xiaonuo.auth.core.pojo.SaBaseClientLoginUser;
 import vip.xiaonuo.auth.core.pojo.SaBaseLoginUser;
 
 import java.util.List;
@@ -24,7 +23,7 @@ import java.util.List;
  * @author xuyuxiang
  * @date 2021/12/23 21:48
  */
-public interface SaBaseLoginUserApi {
+public interface SysLoginUserApi {
 
     /**
      * 根据id获取B端用户信息，查不到则返回null
@@ -35,14 +34,6 @@ public interface SaBaseLoginUserApi {
     SaBaseLoginUser getUserById(String id);
 
     /**
-     * 根据id获取C端用户信息，查不到则返回null
-     *
-     * @author xuyuxiang
-     * @date 2022/3/10 16:14
-     **/
-    SaBaseClientLoginUser getClientUserById(String id);
-
-    /**
      * 根据账号获取B端用户信息，查不到则返回null
      *
      * @author xuyuxiang
@@ -51,28 +42,12 @@ public interface SaBaseLoginUserApi {
     SaBaseLoginUser getUserByAccount(String account);
 
     /**
-     * 根据账号获取C端用户信息，查不到则返回null
-     *
-     * @author xuyuxiang
-     * @date 2022/3/10 16:14
-     **/
-    SaBaseClientLoginUser getClientUserByAccount(String account);
-
-    /**
      * 根据手机号获取B端用户信息，查不到则返回null
      *
      * @author xuyuxiang
      * @date 2022/3/10 16:14
      **/
     SaBaseLoginUser getUserByPhone(String phone);
-
-    /**
-     * 根据手机号获取C端用户信息，查不到则返回null
-     *
-     * @author xuyuxiang
-     * @date 2022/3/10 16:14
-     **/
-    SaBaseClientLoginUser getClientUserByPhone(String phone);
 
     /**
      * 根据用户id获取用户集合
@@ -121,4 +96,5 @@ public interface SaBaseLoginUserApi {
      * @date 2022/4/27 22:57
      */
     void updateUserLoginInfo(String userId, String device);
+
 }

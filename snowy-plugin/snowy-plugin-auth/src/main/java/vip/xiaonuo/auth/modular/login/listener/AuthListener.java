@@ -16,8 +16,10 @@ import cn.dev33.satoken.listener.SaTokenListener;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import vip.xiaonuo.auth.api.SaBaseLoginUserApi;
+import vip.xiaonuo.auth.api.ClientLoginUserApi;
+import vip.xiaonuo.auth.api.SysLoginUserApi;
 import vip.xiaonuo.auth.core.enums.SaClientTypeEnum;
 import vip.xiaonuo.auth.core.pojo.SaBaseLoginUser;
 import vip.xiaonuo.dev.api.DevLogApi;
@@ -33,21 +35,23 @@ import javax.annotation.Resource;
 @Component
 public class AuthListener implements SaTokenListener {
 
-    @Resource(name = "loginUserApi")
-    private SaBaseLoginUserApi loginUserApi;
+    @Autowired
+    private SysLoginUserApi sysLoginUserApi;
 
-    @Resource(name = "clientLoginUserApi")
-    private SaBaseLoginUserApi clientLoginUserApi;
+    @Autowired
+    private ClientLoginUserApi clientSysLoginUserApi;
 
     @Resource
     private DevLogApi devLogApi;
 
-    /** 每次登录时触发 */
+    /**
+     * 每次登录时触发
+     */
     @Override
-    public void doLogin(String loginType, Object loginId, String tokenValue, SaLoginModel loginModel)  {
+    public void doLogin(String loginType, Object loginId, String tokenValue, SaLoginModel loginModel) {
         // 更新用户的登录时间和登录ip等信息
-        if(SaClientTypeEnum.B.getValue().equals(loginType)) {
-            loginUserApi.updateUserLoginInfo(Convert.toStr(loginId), loginModel.getDevice());
+        if (SaClientTypeEnum.B.getValue().equals(loginType)) {
+            sysLoginUserApi.updateUserLoginInfo(Convert.toStr(loginId), loginModel.getDevice());
             // 记录B端登录日志
             Object name = loginModel.getExtra("name");
             if(ObjectUtil.isNotEmpty(name)) {
@@ -56,7 +60,7 @@ public class AuthListener implements SaTokenListener {
                 devLogApi.executeLoginLog(null);
             }
         } else {
-            clientLoginUserApi.updateUserLoginInfo(Convert.toStr(loginId), loginModel.getDevice());
+            clientSysLoginUserApi.updateUserLoginInfo(Convert.toStr(loginId), loginModel.getDevice());
         }
     }
 
@@ -65,7 +69,7 @@ public class AuthListener implements SaTokenListener {
     public void doLogout(String loginType, Object loginId, String tokenValue) {
         if(SaClientTypeEnum.B.getValue().equals(loginType)) {
             // 记录B端登出日志
-            SaBaseLoginUser saBaseLoginUser = loginUserApi.getUserById(Convert.toStr(loginId));
+            SaBaseLoginUser saBaseLoginUser = sysLoginUserApi.getUserById(Convert.toStr(loginId));
             if(ObjectUtil.isNotEmpty(saBaseLoginUser)) {
                 devLogApi.executeLogoutLog(saBaseLoginUser.getName());
             } else {

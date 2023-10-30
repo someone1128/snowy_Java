@@ -24,8 +24,8 @@ import java.util.Random;
 public class IpAddressUtils {
 	private static Searcher searcher;
 
-	public static String getIp() {
-		return getIp(RequestUtils.getHttpServletRequest());
+	public static String getIpAddress() {
+		return getIpAddress(RequestUtils.getHttpServletRequest());
 	}
 
 	//getIpAddress
@@ -36,7 +36,7 @@ public class IpAddressUtils {
 	 * @param request
 	 * @return
 	 */
-	public static String getIp(final HttpServletRequest request) {
+	public static String getIpAddress(final HttpServletRequest request) {
 		if (request == null) {
 			return "";
 		}
@@ -132,7 +132,7 @@ public class IpAddressUtils {
 
 	public static String getCityInfo() {
 		try {
-			return searcher.search(getIp());
+			return searcher.search(getIpAddress());
 		} catch (final Exception e) {
 			return null;
 		}

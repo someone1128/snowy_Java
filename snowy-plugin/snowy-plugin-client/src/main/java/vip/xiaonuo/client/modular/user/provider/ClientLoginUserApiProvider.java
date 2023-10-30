@@ -12,15 +12,20 @@
  */
 package vip.xiaonuo.client.modular.user.provider;
 
-import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vip.xiaonuo.auth.api.SaBaseLoginUserApi;
+import vip.xiaonuo.auth.api.ClientLoginUserApi;
 import vip.xiaonuo.auth.core.pojo.SaBaseClientLoginUser;
-import vip.xiaonuo.auth.core.pojo.SaBaseLoginUser;
+import vip.xiaonuo.auth.core.pojo.SaBaseRegisterUser;
+import vip.xiaonuo.client.modular.user.entity.ClientUser;
 import vip.xiaonuo.client.modular.user.result.ClientLoginUser;
 import vip.xiaonuo.client.modular.user.service.ClientUserService;
+import vip.xiaonuo.common.constants.ImgConstants;
+import vip.xiaonuo.common.util.CommonCryptogramUtil;
+import vip.xiaonuo.common.util.IpAddressUtils;
+import vip.xiaonuo.dev.api.DevConfigApi;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,21 +38,13 @@ import java.util.stream.Collectors;
  * @date 2022/4/29 13:36
  **/
 @Service("clientLoginUserApi")
-public class ClientLoginUserApiProvider implements SaBaseLoginUserApi {
+public class ClientLoginUserApiProvider implements ClientLoginUserApi {
 
     @Resource
     private ClientUserService clientUserService;
 
-    /**
-     * 不实现B端用户信息
-     *
-     * @author xuyuxiang
-     * @date 2022/7/8 10:36
-     **/
-    @Override
-    public SaBaseLoginUser getUserById(String id) {
-        return null;
-    }
+    @Autowired
+    private DevConfigApi devConfigApi;
 
     /**
      * 根据id获取C端用户信息，查不到则返回null
@@ -61,17 +58,6 @@ public class ClientLoginUserApiProvider implements SaBaseLoginUserApi {
     }
 
     /**
-     * 不实现B端用户信息
-     *
-     * @author xuyuxiang
-     * @date 2022/7/8 10:36
-     **/
-    @Override
-    public SaBaseLoginUser getUserByAccount(String account) {
-        return null;
-    }
-
-    /**
      * 根据账号获取C端用户信息，查不到则返回null
      *
      * @author xuyuxiang
@@ -80,17 +66,6 @@ public class ClientLoginUserApiProvider implements SaBaseLoginUserApi {
     @Override
     public ClientLoginUser getClientUserByAccount(String account) {
         return clientUserService.getUserByAccount(account);
-    }
-
-    /**
-     * 不实现B端用户信息
-     *
-     * @author xuyuxiang
-     * @date 2022/8/25 14:08
-     **/
-    @Override
-    public SaBaseLoginUser getUserByPhone(String phone) {
-        return null;
     }
 
     /**
@@ -115,62 +90,22 @@ public class ClientLoginUserApiProvider implements SaBaseLoginUserApi {
         return clientUserService.listByIds(userIdList).stream().map(JSONUtil::parseObj).collect(Collectors.toList());
     }
 
-    /**
-     * 根据用户id获取角色集合
-     *
-     * @author xuyuxiang
-     * @date 2022/4/27 22:53
-     */
-    @Override
-    public List<JSONObject> getRoleListByUserId(String userId) {
-        // TODO C端用户暂无角色
-        return CollectionUtil.newArrayList();
-    }
-
-    /**
-     * 根据角色id和用户id集合获取按钮码集合
-     *
-     * @author xuyuxiang
-     * @date 2022/4/27 22:54
-     */
-    @Override
-    public List<String> getButtonCodeListListByUserAndRoleIdList(List<String> userAndRoleIdList) {
-        // TODO C端用户暂无按钮码
-        return CollectionUtil.newArrayList();
-    }
-
-    /**
-     * 根据角色id和用户id集合获取移动端按钮码集合
-     *
-     * @author xuyuxiang
-     * @date 2022/4/27 22:54
-     */
-    @Override
-    public List<String> getMobileButtonCodeListListByUserIdAndRoleIdList(List<String> userAndRoleIdList) {
-        // TODO C端用户暂无移动端按钮码
-        return CollectionUtil.newArrayList();
-    }
-
-    /**
-     * 根据角色id和用户id集合获取权限集合
-     *
-     * @author xuyuxiang
-     * @date 2022/4/27 22:54
-     */
-    @Override
-    public List<JSONObject> getPermissionListByUserIdAndRoleIdList(List<String> userAndRoleIdList, String orgId) {
-        // TODO C端用户暂无权限码
-        return CollectionUtil.newArrayList();
-    }
-
-    /**
-     * 更新用户的登录时间和登录ip等信息
-     *
-     * @author xuyuxiang
-     * @date 2022/4/27 22:57
-     */
     @Override
     public void updateUserLoginInfo(String userId, String device) {
         clientUserService.updateUserLoginInfo(userId, device);
+    }
+
+    @Override
+    public void createUserValidCode(SaBaseRegisterUser saBaseRegisterUser) {
+        // TODO 具体根据自己的业务进行修改
+        // 注册用户信息
+        ClientUser clientUser = new ClientUser();
+        clientUser.setPhone(saBaseRegisterUser.getPhone());
+        clientUser.setAccount(saBaseRegisterUser.getNickname());
+        clientUser.setNickname(saBaseRegisterUser.getNickname());
+        clientUser.setPassword(CommonCryptogramUtil.doHashValue(saBaseRegisterUser.getPassword()));
+        clientUser.setAvatar(ImgConstants.getRandomImg());
+        clientUser.setRegisterIp(IpAddressUtils.getIpAddress());
+        clientUserService.save(clientUser);
     }
 }

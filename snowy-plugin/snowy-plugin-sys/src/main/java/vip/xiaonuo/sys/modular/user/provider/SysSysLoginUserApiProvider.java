@@ -15,8 +15,7 @@ package vip.xiaonuo.sys.modular.user.provider;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springframework.stereotype.Service;
-import vip.xiaonuo.auth.api.SaBaseLoginUserApi;
-import vip.xiaonuo.auth.core.pojo.SaBaseClientLoginUser;
+import vip.xiaonuo.auth.api.SysLoginUserApi;
 import vip.xiaonuo.auth.core.pojo.SaBaseLoginUser;
 import vip.xiaonuo.sys.modular.user.result.SysLoginUser;
 import vip.xiaonuo.sys.modular.user.service.SysUserService;
@@ -32,7 +31,7 @@ import java.util.stream.Collectors;
  * @date 2022/4/29 13:36
  **/
 @Service("loginUserApi")
-public class SysLoginUserApiProvider implements SaBaseLoginUserApi {
+public class SysSysLoginUserApiProvider implements SysLoginUserApi {
 
     @Resource
     private SysUserService sysUserService;
@@ -49,17 +48,6 @@ public class SysLoginUserApiProvider implements SaBaseLoginUserApi {
     }
 
     /**
-     * 不实现C端用户信息
-     *
-     * @author xuyuxiang
-     * @date 2022/3/10 16:14
-     **/
-    @Override
-    public SaBaseClientLoginUser getClientUserById(String id) {
-        return null;
-    }
-
-    /**
      * 根据账号获取B端用户信息，查不到则返回null
      *
      * @author xuyuxiang
@@ -70,16 +58,6 @@ public class SysLoginUserApiProvider implements SaBaseLoginUserApi {
         return sysUserService.getUserByAccount(account);
     }
 
-    /**
-     * 不实现C端用户信息
-     *
-     * @author xuyuxiang
-     * @date 2022/7/8 10:36
-     **/
-    @Override
-    public SaBaseClientLoginUser getClientUserByAccount(String account) {
-        return null;
-    }
 
     /**
      * 根据手机号获取B端用户信息，查不到则返回null
@@ -90,17 +68,6 @@ public class SysLoginUserApiProvider implements SaBaseLoginUserApi {
     @Override
     public SaBaseLoginUser getUserByPhone(String phone) {
         return sysUserService.getUserByPhone(phone);
-    }
-
-    /**
-     * 不实现C端用户信息
-     *
-     * @author xuyuxiang
-     * @date 2022/8/25 14:09
-     **/
-    @Override
-    public SaBaseClientLoginUser getClientUserByPhone(String phone) {
-        return null;
     }
 
     /**

@@ -29,9 +29,10 @@ import me.zhyd.oauth.request.AuthGiteeRequest;
 import me.zhyd.oauth.request.AuthRequest;
 import me.zhyd.oauth.request.AuthWeChatOpenRequest;
 import me.zhyd.oauth.utils.AuthStateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vip.xiaonuo.auth.api.SaBaseLoginUserApi;
+import vip.xiaonuo.auth.api.SysLoginUserApi;
 import vip.xiaonuo.auth.core.enums.SaClientTypeEnum;
 import vip.xiaonuo.auth.core.pojo.SaBaseLoginUser;
 import vip.xiaonuo.auth.modular.login.enums.AuthDeviceTypeEnum;
@@ -74,11 +75,8 @@ public class AuthThirdServiceImpl extends ServiceImpl<AuthThirdMapper, AuthThird
     @Resource
     private AuthService authService;
 
-    @Resource(name = "loginUserApi")
-    private SaBaseLoginUserApi loginUserApi;
-
-    @Resource(name = "clientLoginUserApi")
-    private SaBaseLoginUserApi clientLoginUserApi;
+    @Autowired
+    private SysLoginUserApi sysLoginUserApi;
 
     @Override
     public AuthThirdRenderResult render(AuthThirdRenderParam authThirdRenderParam) {
@@ -173,7 +171,7 @@ public class AuthThirdServiceImpl extends ServiceImpl<AuthThirdMapper, AuthThird
      */
     private String bindUser(AuthUser authUser) {
         // TODO 此处固定绑定超管
-        SaBaseLoginUser saBaseLoginUser = loginUserApi.getUserByAccount("admin");
+        SaBaseLoginUser saBaseLoginUser = sysLoginUserApi.getUserByAccount("admin");
         if(ObjectUtil.isEmpty(saBaseLoginUser)) {
             throw new CommonException("第三方登录失败，无法绑定账号admin，原因：账户admin不存在");
         }

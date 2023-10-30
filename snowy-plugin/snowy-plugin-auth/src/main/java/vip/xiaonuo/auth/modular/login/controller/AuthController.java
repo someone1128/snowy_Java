@@ -60,7 +60,7 @@ public class AuthController {
     @ApiOperation("B端获取图片验证码")
     @GetMapping("/auth/b/getPicCaptcha")
     public CommonResult<AuthPicValidCodeResult> getPicCaptcha() {
-        return CommonResult.data(authService.getPicCaptcha(SaClientTypeEnum.B.getValue()));
+        return CommonResult.data(authService.getPicCaptcha());
     }
 
     /**
