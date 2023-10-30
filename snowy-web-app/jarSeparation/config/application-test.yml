@@ -1,0 +1,84 @@
+#########################################
+# spring profiles configuration
+#########################################
+spring:
+  application:
+    name: 本地测试
+  datasource:
+    druid:
+      stat-view-servlet:
+        enabled: true
+        login-password: 123456
+        login-username: admin
+    #########################################
+    # datasource configuration
+    #########################################
+    dynamic:
+      datasource:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: petty
+          password: yWXkaCTCsXFKiseN
+          url: jdbc:mysql://localhost:3306/snowy?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true&useInformationSchema=true
+      druid:
+        break-after-acquire-failure: false
+        filters: stat
+        initial-size: 5
+        max-active: 20
+        max-pool-prepared-statement-per-connection-size: 20
+        max-wait: 60000
+        min-evictable-idle-time-millis: 300000
+        min-idle: 5
+        pool-prepared-statements: true
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        time-between-eviction-runs-millis: 60000
+        validation-query-timeout: 2000
+      public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMWiTVtdXFVrgFHDDKELZM0SywkWY3KjugN90eY5Sogon1j8Y0ClPF7nx3FuE7pAeBKiv7ChIS0vvx/59WUpKmUCAwEAAQ==
+      strict: true
+  #########################################
+  # redis configuration
+  #########################################
+  redis:
+    database: 2
+    host: 127.0.0.1
+    lettuce:
+      pool:
+        max-active: 200
+        max-idle: 10
+        max-wait: -1ms
+        min-idle: 0
+    password: 9d34cd76eecc1c19
+    port: 6339
+    timeout: 10s
+  #########################################
+  # 文件上传 configuration
+  #########################################
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+# 微信支付配置
+wx:
+  pay:
+    appId: wxc7c44bba8f8e7704 # 微信公众号或者小程序的appid
+    mchId: 1649004052 # 商户号
+    mchKey: fdafasfFsadfdasfas64465131123187 #v2密钥
+    apiv3Key: FDASFASASF12313123SADFadfsafsafw #V3密钥
+    certSerialNo: 4A5A9C4E82957C35A23EFA34F7244BBD7D62D331 # 证书序列号
+    keyPath: classpath:shushi_cert/apiclient_cert.p12 # apiclient_cert.p12文件的绝对路径，或者如果放在项目中，请以classpath:开头指定.
+    privateKeyPath: classpath:shushi_cert/apiclient_key.pem #apiclient_key.pem证书文件的绝对路径或者以classpath:开头的类路径
+    privateCertPath: classpath:shushi_cert/apiclient_cert.pem #apiclient_cert.pem证书文件的绝对路径或者以classpath:开头的类路径
+    notifyUrl: https://rednutmeg.top/c/recharge/wxPayCallback # 扫码支付回调处理
+  mp:
+    useRedis: false
+    redisConfig:
+      host: ${spring.redis.host}
+      port: ${spring.redis.port}
+      password: ${spring.redis.password}
+    configs:
+      - appId: wxc7c44bba8f8e7704 # 第一个公众号的appid
+        secret: f58054ac39898ec1049b3a54f6e3366c # 公众号的appsecret
+        token: FDASFAS1232adfas213123asadfafd # 接口配置里的Token值
+        aesKey: W0BgzLCs0zbUXnV0yXFhD4U2Ko71rOM5Rnq21SoN6YF # 接口配置里的EncodingAESKey值
