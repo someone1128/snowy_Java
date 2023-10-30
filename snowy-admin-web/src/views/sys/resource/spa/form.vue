@@ -29,7 +29,7 @@
 						<template #label>
 							<a-tooltip>
 								<template #title>
-									类型为内外链条时，输入https开头的链接即可（例：https://www.xiaonuo.vip）,正常路由前面必须有反斜杠！
+									类型为内外链条时，输入https开头的链接即可（例：）,正常路由前面必须有反斜杠！
 								</template>
 								<question-circle-outlined />
 							</a-tooltip>
@@ -99,21 +99,21 @@
 </template>
 
 <script setup name="spaForm">
-	import { required } from '@/utils/formRules'
-	import IconSelector from '@/components/Selector/iconSelector.vue'
-	import spaApi from '@/api/sys/resource/spaApi'
-	import tool from '@/utils/tool'
-	// 默认是关闭状态
-	let visible = $ref(false)
-	const emit = defineEmits({ successful: null })
-	const formRef = ref()
-	const formData = ref({})
-	const submitLoading = ref(false)
-	const iconSelector = ref()
-	// 打开抽屉
-	const onOpen = (record) => {
-		visible = true
-		formData.value = {
+import {required} from '@/utils/formRules'
+import IconSelector from '@/components/Selector/iconSelector.vue'
+import spaApi from '@/api/sys/resource/spaApi'
+import tool from '@/utils/tool'
+// 默认是关闭状态
+let visible = $ref(false)
+const emit = defineEmits({successful: null})
+const formRef = ref()
+const formData = ref({})
+const submitLoading = ref(false)
+const iconSelector = ref()
+// 打开抽屉
+const onOpen = (record) => {
+  visible = true
+  formData.value = {
 			menuType: 'MENU',
 			sortCode: 99
 		}

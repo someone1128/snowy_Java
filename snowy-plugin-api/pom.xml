@@ -35,5 +35,6 @@
 
         <!-- 系统功能插件api接口 -->
         <module>snowy-plugin-sys-api</module>
+        <module>snowy-plugin-app-api</module>
     </modules>
 </project>

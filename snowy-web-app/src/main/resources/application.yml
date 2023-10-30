@@ -36,7 +36,7 @@ knife4j:
     enableFooterCustom: true
     enableOpenApi: false
     enableSwaggerModels: false
-    footerCustomContent: Apache License 2.0 | Copyright 2022-[SNOWY](https://www.xiaonuo.vip)
+    footerCustomContent: Apache License 2.0 | Copyright 2022-[SNOWY]()
 #########################################
 # mybatis-plus configuration
 #########################################
@@ -60,7 +60,7 @@ mybatis-plus:
 #########################################
 sa-token:
   # token临时有效期 [指定时间内无操作就视为token过期] (单位: 秒), 默认-1 代表不限制(例如可以设置为1800代表30分钟内无操作就过期)
-  activity-timeout: -1
+  activity-timeout: 2592000
   # sa-token 独立Redis配置
   alone-redis:
     database: ${spring.redis.database}

@@ -69,24 +69,24 @@ const DEFAULT_CONFIG = {
 	// 系统基础配置，这些是数据库中保存起来的
 	SYS_BASE_CONFIG: {
 		// 默认logo
-		SNOWY_SYS_LOGO: '/img/logo.png',
-		// 背景图
-		SNOWY_SYS_BACK_IMAGE: '',
-		// 系统名称
-		SNOWY_SYS_NAME: 'Snowy',
-		// 版本
-		SNOWY_SYS_VERSION: '2.0',
-		// 版权
-		SNOWY_SYS_COPYRIGHT: 'Snowy ©2022 Created by xiaonuo.vip',
-		// 版权跳转URL
-		SNOWY_SYS_COPYRIGHT_URL: 'https://www.xiaonuo.vip',
-		// 默认文件存储
-		SNOWY_SYS_DEFAULT_FILE_ENGINE: 'LOCAL',
-		// 是否开启验证码
-		SNOWY_SYS_DEFAULT_CAPTCHA_OPEN: 'false',
-		// 默认重置密码
-		SNOWY_SYS_DEFAULT_PASSWORD: '123456'
-	}
+        SNOWY_SYS_LOGO: '/img/logo.png',
+        // 背景图
+        SNOWY_SYS_BACK_IMAGE: '',
+        // 系统名称
+        SNOWY_SYS_NAME: 'Snowy',
+        // 版本
+        SNOWY_SYS_VERSION: '2.0',
+        // 版权
+        SNOWY_SYS_COPYRIGHT: 'Snowy ©2022 Created by xiaonuo.vip',
+        // 版权跳转URL
+        SNOWY_SYS_COPYRIGHT_URL: '',
+        // 默认文件存储
+        SNOWY_SYS_DEFAULT_FILE_ENGINE: 'LOCAL',
+        // 是否开启验证码
+        SNOWY_SYS_DEFAULT_CAPTCHA_OPEN: 'false',
+        // 默认重置密码
+        SNOWY_SYS_DEFAULT_PASSWORD: '123456'
+    }
 }
 
 export default DEFAULT_CONFIG

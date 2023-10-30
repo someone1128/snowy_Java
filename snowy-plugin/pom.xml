@@ -35,5 +35,8 @@
 
         <!-- 系统功能插件 -->
         <module>snowy-plugin-sys</module>
+
+        <!--业务构建插件-->
+        <module>snowy-plugin-app</module>
     </modules>
 </project>
