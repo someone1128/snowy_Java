@@ -13,9 +13,11 @@
 package vip.xiaonuo;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
@@ -29,7 +31,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @Slf4j
 @EnableSwagger2WebMvc
 @RestController
-@SpringBootApplication
+@EnableRetry
+@MapperScan({"vip.xiaonuo.*.mapper"})
+@SpringBootApplication(scanBasePackages = {"vip.xiaonuo"})
 public class Application {
 
     /* 解决druid 日志报错：discard long time none received connection:xxx */

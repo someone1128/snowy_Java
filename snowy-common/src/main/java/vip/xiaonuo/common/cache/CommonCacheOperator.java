@@ -13,13 +13,12 @@
 package vip.xiaonuo.common.cache;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.util.StrUtil;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -56,31 +55,4 @@ public class CommonCacheOperator {
         redisTemplate.delete(withPrefixKeys);
     }
 
-    public Collection<String> getAllKeys() {
-        Set<String> keys = redisTemplate.keys(CACHE_KEY_PREFIX + "*");
-        if (keys != null) {
-            // 去掉缓存key的common prefix前缀
-            return keys.stream().map(key -> StrUtil.removePrefix(key, CACHE_KEY_PREFIX)).collect(Collectors.toSet());
-        } else {
-            return CollectionUtil.newHashSet();
-        }
-    }
-
-    public Collection<Object> getAllValues() {
-        Set<String> keys = redisTemplate.keys(CACHE_KEY_PREFIX + "*");
-        if (keys != null) {
-            return redisTemplate.opsForValue().multiGet(keys);
-        } else {
-            return CollectionUtil.newArrayList();
-        }
-    }
-
-    public Map<String, Object> getAllKeyValues() {
-        Collection<String> allKeys = this.getAllKeys();
-        HashMap<String, Object> results = MapUtil.newHashMap();
-        for (String key : allKeys) {
-            results.put(key, this.get(key));
-        }
-        return results;
-    }
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import vip.xiaonuo.common.sse.CommonSseParam;
 import vip.xiaonuo.dev.modular.sse.service.DevSseEmitterService;
+
 import javax.annotation.Resource;
 import java.util.function.Consumer;
 

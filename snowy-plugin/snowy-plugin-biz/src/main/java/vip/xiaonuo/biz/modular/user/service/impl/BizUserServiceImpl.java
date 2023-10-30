@@ -63,6 +63,7 @@ import vip.xiaonuo.biz.modular.user.enums.BizRoleCategoryEnum;
 import vip.xiaonuo.biz.modular.user.enums.BizUserStatusEnum;
 import vip.xiaonuo.biz.modular.user.mapper.BizUserMapper;
 import vip.xiaonuo.biz.modular.user.param.*;
+import vip.xiaonuo.biz.modular.user.result.BizUserExportResult;
 import vip.xiaonuo.biz.modular.user.result.BizUserRoleResult;
 import vip.xiaonuo.biz.modular.user.service.BizUserService;
 import vip.xiaonuo.common.enums.CommonSortOrderEnum;
@@ -74,7 +75,6 @@ import vip.xiaonuo.common.util.*;
 import vip.xiaonuo.dev.api.DevConfigApi;
 import vip.xiaonuo.sys.api.SysRoleApi;
 import vip.xiaonuo.sys.api.SysUserApi;
-import vip.xiaonuo.biz.modular.user.result.BizUserExportResult;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;

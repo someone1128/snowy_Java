@@ -136,7 +136,7 @@ public class DevLogUtil {
      */
     private static DevLog genBasOpLog() {
         HttpServletRequest request = CommonServletUtil.getRequest();
-        String ip = CommonIpAddressUtil.getIp(request);
+        String ip = IpAddressUtils.getIp(request);
         String loginId;
         try {
             loginId = StpUtil.getLoginIdAsString();
@@ -147,8 +147,8 @@ public class DevLogUtil {
             loginId = "-1";
         }
         DevLog devLog = new DevLog();
-        devLog.setOpIp(CommonIpAddressUtil.getIp(request));
-        devLog.setOpAddress(CommonIpAddressUtil.getCityInfo(ip));
+        devLog.setOpIp(IpAddressUtils.getIp(request));
+        devLog.setOpAddress(IpAddressUtils.getCityInfo(ip));
         devLog.setOpBrowser(CommonUaUtil.getBrowser(request));
         devLog.setOpOs(CommonUaUtil.getOs(request));
         devLog.setCreateUser(loginId);

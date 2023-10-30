@@ -32,6 +32,7 @@ import vip.xiaonuo.sys.modular.index.service.SysIndexService;
 import vip.xiaonuo.sys.modular.relation.entity.SysRelation;
 import vip.xiaonuo.sys.modular.relation.enums.SysRelationCategoryEnum;
 import vip.xiaonuo.sys.modular.relation.service.SysRelationService;
+
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.function.Consumer;

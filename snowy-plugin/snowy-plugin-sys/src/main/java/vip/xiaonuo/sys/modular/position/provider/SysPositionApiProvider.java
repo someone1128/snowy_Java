@@ -14,7 +14,6 @@ package vip.xiaonuo.sys.modular.position.provider;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
 import vip.xiaonuo.sys.api.SysPositionApi;
@@ -22,8 +21,6 @@ import vip.xiaonuo.sys.modular.position.param.SysPositionSelectorPositionParam;
 import vip.xiaonuo.sys.modular.position.service.SysPositionService;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 职位API接口提供者

@@ -569,9 +569,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUser.setLastLoginAddress(sysUser.getLatestLoginAddress());
         sysUser.setLastLoginDevice(sysUser.getLatestLoginDevice());
         sysUser.setLatestLoginTime(DateTime.now());
-        String ip = CommonIpAddressUtil.getIp(CommonServletUtil.getRequest());
+        String ip = IpAddressUtils.getIp(CommonServletUtil.getRequest());
         sysUser.setLatestLoginIp(ip);
-        sysUser.setLatestLoginAddress(CommonIpAddressUtil.getCityInfo(ip));
+        sysUser.setLatestLoginAddress(IpAddressUtils.getCityInfo(ip));
         sysUser.setLatestLoginDevice(device);
         this.updateById(sysUser);
     }

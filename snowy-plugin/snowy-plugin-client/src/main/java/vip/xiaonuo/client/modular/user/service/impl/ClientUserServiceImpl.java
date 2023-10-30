@@ -217,9 +217,9 @@ public class ClientUserServiceImpl extends ServiceImpl<ClientUserMapper, ClientU
         clientUser.setLastLoginAddress(clientUser.getLatestLoginAddress());
         clientUser.setLastLoginDevice(clientUser.getLatestLoginDevice());
         clientUser.setLatestLoginTime(DateTime.now());
-        String ip = CommonIpAddressUtil.getIp(CommonServletUtil.getRequest());
+        String ip = IpAddressUtils.getIp(CommonServletUtil.getRequest());
         clientUser.setLatestLoginIp(ip);
-        clientUser.setLatestLoginAddress(CommonIpAddressUtil.getCityInfo(ip));
+        clientUser.setLatestLoginAddress(IpAddressUtils.getCityInfo(ip));
         clientUser.setLatestLoginDevice(device);
         this.updateById(clientUser);
     }

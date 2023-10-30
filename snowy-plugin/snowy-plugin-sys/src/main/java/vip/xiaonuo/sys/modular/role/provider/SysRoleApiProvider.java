@@ -32,7 +32,6 @@ import vip.xiaonuo.sys.modular.resource.enums.SysResourceCategoryEnum;
 import vip.xiaonuo.sys.modular.resource.service.SysButtonService;
 import vip.xiaonuo.sys.modular.resource.service.SysMenuService;
 import vip.xiaonuo.sys.modular.role.entity.SysRole;
-import vip.xiaonuo.sys.modular.role.enums.SysRoleCategoryEnum;
 import vip.xiaonuo.sys.modular.role.param.SysRoleGrantResourceParam;
 import vip.xiaonuo.sys.modular.role.param.SysRoleSelectorRoleParam;
 import vip.xiaonuo.sys.modular.role.service.SysRoleService;
