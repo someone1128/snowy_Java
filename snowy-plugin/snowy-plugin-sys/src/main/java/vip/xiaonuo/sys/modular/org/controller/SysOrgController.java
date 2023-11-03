@@ -118,7 +118,7 @@ public class SysOrgController {
     @CommonLog("删除组织")
     @PostMapping("/sys/org/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<SysOrgIdParam> sysOrgIdParamList) {
+                                               CommonValidList<SysOrgIdParam> sysOrgIdParamList) {
         sysOrgService.delete(sysOrgIdParamList);
         return CommonResult.ok();
     }

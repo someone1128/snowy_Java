@@ -101,7 +101,7 @@ public class AuthSessionController {
     @CommonLog("强退B端会话")
     @PostMapping("/auth/session/b/exit")
     public CommonResult<String> exitSessionForB(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                            CommonValidList<AuthExitSessionParam> authExitSessionParamList) {
+                                                        CommonValidList<AuthExitSessionParam> authExitSessionParamList) {
         authSessionService.exitSessionForB(authExitSessionParamList);
         return CommonResult.ok();
     }

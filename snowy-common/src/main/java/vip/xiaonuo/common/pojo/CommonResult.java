@@ -1,21 +1,10 @@
-/*
- * Copyright [2022] []
- *
- * Snowy采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改Snowy源码头部的版权声明。
- * 3.本项目代码可免费商业使用，商业使用请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处
- * 5.不可二次分发开源参与同类竞品，如有想法可联系团队xiaonuobase@qq.com商议合作。
- * 6.若您的项目无法满足以上几点，需要更多功能代码，获取Snowy商业授权许可，请在官网购买授权，地址为
- */
+
 package vip.xiaonuo.common.pojo;
 
 import io.swagger.annotations.ApiModelProperty;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.service.ResponseMessage;
-import vip.xiaonuo.common.enums.CommonExceptionEnum;
+import vip.xiaonuo.common.enums.ExceptionCodeEnum;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -36,30 +25,51 @@ public class CommonResult<T> implements Serializable{
     @ApiModelProperty(value = "状态码")
     private int code;
 
-    @ApiModelProperty(value = "提示语")
-    private String msg;
+	@ApiModelProperty(value = "提示语")
+	private String msg;
 
-    @ApiModelProperty(value = "返回数据")
-    private T data;
+	@ApiModelProperty(value = "返回数据")
+	private T data;
 
-    public CommonResult() {
-    }
+	public CommonResult() {
+	}
 
-    public CommonResult(int code, String msg, T data) {
-        this.setCode(code);
-        this.setMsg(msg);
-        this.setData(data);
-    }
+	public CommonResult(int code, String msg) {
+		this.setCode(code);
+		this.setMsg(msg);
+	}
 
-    /**
-     * 获取code
-     * @return code
-     */
-    public Integer getCode() {
-        return this.code;
-    }
+	public CommonResult(int code, String msg, T data) {
+		this.setCode(code);
+		this.setMsg(msg);
+		this.setData(data);
+	}
 
-    /**
+	public CommonResult(ExceptionCodeEnum exceptionCodeEnum) {
+		this.setCode(exceptionCodeEnum.getCode());
+		this.setMsg(exceptionCodeEnum.getMessage());
+	}
+
+	public CommonResult(ExceptionCodeEnum exceptionCodeEnum, String msg) {
+		this.setCode(exceptionCodeEnum.getCode());
+		this.setMsg(msg);
+	}
+
+	public boolean isSuccess() {
+		return this.code == CODE_SUCCESS;
+	}
+
+
+	/**
+	 * 获取code
+	 *
+	 * @return code
+	 */
+	public Integer getCode() {
+		return this.code;
+	}
+
+	/**
      * 获取msg
      * @return msg
      */
@@ -104,12 +114,12 @@ public class CommonResult<T> implements Serializable{
         return this;
     }
 
-
     // ============================  构建  ==================================
 
     // 构建成功
     public static <T> CommonResult<T> ok() {
-        return new CommonResult<>(CODE_SUCCESS, "操作成功", null);
+	    return new CommonResult<>(CODE_SUCCESS, "操作成功", null)
+			    ;
     }
     public static <T> CommonResult<T> ok(String msg) {
         return new CommonResult<>(CODE_SUCCESS, msg, null);
@@ -117,27 +127,37 @@ public class CommonResult<T> implements Serializable{
     public static <T> CommonResult<T> code(int code) {
         return new CommonResult<>(code, null, null);
     }
+
     public static <T> CommonResult<T> data(T data) {
         return new CommonResult<>(CODE_SUCCESS, "操作成功", data);
     }
 
-    // 构建失败
-    public static <T> CommonResult<T> error() {
-        return new CommonResult<>(CODE_ERROR, "服务器异常", null);
-    }
-    public static <T> CommonResult<T> error(String msg) {
-        return new CommonResult<>(CODE_ERROR, msg, null);
-    }
+	// 构建失败
+	public static <T> CommonResult<T> error() {
+		return new CommonResult<>(CODE_ERROR, "服务器异常", null);
+	}
 
-    // 构建指定状态码
-    public static <T> CommonResult<T> get(int code, String msg, T data) {
-        return new CommonResult<>(code, msg, data);
-    }
+	public static <T> CommonResult<T> error(String msg) {
+		return new CommonResult<>(CODE_ERROR, msg, null);
+	}
 
-    /*
-     * toString()
-     */
-    @Override
+	public static <T> CommonResult<T> validateFailed() {
+		return new CommonResult<>(ExceptionCodeEnum.VERIFY);
+	}
+
+	public static <T> CommonResult<T> validateFailed(String msg) {
+		return new CommonResult<>(ExceptionCodeEnum.VERIFY, msg);
+	}
+
+	// 构建指定状态码
+	public static <T> CommonResult<T> get(int code, String msg, T data) {
+		return new CommonResult<>(code, msg, data);
+	}
+
+	/*
+	 * toString()
+	 */
+	@Override
     public String toString() {
         return "{"
                 + "\"code\": " + this.getCode()
@@ -153,8 +173,8 @@ public class CommonResult<T> implements Serializable{
      * @date 2022/7/25 13:36
      **/
     public static List<ResponseMessage> responseList() {
-        return Arrays.stream(CommonExceptionEnum.values()).map(commonExceptionEnum -> new ResponseMessageBuilder()
-                .code(commonExceptionEnum.getCode()).message(commonExceptionEnum.getMessage()).build())
-                .collect(Collectors.toList());
+	    return Arrays.stream(ExceptionCodeEnum.values()).map(exceptionCodeEnum -> new ResponseMessageBuilder()
+					    .code(exceptionCodeEnum.getCode()).message(exceptionCodeEnum.getMessage()).build())
+			    .collect(Collectors.toList());
     }
 }

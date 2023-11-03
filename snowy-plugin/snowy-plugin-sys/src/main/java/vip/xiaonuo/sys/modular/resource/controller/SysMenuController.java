@@ -133,7 +133,7 @@ public class SysMenuController {
     @CommonLog("删除菜单")
     @PostMapping("/sys/menu/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<SysMenuIdParam> sysMenuIdParamList) {
+                                               CommonValidList<SysMenuIdParam> sysMenuIdParamList) {
         sysMenuService.delete(sysMenuIdParamList);
         return CommonResult.ok();
     }

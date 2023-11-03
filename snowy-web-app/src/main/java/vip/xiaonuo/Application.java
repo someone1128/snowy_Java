@@ -64,4 +64,5 @@ public class Application {
     public String index() {
         return "WELCOME";
     }
+
 }

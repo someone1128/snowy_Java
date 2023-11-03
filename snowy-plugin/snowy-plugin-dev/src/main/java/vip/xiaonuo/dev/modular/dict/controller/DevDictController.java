@@ -130,7 +130,7 @@ public class DevDictController {
     @CommonLog("删除字典")
     @PostMapping("/dev/dict/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                           CommonValidList<DevDictIdParam> devDictIdParamList) {
+                                               CommonValidList<DevDictIdParam> devDictIdParamList) {
         devDictService.delete(devDictIdParamList);
         return CommonResult.ok();
     }

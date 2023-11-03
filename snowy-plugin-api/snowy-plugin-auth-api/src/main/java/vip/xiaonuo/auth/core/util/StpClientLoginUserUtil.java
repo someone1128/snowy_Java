@@ -1,19 +1,14 @@
-/*
- * Copyright [2022] []
- *
- * Snowy采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
- *
- * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改Snowy源码头部的版权声明。
- * 3.本项目代码可免费商业使用，商业使用请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处
- * 5.不可二次分发开源参与同类竞品，如有想法可联系团队xiaonuobase@qq.com商议合作。
- * 6.若您的项目无法满足以上几点，需要更多功能代码，获取Snowy商业授权许可，请在官网购买授权，地址为
- */
+
 package vip.xiaonuo.auth.core.util;
 
+import cn.dev33.satoken.session.SaSession;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import vip.xiaonuo.auth.core.pojo.SaBaseClientLoginUser;
+import vip.xiaonuo.common.util.RequestUtils;
+import vip.xiaonuo.dev.api.DevConfigApi;
 
 import java.util.List;
 
@@ -23,7 +18,31 @@ import java.util.List;
  * @author xuyuxiang
  * @date 2022/7/8 10:40
  **/
+@Component
 public class StpClientLoginUserUtil {
+
+    public static DevConfigApi devConfigApi;
+
+    @Autowired
+    public StpClientLoginUserUtil(DevConfigApi devConfigApi) {
+        StpClientLoginUserUtil.devConfigApi = devConfigApi;
+    }
+
+    public static String getHeaderUserUuid() {
+        String userUuid = RequestUtils.getHeader("user-uuid");
+        if (StrUtil.isBlank(userUuid)) {
+            //拉入黑名单
+            //IpRequestFilterUtil.addIpWhiteList();
+            // 请求必须带上 userUuid
+            //throw new BusinessException("非法请求！" + RequestUtils.getUri(), ExceptionCodeEnum.VERIFY);
+            return "";
+        }
+        // uuid 中必须包含分隔符，免得被别人偷换成 userId 获取信息
+        if (userUuid.contains("-")) {
+            return userUuid;
+        }
+        return null;
+    }
 
     /**
      * 获取当前C端登录用户
@@ -32,7 +51,37 @@ public class StpClientLoginUserUtil {
      * @date 2022/7/8 10:41
      **/
     public static SaBaseClientLoginUser getClientLoginUser() {
-        return (SaBaseClientLoginUser) StpClientUtil.getTokenSession().get("loginUser");
+        SaSession tokenSession = StpClientUtil.getTokenSession();
+        return tokenSession == null ? null : (SaBaseClientLoginUser) tokenSession.get("loginUser");
+    }
+
+    public static String getUserId() {
+        SaBaseClientLoginUser clientLoginUser = getClientLoginUser();
+        return clientLoginUser == null ? null : clientLoginUser.getId();
+    }
+
+    public static String getUserIdDefaultVal() {
+        String val = getHeaderUserUuid();
+        try {
+            String id = getClientLoginUser().getId();
+            return StrUtil.isBlank(id) ? val : id;
+        } catch (Exception e) {
+            return val;
+        }
+    }
+
+    /**
+     * 判断是否为会员
+     *
+     * @return
+     */
+    public static boolean isMember() {
+        try {
+            String memberLevel = getClientLoginUser().getMemberLevel();
+            return memberLevel.contains("会员");
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -43,5 +92,24 @@ public class StpClientLoginUserUtil {
      **/
     public static List<String> getLoginUserDataScope() {
         return CollectionUtil.newArrayList();
+    }
+
+    /**
+     * 判断是否登录
+     *
+     * @return
+     */
+    public static boolean isLogin() {
+        try {
+            SaBaseClientLoginUser clientLoginUser = getClientLoginUser();
+            return clientLoginUser != null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean isNotLogin() {
+        return !isLogin();
     }
 }

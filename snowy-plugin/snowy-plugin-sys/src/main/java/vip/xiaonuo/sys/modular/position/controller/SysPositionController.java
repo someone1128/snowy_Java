@@ -104,7 +104,7 @@ public class SysPositionController {
     @CommonLog("删除职位")
     @PostMapping("/sys/position/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<SysPositionIdParam> sysPositionIdParamList) {
+                                               CommonValidList<SysPositionIdParam> sysPositionIdParamList) {
         sysPositionService.delete(sysPositionIdParamList);
         return CommonResult.ok();
     }

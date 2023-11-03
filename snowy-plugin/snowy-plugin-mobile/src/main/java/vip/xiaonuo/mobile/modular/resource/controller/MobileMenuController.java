@@ -119,7 +119,7 @@ public class MobileMenuController {
     @CommonLog("删除移动端菜单")
     @PostMapping("/mobile/menu/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<MobileMenuIdParam> mobileMenuIdParamList) {
+                                               CommonValidList<MobileMenuIdParam> mobileMenuIdParamList) {
         mobileMenuService.delete(mobileMenuIdParamList);
         return CommonResult.ok();
     }

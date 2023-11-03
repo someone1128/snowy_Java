@@ -112,7 +112,7 @@ public class SysUserController {
     @CommonLog("删除用户")
     @PostMapping("/sys/user/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<SysUserIdParam> sysUserIdParamList) {
+                                               CommonValidList<SysUserIdParam> sysUserIdParamList) {
         sysUserService.delete(sysUserIdParamList);
         return CommonResult.ok();
     }

@@ -26,5 +26,10 @@
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>vip.xiaonuo</groupId>
+            <artifactId>snowy-plugin-dev-api</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -132,7 +132,7 @@ public class DevConfigController {
     @CommonLog("删除配置")
     @PostMapping("/dev/config/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                           CommonValidList<DevConfigIdParam> devConfigIdParamList) {
+                                               CommonValidList<DevConfigIdParam> devConfigIdParamList) {
         devConfigService.delete(devConfigIdParamList);
         return CommonResult.ok();
     }

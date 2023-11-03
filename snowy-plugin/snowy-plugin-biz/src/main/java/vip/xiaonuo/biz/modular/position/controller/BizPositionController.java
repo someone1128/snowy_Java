@@ -109,7 +109,7 @@ public class BizPositionController {
     @SaCheckPermission("/biz/position/delete")
     @PostMapping("/biz/position/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<BizPositionIdParam> bizPositionIdParamList) {
+                                               CommonValidList<BizPositionIdParam> bizPositionIdParamList) {
         bizPositionService.delete(bizPositionIdParamList);
         return CommonResult.ok();
     }

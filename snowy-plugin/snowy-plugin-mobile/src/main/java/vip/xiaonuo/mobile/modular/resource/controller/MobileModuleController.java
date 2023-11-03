@@ -105,7 +105,7 @@ public class MobileModuleController {
     @CommonLog("删除移动端模块")
     @PostMapping("/mobile/module/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<MobileModuleIdParam> mobileModuleIdParamList) {
+                                               CommonValidList<MobileModuleIdParam> mobileModuleIdParamList) {
         mobileModuleService.delete(mobileModuleIdParamList);
         return CommonResult.ok();
     }

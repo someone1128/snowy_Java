@@ -106,7 +106,7 @@ public class SysRoleController {
     @CommonLog("删除角色")
     @PostMapping("/sys/role/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<SysRoleIdParam> sysRoleIdParamList) {
+                                               CommonValidList<SysRoleIdParam> sysRoleIdParamList) {
         sysRoleService.delete(sysRoleIdParamList);
         return CommonResult.ok();
     }

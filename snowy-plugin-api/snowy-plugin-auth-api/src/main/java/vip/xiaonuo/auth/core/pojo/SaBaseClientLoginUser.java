@@ -13,6 +13,7 @@
 package vip.xiaonuo.auth.core.pojo;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,8 +26,7 @@ import java.util.List;
  * @author xuyuxiang
  * @date 2021/12/23 21:49
  */
-@Getter
-@Setter
+@Data
 public abstract class SaBaseClientLoginUser {
 
     /** id */
@@ -53,66 +53,6 @@ public abstract class SaBaseClientLoginUser {
     @ApiModelProperty(value = "昵称", position = 6)
     private String nickname;
 
-    /** 性别 */
-    @ApiModelProperty(value = "性别", position = 7)
-    private String gender;
-
-    /** 年龄 */
-    @ApiModelProperty(value = "年龄", position = 8)
-    private String age;
-
-    /** 出生日期 */
-    @ApiModelProperty(value = "出生日期", position = 9)
-    private String birthday;
-
-    /** 民族 */
-    @ApiModelProperty(value = "民族", position = 10)
-    private String nation;
-
-    /** 籍贯 */
-    @ApiModelProperty(value = "籍贯", position = 11)
-    private String nativePlace;
-
-    /** 家庭住址 */
-    @ApiModelProperty(value = "家庭住址", position = 12)
-    private String homeAddress;
-
-    /** 通信地址 */
-    @ApiModelProperty(value = "通信地址", position = 13)
-    private String mailingAddress;
-
-    /** 证件类型 */
-    @ApiModelProperty(value = "证件类型", position = 14)
-    private String idCardType;
-
-    /** 证件号码 */
-    @ApiModelProperty(value = "证件号码", position = 15)
-    private String idCardNumber;
-
-    /** 文化程度 */
-    @ApiModelProperty(value = "文化程度", position = 16)
-    private String cultureLevel;
-
-    /** 政治面貌 */
-    @ApiModelProperty(value = "政治面貌", position = 17)
-    private String politicalOutlook;
-
-    /** 毕业院校 */
-    @ApiModelProperty(value = "毕业院校", position = 18)
-    private String college;
-
-    /** 学历 */
-    @ApiModelProperty(value = "学历", position = 19)
-    private String education;
-
-    /** 学制 */
-    @ApiModelProperty(value = "学制", position = 20)
-    private String eduLength;
-
-    /** 学位 */
-    @ApiModelProperty(value = "学位", position = 21)
-    private String degree;
-
     /** 手机 */
     @ApiModelProperty(value = "手机", position = 22)
     private String phone;
@@ -120,26 +60,6 @@ public abstract class SaBaseClientLoginUser {
     /** 邮箱 */
     @ApiModelProperty(value = "邮箱", position = 23)
     private String email;
-
-    /** 家庭电话 */
-    @ApiModelProperty(value = "家庭电话", position = 24)
-    private String homeTel;
-
-    /** 办公电话 */
-    @ApiModelProperty(value = "办公电话", position = 25)
-    private String officeTel;
-
-    /** 紧急联系人 */
-    @ApiModelProperty(value = "紧急联系人", position = 26)
-    private String emergencyContact;
-
-    /** 紧急联系人电话 */
-    @ApiModelProperty(value = "紧急联系人电话", position = 27)
-    private String emergencyPhone;
-
-    /** 紧急联系人地址 */
-    @ApiModelProperty(value = "紧急联系人地址", position = 28)
-    private String emergencyAddress;
 
     /** 上次登录ip */
     @ApiModelProperty(value = "上次登录ip", position = 29)
@@ -165,23 +85,51 @@ public abstract class SaBaseClientLoginUser {
     @ApiModelProperty(value = "最新登录地点", position = 34)
     private String latestLoginAddress;
 
-    /** 最新登录时间 */
+    /**
+     * 最新登录时间
+     */
     @ApiModelProperty(value = "最新登录时间", position = 35)
     private Date latestLoginTime;
 
-    /** 最新登录设备 */
+    /**
+     * 最新登录设备
+     */
     @ApiModelProperty(value = "最新登录设备", position = 36)
     private String latestLoginDevice;
 
-    /** 用户状态 */
+    @ApiModelProperty(value = "消耗魔力")
+    private String consumeMagic;
+
+    @ApiModelProperty(value = "剩余魔力")
+    private Integer residualMagic;
+
+    @ApiModelProperty("每日签到魔力")
+    private Integer dayMagic;
+
+    @ApiModelProperty(value = "邀请码")
+    private String invitationCode;
+
+    @ApiModelProperty(value = "会员等级")
+    private String memberLevel;
+
+    @ApiModelProperty(value = "过期时间")
+    private Date memberExpirationTime;
+
+    /**
+     * 用户状态
+     */
     @ApiModelProperty(value = "用户状态", position = 37)
     private String userStatus;
 
-    /** 排序码 */
+    /**
+     * 排序码
+     */
     @ApiModelProperty(value = "排序码", position = 38)
     private Integer sortCode;
 
-    /** 扩展信息 */
+    /**
+     * 扩展信息
+     */
     @ApiModelProperty(value = "扩展信息", position = 39)
     private String extJson;
 
@@ -201,16 +149,26 @@ public abstract class SaBaseClientLoginUser {
     @ApiModelProperty(value = "角色码集合", position = 43, hidden = true)
     private List<String> roleCodeList;
 
-    /** 数据范围集合 */
+    /**
+     * 数据范围集合
+     */
     @ApiModelProperty(value = "数据范围集合", position = 44, hidden = true)
     private List<DataScope> dataScopeList;
 
-    /** 用户密码hash值 */
+    /**
+     * 用户密码hash值
+     */
     @ApiModelProperty(value = "用户密码hash值", position = 45)
     private String password;
 
-    /** 是否可登录，由继承类实现 */
+    @ApiModelProperty(value = "今日是否已签到")
+    private Boolean hasSignedIn;
+
+    /**
+     * 是否可登录，由继承类实现
+     */
     public abstract Boolean getEnabled();
+
 
     /**
      * 数据范围类
@@ -229,5 +187,7 @@ public abstract class SaBaseClientLoginUser {
         /** 数据范围 */
         @ApiModelProperty(value = "数据范围", position = 2)
         private List<String> dataScope;
+
     }
 }
+

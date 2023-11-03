@@ -105,7 +105,7 @@ public class SysModuleController {
     @CommonLog("删除模块")
     @PostMapping("/sys/module/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<SysModuleIdParam> sysModuleIdParamList) {
+                                               CommonValidList<SysModuleIdParam> sysModuleIdParamList) {
         sysModuleService.delete(sysModuleIdParamList);
         return CommonResult.ok();
     }

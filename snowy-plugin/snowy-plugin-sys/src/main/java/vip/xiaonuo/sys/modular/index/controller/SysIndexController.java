@@ -75,7 +75,7 @@ public class SysIndexController {
     @CommonLog("删除日程")
     @PostMapping("/sys/index/schedule/deleteSchedule")
     public CommonResult<String> deleteSchedule(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                               CommonValidList<SysIndexScheduleIdParam> sysIndexScheduleIdParamList) {
+                                                       CommonValidList<SysIndexScheduleIdParam> sysIndexScheduleIdParamList) {
         sysIndexService.deleteSchedule(sysIndexScheduleIdParamList);
         return CommonResult.ok();
     }

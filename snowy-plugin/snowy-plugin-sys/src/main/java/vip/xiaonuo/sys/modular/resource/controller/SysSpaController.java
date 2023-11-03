@@ -105,7 +105,7 @@ public class SysSpaController {
     @CommonLog("删除单页面")
     @PostMapping("/sys/spa/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<SysSpaIdParam> sysSpaIdParamList) {
+                                               CommonValidList<SysSpaIdParam> sysSpaIdParamList) {
         sysSpaService.delete(sysSpaIdParamList);
         return CommonResult.ok();
     }

@@ -124,7 +124,7 @@ public class BizOrgController {
     @SaCheckPermission("/biz/org/delete")
     @PostMapping("/biz/org/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<BizOrgIdParam> bizOrgIdParamList) {
+                                               CommonValidList<BizOrgIdParam> bizOrgIdParamList) {
         bizOrgService.delete(bizOrgIdParamList);
         return CommonResult.ok();
     }

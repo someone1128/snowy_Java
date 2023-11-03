@@ -115,7 +115,7 @@ public class BizUserController {
     @SaCheckPermission("/biz/user/delete")
     @PostMapping("/biz/user/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<BizUserIdParam> bizUserIdParamList) {
+                                               CommonValidList<BizUserIdParam> bizUserIdParamList) {
         bizUserService.delete(bizUserIdParamList);
         return CommonResult.ok();
     }

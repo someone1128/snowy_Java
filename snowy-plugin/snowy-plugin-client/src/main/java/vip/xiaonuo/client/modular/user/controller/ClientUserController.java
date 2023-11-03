@@ -105,7 +105,7 @@ public class ClientUserController {
     @CommonLog("删除C端用户")
     @PostMapping("/client/user/delete")
     public CommonResult<String> delete(@RequestBody @Valid @NotEmpty(message = "集合不能为空")
-                                                   CommonValidList<ClientUserIdParam> clientUserIdParamList) {
+                                               CommonValidList<ClientUserIdParam> clientUserIdParamList) {
         clientUserService.delete(clientUserIdParamList);
         return CommonResult.ok();
     }

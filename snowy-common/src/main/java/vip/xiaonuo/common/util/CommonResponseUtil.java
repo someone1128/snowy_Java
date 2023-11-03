@@ -48,7 +48,7 @@ public class CommonResponseUtil {
     public static void renderError(HttpServletResponse response, String msg) throws IOException {
         response.setCharacterEncoding(CharsetUtil.UTF_8);
         response.setContentType(ContentType.JSON.toString());
-        response.getWriter().write(JSONUtil.toJsonStr(ObjectUtil.isNotEmpty(msg)?CommonResult.error(msg):CommonResult.error()));
+        response.getWriter().write(JSONUtil.toJsonStr(ObjectUtil.isNotEmpty(msg)? CommonResult.error(msg):CommonResult.error()));
     }
 
     /**
