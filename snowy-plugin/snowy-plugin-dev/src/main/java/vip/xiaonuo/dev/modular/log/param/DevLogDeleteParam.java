@@ -13,8 +13,7 @@
 package vip.xiaonuo.dev.modular.log.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
@@ -24,8 +23,7 @@ import javax.validation.constraints.NotBlank;
  * @author xuyuxiang
  * @date 2022/9/6 13:16
  */
-@Getter
-@Setter
+@Data
 public class DevLogDeleteParam {
 
     /** 日志分类 */

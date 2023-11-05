@@ -13,8 +13,7 @@
 package vip.xiaonuo.auth.modular.monitor.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
@@ -24,8 +23,7 @@ import javax.validation.constraints.NotBlank;
  * @author xuyuxiang
  * @date 2022/6/24 22:28
  */
-@Getter
-@Setter
+@Data
 public class AuthExitTokenParam {
 
     /** token值 */

@@ -13,8 +13,7 @@
 package vip.xiaonuo.dev.modular.log.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 日志查询参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/9/2 15:04
  */
-@Getter
-@Setter
+@Data
 public class DevLogPageParam {
 
     /** 当前页 */

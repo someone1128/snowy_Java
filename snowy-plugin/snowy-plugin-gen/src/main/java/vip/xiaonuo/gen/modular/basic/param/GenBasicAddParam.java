@@ -13,8 +13,7 @@
 package vip.xiaonuo.gen.modular.basic.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
@@ -24,8 +23,7 @@ import javax.validation.constraints.NotNull;
  * @author yubaoshan
  * @date 2022/10/25 22:33
  **/
-@Getter
-@Setter
+@Data
 public class GenBasicAddParam {
 
     /** 主表名称 */

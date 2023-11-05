@@ -16,8 +16,7 @@ import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import vip.xiaonuo.common.pojo.CommonEntity;
 
 /**
@@ -26,8 +25,7 @@ import vip.xiaonuo.common.pojo.CommonEntity;
  * @author xuyuxiang
  * @date 2022/8/5 10:38
  **/
-@Getter
-@Setter
+@Data
 @TableName("DEV_JOB")
 public class DevJob extends CommonEntity {
 

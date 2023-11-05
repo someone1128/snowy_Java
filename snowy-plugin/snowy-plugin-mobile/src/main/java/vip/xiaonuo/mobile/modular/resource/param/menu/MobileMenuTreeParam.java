@@ -13,8 +13,7 @@
 package vip.xiaonuo.mobile.modular.resource.param.menu;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 移动端菜单tree查询参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author yubaoshan
  * @date  2023/01/28 22:42
  **/
-@Getter
-@Setter
+@Data
 public class MobileMenuTreeParam {
 
     /** 关键词 */

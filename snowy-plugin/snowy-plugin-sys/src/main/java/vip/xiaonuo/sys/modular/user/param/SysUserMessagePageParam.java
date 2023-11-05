@@ -13,8 +13,7 @@
 package vip.xiaonuo.sys.modular.user.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 站内信分页参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/9/2 11:06
  */
-@Getter
-@Setter
+@Data
 public class SysUserMessagePageParam {
 
     /** 当前页 */

@@ -15,8 +15,7 @@ package vip.xiaonuo.sys.modular.index.result;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Date;
 
@@ -26,8 +25,7 @@ import java.util.Date;
  * @author xuyuxiang
  * @date 2022/9/2 15:02
  */
-@Getter
-@Setter
+@Data
 public class SysIndexVisLogListResult {
 
     /** id */

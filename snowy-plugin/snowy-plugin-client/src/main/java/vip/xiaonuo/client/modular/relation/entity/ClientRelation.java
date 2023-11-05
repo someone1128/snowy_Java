@@ -13,8 +13,7 @@
 package vip.xiaonuo.client.modular.relation.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * C端关系实体
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/4/21 16:13
  **/
-@Getter
-@Setter
+@Data
 @TableName("CLIENT_RELATION")
 public class ClientRelation {
 

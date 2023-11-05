@@ -13,8 +13,7 @@
 package vip.xiaonuo.dev.modular.log.result;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 操作日志柱状图数据结果
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/9/4 21:14
  */
-@Getter
-@Setter
+@Data
 public class DevLogOpBarChartDataResult {
 
     /** 日期 */

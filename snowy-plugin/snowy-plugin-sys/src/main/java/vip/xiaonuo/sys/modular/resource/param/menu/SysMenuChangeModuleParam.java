@@ -13,8 +13,7 @@
 package vip.xiaonuo.sys.modular.resource.param.menu;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
@@ -24,8 +23,7 @@ import javax.validation.constraints.NotBlank;
  * @author xuyuxiang
  * @date 2022/7/27 18:40
  **/
-@Getter
-@Setter
+@Data
 public class SysMenuChangeModuleParam {
 
     /** id */

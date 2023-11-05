@@ -13,6 +13,7 @@
 package vip.xiaonuo.auth.modular.monitor.result;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,8 +26,7 @@ import java.util.List;
  * @author xuyuxiang
  * @date 2022/7/28 14:46
  **/
-@Getter
-@Setter
+@Data
 public class AuthSessionPageResult {
 
     /** id */

@@ -13,8 +13,7 @@
 package vip.xiaonuo.dev.modular.sms.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 短信查询参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/31 15:26
  */
-@Getter
-@Setter
+@Data
 public class DevSmsPageParam {
 
     /** 当前页 */

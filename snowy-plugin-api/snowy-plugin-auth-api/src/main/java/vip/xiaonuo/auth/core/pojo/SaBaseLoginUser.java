@@ -13,6 +13,7 @@
 package vip.xiaonuo.auth.core.pojo;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,8 +26,7 @@ import java.util.List;
  * @author xuyuxiang
  * @date 2021/12/23 21:49
  */
-@Getter
-@Setter
+@Data
 public abstract class SaBaseLoginUser {
 
     /** id */

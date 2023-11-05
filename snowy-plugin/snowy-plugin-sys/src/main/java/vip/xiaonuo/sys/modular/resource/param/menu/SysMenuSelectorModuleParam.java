@@ -13,8 +13,7 @@
 package vip.xiaonuo.sys.modular.resource.param.menu;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 模块选择器参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/27 18:40
  **/
-@Getter
-@Setter
+@Data
 public class SysMenuSelectorModuleParam {
 
     /** 名称关键词 */

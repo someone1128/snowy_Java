@@ -16,8 +16,7 @@ import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import vip.xiaonuo.common.pojo.CommonEntity;
 
 /**
@@ -26,8 +25,7 @@ import vip.xiaonuo.common.pojo.CommonEntity;
  * @author xuyuxiang
  * @date 2022/7/27 18:20
  **/
-@Getter
-@Setter
+@Data
 @TableName("SYS_RESOURCE")
 public class SysMenu extends CommonEntity {
 

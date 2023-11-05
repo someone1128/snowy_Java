@@ -20,8 +20,7 @@ import com.fhs.core.trans.anno.Trans;
 import com.fhs.core.trans.constant.TransType;
 import com.fhs.core.trans.vo.TransPojo;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import vip.xiaonuo.common.handler.CommonSm4CbcTypeHandler;
 import vip.xiaonuo.common.pojo.CommonEntity;
 import vip.xiaonuo.sys.modular.org.entity.SysOrg;
@@ -35,8 +34,7 @@ import java.util.Date;
  * @author xuyuxiang
  * @date 2022/4/21 16:13
  **/
-@Getter
-@Setter
+@Data
 @TableName(value = "SYS_USER", autoResultMap = true)
 public class SysUser extends CommonEntity implements TransPojo {
 

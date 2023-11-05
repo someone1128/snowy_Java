@@ -13,8 +13,7 @@
 package vip.xiaonuo.biz.modular.dict.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 业务字典查询参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/30 21:49
  */
-@Getter
-@Setter
+@Data
 public class BizDictPageParam {
 
     /** 当前页 */

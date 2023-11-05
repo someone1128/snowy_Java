@@ -13,8 +13,7 @@
 package vip.xiaonuo.dev.modular.job.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 定时任务查询参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/30 17:53
  */
-@Getter
-@Setter
+@Data
 public class DevJobPageParam {
 
     /** 当前页 */

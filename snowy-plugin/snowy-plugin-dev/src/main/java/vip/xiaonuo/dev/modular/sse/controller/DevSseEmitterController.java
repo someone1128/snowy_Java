@@ -58,7 +58,6 @@ public class DevSseEmitterController {
 
     /**
      * 关闭sse连接
-     *
      * @author diantu
      * @date 2023/7/3
      **/
@@ -71,7 +70,6 @@ public class DevSseEmitterController {
 
     /**
      * 推送消息到所有客户端
-     *
      * @author diantu
      * @date 2023/7/3
      **/

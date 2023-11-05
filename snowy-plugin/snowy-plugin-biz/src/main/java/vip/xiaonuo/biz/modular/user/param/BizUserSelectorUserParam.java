@@ -13,8 +13,7 @@
 package vip.xiaonuo.biz.modular.user.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 用户选择器参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/26 16:03
  **/
-@Getter
-@Setter
+@Data
 public class BizUserSelectorUserParam {
 
     /** 当前页 */

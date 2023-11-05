@@ -95,7 +95,7 @@ sa-token:
 # server configuration
 #########################################
 server:
-  port: 8822
+  port: 8823
   servlet:
     output:
       buffering: false

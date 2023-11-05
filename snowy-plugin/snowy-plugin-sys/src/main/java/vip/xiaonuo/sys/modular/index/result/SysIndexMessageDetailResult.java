@@ -13,6 +13,7 @@
 package vip.xiaonuo.sys.modular.index.result;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,8 +25,7 @@ import java.util.List;
  * @author xuyuxiang
  * @date 2022/7/31 16:39
  */
-@Getter
-@Setter
+@Data
 public class SysIndexMessageDetailResult {
 
     /** id */

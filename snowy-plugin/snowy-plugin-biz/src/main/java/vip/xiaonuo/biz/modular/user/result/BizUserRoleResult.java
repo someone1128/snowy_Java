@@ -13,8 +13,7 @@
 package vip.xiaonuo.biz.modular.user.result;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 角色选择器结果
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/22 14:29
  **/
-@Getter
-@Setter
+@Data
 public class BizUserRoleResult {
 
     /** id */

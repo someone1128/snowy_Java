@@ -13,8 +13,7 @@
 package vip.xiaonuo.dev.modular.dict.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 字典列表参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/30 21:49
  */
-@Getter
-@Setter
+@Data
 public class DevDictListParam {
 
     /** 父id */

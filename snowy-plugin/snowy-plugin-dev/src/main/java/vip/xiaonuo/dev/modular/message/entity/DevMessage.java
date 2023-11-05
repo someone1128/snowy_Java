@@ -14,8 +14,7 @@ package vip.xiaonuo.dev.modular.message.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import vip.xiaonuo.common.pojo.CommonEntity;
 
 /**
@@ -24,8 +23,7 @@ import vip.xiaonuo.common.pojo.CommonEntity;
  * @author xuyuxiang
  * @date 2022/2/23 18:27
  **/
-@Getter
-@Setter
+@Data
 @TableName("DEV_MESSAGE")
 public class DevMessage extends CommonEntity {
 

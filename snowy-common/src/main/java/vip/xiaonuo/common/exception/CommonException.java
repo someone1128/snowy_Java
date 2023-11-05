@@ -13,8 +13,7 @@
 package vip.xiaonuo.common.exception;
 
 import cn.hutool.core.util.StrUtil;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 通用异常
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2020/4/8 15:54
  */
-@Getter
-@Setter
+@Data
 public class CommonException extends RuntimeException {
 
     private Integer code;

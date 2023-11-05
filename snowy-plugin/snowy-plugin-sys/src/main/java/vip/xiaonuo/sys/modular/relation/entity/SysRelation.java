@@ -16,8 +16,7 @@ import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 关系实体
@@ -25,8 +24,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/4/21 16:13
  **/
-@Getter
-@Setter
+@Data
 @TableName("SYS_RELATION")
 public class SysRelation{
 

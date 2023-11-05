@@ -15,8 +15,7 @@ package vip.xiaonuo.dev.modular.email.param;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.json.JSONObject;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -27,8 +26,7 @@ import java.util.List;
  * @author xuyuxiang
  * @date 2022/6/21 15:38
  **/
-@Getter
-@Setter
+@Data
 public class DevEmailSendTencentHtmlParam {
 
     /** 发件人邮箱 */

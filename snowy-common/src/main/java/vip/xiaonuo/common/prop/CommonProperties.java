@@ -12,8 +12,7 @@
  */
 package vip.xiaonuo.common.prop;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +22,7 @@ import org.springframework.stereotype.Component;
  * @author xuyuxiang
  * @date 2022/1/2 17:03
  */
-@Getter
-@Setter
+@Data
 @Component
 @ConfigurationProperties(prefix = "snowy.config.common")
 public class CommonProperties {

@@ -14,8 +14,7 @@ package vip.xiaonuo.gen.modular.config.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import vip.xiaonuo.common.pojo.CommonEntity;
 
 /**
@@ -24,8 +23,7 @@ import vip.xiaonuo.common.pojo.CommonEntity;
  * @author yubaoshan
  * @date 2022/10/25 22:33
  **/
-@Getter
-@Setter
+@Data
 @TableName("GEN_CONFIG")
 public class GenConfig extends CommonEntity {
 

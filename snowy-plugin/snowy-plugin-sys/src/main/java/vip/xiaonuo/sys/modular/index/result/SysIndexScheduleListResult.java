@@ -13,8 +13,7 @@
 package vip.xiaonuo.sys.modular.index.result;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 日程列表结果
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/9/2 11:21
  */
-@Getter
-@Setter
+@Data
 public class SysIndexScheduleListResult {
 
     /** id */

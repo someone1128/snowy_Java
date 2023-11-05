@@ -13,8 +13,7 @@
 package vip.xiaonuo.gen.modular.basic.result;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 数据库表字段结果
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/19 19:06
  **/
-@Getter
-@Setter
+@Data
 public class GenBasicTableColumnResult {
 
     /** 字段名称 */

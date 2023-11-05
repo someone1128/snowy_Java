@@ -13,8 +13,7 @@
 package vip.xiaonuo.sys.modular.user.result;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 用户职位信息
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/8/22 9:00
  **/
-@Getter
-@Setter
+@Data
 public class SysUserPositionResult {
 
     /** 组织id */

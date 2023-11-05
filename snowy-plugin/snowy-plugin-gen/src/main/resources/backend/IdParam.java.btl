@@ -24,8 +24,7 @@ import javax.validation.constraints.NotBlank;
  * @author ${authorName}
  * @date ${genTime}
  **/
-@Getter
-@Setter
+@Data
 public class ${className}IdParam {
 
     /** ${dbTableKeyRemark} */

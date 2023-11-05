@@ -13,8 +13,7 @@
 package vip.xiaonuo.biz.modular.org.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 机构列表选择器参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/4/21 16:13
  **/
-@Getter
-@Setter
+@Data
 public class BizOrgSelectorOrgListParam {
 
     /** 当前页 */

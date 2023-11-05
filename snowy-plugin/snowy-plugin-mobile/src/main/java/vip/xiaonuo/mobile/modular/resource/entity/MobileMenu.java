@@ -17,8 +17,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import vip.xiaonuo.common.pojo.CommonEntity;
 
 /**
@@ -27,8 +26,7 @@ import vip.xiaonuo.common.pojo.CommonEntity;
  * @author yubaoshan
  * @date  2023/01/28 22:42
  **/
-@Getter
-@Setter
+@Data
 @TableName("MOBILE_RESOURCE")
 public class MobileMenu extends CommonEntity {
 

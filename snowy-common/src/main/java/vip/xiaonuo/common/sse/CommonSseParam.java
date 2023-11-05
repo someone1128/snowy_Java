@@ -12,8 +12,7 @@
  */
 package vip.xiaonuo.common.sse;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 通用SSE参数
@@ -21,8 +20,7 @@ import lombok.Setter;
  * @author diantu
  * @date 2023/7/10
  */
-@Getter
-@Setter
+@Data
 public class CommonSseParam {
 
     private String clientId;

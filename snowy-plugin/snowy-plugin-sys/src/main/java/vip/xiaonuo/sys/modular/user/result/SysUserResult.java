@@ -13,8 +13,7 @@
 package vip.xiaonuo.sys.modular.user.result;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Date;
 
@@ -24,8 +23,7 @@ import java.util.Date;
  * @author xuyuxiang
  * @date 2022/7/8 13:22
  **/
-@Getter
-@Setter
+@Data
 public class SysUserResult {
 
     /** id */

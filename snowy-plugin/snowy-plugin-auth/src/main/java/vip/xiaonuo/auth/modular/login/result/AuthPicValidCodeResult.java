@@ -13,8 +13,7 @@
 package vip.xiaonuo.auth.modular.login.result;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 图片验证码结果
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/8 9:28
  **/
-@Getter
-@Setter
+@Data
 public class AuthPicValidCodeResult {
 
     /** 验证码图片，Base64 */

@@ -13,8 +13,7 @@
 package vip.xiaonuo.dev.modular.file.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 文件分页列表参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/31 10:24
  */
-@Getter
-@Setter
+@Data
 public class DevFilePageParam {
 
     /** 文件引擎 */

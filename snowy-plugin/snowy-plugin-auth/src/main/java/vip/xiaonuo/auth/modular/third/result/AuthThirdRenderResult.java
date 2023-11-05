@@ -13,8 +13,7 @@
 package vip.xiaonuo.auth.modular.third.result;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 第三方登录授权结果
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/8 20:39
  */
-@Getter
-@Setter
+@Data
 public class AuthThirdRenderResult {
 
     /** 授权地址 */

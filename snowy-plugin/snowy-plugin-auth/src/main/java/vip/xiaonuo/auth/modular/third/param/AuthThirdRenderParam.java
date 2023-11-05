@@ -13,8 +13,7 @@
 package vip.xiaonuo.auth.modular.third.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
@@ -24,8 +23,7 @@ import javax.validation.constraints.NotBlank;
  * @author xuyuxiang
  * @date 2022/7/8 20:38
  */
-@Getter
-@Setter
+@Data
 public class AuthThirdRenderParam {
 
     /** 第三方平台标识 */

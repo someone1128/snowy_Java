@@ -24,8 +24,7 @@ import java.util.Date;
  * @author ${authorName}
  * @date ${genTime}
  **/
-@Getter
-@Setter
+@Data
 public class ${className}PageParam {
 
     /** 当前页 */

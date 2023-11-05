@@ -13,8 +13,7 @@
 package vip.xiaonuo.auth.modular.monitor.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 会话查询参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/28 14:48
  **/
-@Getter
-@Setter
+@Data
 public class AuthSessionPageParam {
 
     /** 用户id */

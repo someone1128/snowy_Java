@@ -13,8 +13,7 @@
 package vip.xiaonuo.sys.modular.user.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
@@ -24,8 +23,7 @@ import javax.validation.constraints.NotBlank;
  * @author xuyuxiang
  * @date 2022/7/27 17:08
  **/
-@Getter
-@Setter
+@Data
 public class SysUserUpdateWorkbenchParam {
 
     /** 工作台数据 */

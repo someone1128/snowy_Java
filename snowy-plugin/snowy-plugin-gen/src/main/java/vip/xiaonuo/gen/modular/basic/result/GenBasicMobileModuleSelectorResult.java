@@ -1,8 +1,7 @@
 package vip.xiaonuo.gen.modular.basic.result;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 代码生成模块所需要用到的移动端模块选择的结果
@@ -10,8 +9,7 @@ import lombok.Setter;
  * @author 每天一点
  * @date 2023/7/15 22:28
  **/
-@Getter
-@Setter
+@Data
 public class GenBasicMobileModuleSelectorResult {
     /** id */
     @ApiModelProperty(value = "id", position = 1)

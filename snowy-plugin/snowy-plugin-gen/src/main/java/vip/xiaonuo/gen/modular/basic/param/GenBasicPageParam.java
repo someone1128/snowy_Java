@@ -13,8 +13,7 @@
 package vip.xiaonuo.gen.modular.basic.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 代码生成基础查询参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author yubaoshan
  * @date 2022/10/25 22:33
  */
-@Getter
-@Setter
+@Data
 public class GenBasicPageParam {
 
     /** 当前页 */

@@ -13,6 +13,7 @@
 package vip.xiaonuo.dev.modular.monitor.result;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,8 +23,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/9/1 16:00
  */
-@Getter
-@Setter
+@Data
 public class DevMonitorServerResult {
 
     /* ==============概览数据============ */

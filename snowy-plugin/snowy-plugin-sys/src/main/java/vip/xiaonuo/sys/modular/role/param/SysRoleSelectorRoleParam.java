@@ -13,8 +13,7 @@
 package vip.xiaonuo.sys.modular.role.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
@@ -24,8 +23,7 @@ import java.util.List;
  * @author xuyuxiang
  * @date 2022/4/21 16:13
  **/
-@Getter
-@Setter
+@Data
 public class SysRoleSelectorRoleParam {
 
     /** 当前页 */

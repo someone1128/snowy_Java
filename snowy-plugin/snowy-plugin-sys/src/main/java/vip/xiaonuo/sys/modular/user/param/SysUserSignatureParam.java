@@ -13,8 +13,7 @@
 package vip.xiaonuo.sys.modular.user.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
@@ -24,8 +23,7 @@ import javax.validation.constraints.NotBlank;
  * @author yubaoshan
  * @date 2022/9/7 23:12
  **/
-@Getter
-@Setter
+@Data
 public class SysUserSignatureParam {
 
     /** 签名图片base64编码 */

@@ -12,8 +12,7 @@
  */
 package vip.xiaonuo.biz.modular.user.param;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 人员导入参数
@@ -21,8 +20,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/8 13:22
  **/
-@Getter
-@Setter
+@Data
 public class BizUserImportParam {
 
     /** 账号 */

@@ -13,8 +13,7 @@
 package vip.xiaonuo.dev.modular.email.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
@@ -24,8 +23,7 @@ import javax.validation.constraints.NotBlank;
  * @author xuyuxiang
  * @date 2022/6/21 15:38
  **/
-@Getter
-@Setter
+@Data
 public class DevEmailSendAliyunTmpParam {
 
     /** 发件人邮箱 */

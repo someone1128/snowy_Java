@@ -13,8 +13,7 @@
 package vip.xiaonuo.dev.modular.email.param;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 邮件查询参数
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/6/21 15:38
  **/
-@Getter
-@Setter
+@Data
 public class DevEmailPageParam {
 
     /** 当前页 */

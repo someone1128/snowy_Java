@@ -17,8 +17,7 @@ import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.alibaba.excel.annotation.write.style.HeadStyle;
 import com.alibaba.excel.enums.poi.FillPatternTypeEnum;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Date;
 
@@ -28,8 +27,7 @@ import java.util.Date;
  * @author xuyuxiang
  * @date 2022/7/8 13:22
  **/
-@Getter
-@Setter
+@Data
 public class SysUserExportResult {
 
     /** 机构分组 */

@@ -27,8 +27,7 @@ import java.util.Date;
  * @author ${authorName}
  * @date ${genTime}
  **/
-@Getter
-@Setter
+@Data
 public class ${className}EditParam {
 
     <% for(var i = 0; i < configList.~size; i++) { %>

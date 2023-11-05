@@ -13,8 +13,7 @@
 package vip.xiaonuo.auth.modular.monitor.result;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 会话统计结果
@@ -22,8 +21,7 @@ import lombok.Setter;
  * @author xuyuxiang
  * @date 2022/7/19 9:29
  **/
-@Getter
-@Setter
+@Data
 public class AuthSessionAnalysisResult {
 
     /** 当前会话总数量 */

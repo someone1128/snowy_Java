@@ -25,8 +25,7 @@ import java.util.Date;
  * @author ${authorName}
  * @date ${genTime}
  **/
-@Getter
-@Setter
+@Data
 @TableName("${dbTable}")
 public class ${className} {
 

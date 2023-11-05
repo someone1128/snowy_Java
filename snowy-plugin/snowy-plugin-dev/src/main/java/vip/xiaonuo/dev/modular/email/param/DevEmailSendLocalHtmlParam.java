@@ -15,8 +15,7 @@ package vip.xiaonuo.dev.modular.email.param;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.map.MapUtil;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.io.File;
@@ -30,8 +29,7 @@ import java.util.Map;
  * @author xuyuxiang
  * @date 2022/6/21 15:38
  **/
-@Getter
-@Setter
+@Data
 public class DevEmailSendLocalHtmlParam {
 
     /** 接收人 */

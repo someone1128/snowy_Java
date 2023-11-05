@@ -13,6 +13,7 @@
 package vip.xiaonuo.sys.modular.user.param;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,8 +28,7 @@ import java.util.List;
  * @author xuyuxiang
  * @date 2022/7/27 15:05
  **/
-@Getter
-@Setter
+@Data
 public class SysUserGrantResourceParam {
 
     /** 用户id */
