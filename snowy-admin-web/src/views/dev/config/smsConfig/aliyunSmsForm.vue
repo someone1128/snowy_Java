@@ -29,12 +29,12 @@
 </template>
 
 <script setup name="aliyunSmsForm">
-	import { cloneDeep } from 'lodash-es'
-	import { required } from '@/utils/formRules'
-	import { message } from 'ant-design-vue'
-	import configApi from '@/api/dev/configApi'
+import {cloneDeep} from 'lodash-es'
+import {required} from '@/utils/formRules'
+import {message} from 'ant-design-vue'
+import configApi from '@/api/dev/configApi'
 
-	const formRef = ref()
+const formRef = ref()
 	const formData = ref({})
 	const submitLoading = ref(false)
 	const loadSpinning = ref(true)

@@ -3,11 +3,11 @@
 </template>
 
 <script setup>
-	import logApi from '@/api/dev/logApi'
-	import { onMounted } from 'vue'
-	import { Pie } from '@antv/g2plot'
+import logApi from '@/api/dev/logApi'
+import {onMounted} from 'vue'
+import {Pie} from '@antv/g2plot'
 
-	onMounted(() => {
+onMounted(() => {
 		logApi.logVisPieChartData().then((data) => {
 			const piePlot = new Pie('pieChart', {
 				appendPadding: 10,

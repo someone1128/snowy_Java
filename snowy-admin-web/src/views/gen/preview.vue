@@ -29,9 +29,9 @@
 </template>
 
 <script setup name="genPreview">
-	import { message } from 'ant-design-vue'
-	import genBasicApi from '@/api/gen/genBasicApi'
-	// 默认是关闭状态
+import {message} from 'ant-design-vue'
+import genBasicApi from '@/api/gen/genBasicApi'
+// 默认是关闭状态
 	const visible = ref(false)
 	const codeTypeActiveKey = ref()
 	const typeListActiveKey = ref()

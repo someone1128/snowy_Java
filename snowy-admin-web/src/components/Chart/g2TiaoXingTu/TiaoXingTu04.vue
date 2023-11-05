@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-	import { onMounted } from 'vue'
-	import { Bar } from '@antv/g2plot'
+import {onMounted} from 'vue'
+import {Bar} from '@antv/g2plot'
 
-	const data = [
+const data = [
 		{ type: '分类一', values: [76, 100] },
 		{ type: '分类二', values: [56, 108] },
 		{ type: '分类三', values: [38, 129] },

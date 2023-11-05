@@ -2,10 +2,10 @@
 	<div id="BasicBar"></div>
 </template>
 <script setup name="BasicBar">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	onMounted(() => {
+onMounted(() => {
 		let Echarts = echarts.init(document.getElementById('BasicBar'))
 		const option = {
 			xAxis: {

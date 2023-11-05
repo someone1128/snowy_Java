@@ -48,13 +48,13 @@
 </template>
 
 <script setup name="tencentEmailSend">
-	import { message } from 'ant-design-vue'
-	import XnEditor from '@/components/Editor/index.vue'
-	import { required } from '@/utils/formRules'
-	import emailApi from '@/api/dev/emailApi'
-	import fileApi from '@/api/dev/fileApi'
+import {message} from 'ant-design-vue'
+import XnEditor from '@/components/Editor/index.vue'
+import {required} from '@/utils/formRules'
+import emailApi from '@/api/dev/emailApi'
+import fileApi from '@/api/dev/fileApi'
 
-	// 发送文本方式
+// 发送文本方式
 	const sendType = ref('TXT')
 	// 定义emit事件
 	const emit = defineEmits({ loadingStart: null, loadingEnd: null })

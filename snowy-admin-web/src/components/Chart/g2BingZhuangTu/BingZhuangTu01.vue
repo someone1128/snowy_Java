@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-	import { onMounted } from 'vue'
-	import { Pie, G2 } from '@antv/g2plot'
+import {onMounted} from 'vue'
+import {G2, Pie} from '@antv/g2plot'
 
-	const G = G2.getEngine('canvas')
+const G = G2.getEngine('canvas')
 
 	const data = [
 		{ sex: '男', sold: 0.45 },

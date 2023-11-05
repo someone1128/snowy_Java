@@ -59,12 +59,12 @@
 </template>
 
 <script>
-	import tool from '@/utils/tool'
-	import XnContextMenu from '@/components/XnContextMenu/index.vue'
-	import { globalStore, iframeStore, keepAliveStore, viewTagsStore } from '@/store'
-	import { mapState, mapActions } from 'pinia'
+import tool from '@/utils/tool'
+import XnContextMenu from '@/components/XnContextMenu/index.vue'
+import {globalStore, iframeStore, keepAliveStore, viewTagsStore} from '@/store'
+import {mapActions, mapState} from 'pinia'
 
-	export default {
+export default {
 		name: 'Tags',
 		components: { XnContextMenu },
 		props: {},

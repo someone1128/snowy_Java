@@ -17,10 +17,11 @@
 </template>
 <!--该组件使用：https://gitee.com/sangtian152/vue3-tree-org-->
 <script setup name="organizationChart">
-	import { Vue3TreeOrg } from 'vue3-tree-org'
-	import 'vue3-tree-org/lib/vue3-tree-org.css'
-	import userCenterApi from '@/api/sys/userCenterApi'
-	const treeData = ref({})
+import {Vue3TreeOrg} from 'vue3-tree-org'
+import 'vue3-tree-org/lib/vue3-tree-org.css'
+import userCenterApi from '@/api/sys/userCenterApi'
+
+const treeData = ref({})
 	userCenterApi.userLoginOrgTree().then((data) => {
 		treeData.value = data[0]
 	})

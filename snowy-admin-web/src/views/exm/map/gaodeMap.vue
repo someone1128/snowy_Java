@@ -3,18 +3,18 @@
 </template>
 
 <script setup name="exmGaodeMap">
-import GaodeMap from '@/components/Map/gaodeMap/index.vue'
-// 使用该组件请再高德地图官网注册，申请应用获得key
-const map = ref(null)
+	import GaodeMap from '@/components/Map/gaodeMap/index.vue'
+	// 使用该组件请再高德地图官网注册，申请应用获得key
+	const map = ref(null)
 
-const handleComplete = () => {
-  // 点标记
-  // map.value.renderMarker(
-  // 	[
-  // 		{
-  // 			position: [116.39, 39.9],
-  // 			title: 'TA',
-  // 			content: 'CA',
+	const handleComplete = () => {
+		// 点标记
+		// map.value.renderMarker(
+		// 	[
+		// 		{
+		// 			position: [116.39, 39.9],
+		// 			title: 'TA',
+		// 			content: 'CA',
 		// 			label: {
 		// 				content: 'LCA'
 		// 			}
@@ -111,18 +111,18 @@ const handleComplete = () => {
 			{
 				position: [116.39, 39.9],
 				content: [
-          "<div style='padding:0'><b>Snowy-小诺开源技术</b>",
-          '网站 : ',
-          'Snowy是一款国内首例国产密码算法加密框架，采用Vue3.0+AntDesignVue3.0+SpringBoot2.8前后分离技术打造，技术框架与密码的结合，让前后分离‘密’不可分！</div>'
-        ]
+					"<div style='padding:0'><b>Snowy-小诺开源技术</b>",
+					'网站 : https://www.xiaonuo.vip',
+					'Snowy是一款国内首例国产密码算法加密框架，采用Vue3.0+AntDesignVue3.0+SpringBoot2.8前后分离技术打造，技术框架与密码的结合，让前后分离‘密’不可分！</div>'
+				]
 			},
 			{
 				position: [116.33, 39.5],
 				content: [
-          "<div style='padding:0'><b>Snowy-小诺开源技术</b>",
-          '网站 : ',
-          'Snowy是一款国内首例国产密码算法加密框架，采用Vue3.0+AntDesignVue3.0+SpringBoot2.8前后分离技术打造，技术框架与密码的结合，让前后分离‘密’不可分！</div>'
-        ]
+					"<div style='padding:0'><b>Snowy-小诺开源技术</b>",
+					'网站 : https://www.xiaonuo.vip',
+					'Snowy是一款国内首例国产密码算法加密框架，采用Vue3.0+AntDesignVue3.0+SpringBoot2.8前后分离技术打造，技术框架与密码的结合，让前后分离‘密’不可分！</div>'
+				]
 			}
 		])
 	}

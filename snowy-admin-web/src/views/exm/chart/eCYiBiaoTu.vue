@@ -24,8 +24,7 @@
 </template>
 
 <script setup name="eCYiBiaoTu">
-	import GaugeBasicChart from '@/components/Chart/eCYiBiaoTu/GaugeBasicChart.vue'
-	import StageSpeedGauge from '@/components/Chart/eCYiBiaoTu/StageSpeedGauge.vue'
-	import TemperatureGaugeChart from '@/components/Chart/eCYiBiaoTu/TemperatureGaugeChart.vue'
-	import GrogressGauge from '@/components/Chart/eCYiBiaoTu/GrogressGauge.vue'
-</script>
+import GaugeBasicChart from '@/components/Chart/eCYiBiaoTu/GaugeBasicChart.vue'
+import StageSpeedGauge from '@/components/Chart/eCYiBiaoTu/StageSpeedGauge.vue'
+import TemperatureGaugeChart from '@/components/Chart/eCYiBiaoTu/TemperatureGaugeChart.vue'
+import GrogressGauge from '@/components/Chart/eCYiBiaoTu/GrogressGauge.vue'</script>

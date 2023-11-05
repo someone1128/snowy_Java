@@ -67,10 +67,11 @@
 </template>
 
 <script setup>
-	import { Empty } from 'ant-design-vue'
-	import dictApi from '@/api/dev/dictApi'
-	import Form from './form.vue'
-	const { proxy } = getCurrentInstance()
+import {Empty} from 'ant-design-vue'
+import dictApi from '@/api/dev/dictApi'
+import Form from './form.vue'
+
+const { proxy } = getCurrentInstance()
 	const columns = [
 		{
 			title: '字典名称',

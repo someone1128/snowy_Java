@@ -26,9 +26,9 @@
 </template>
 
 <script setup name="smsDetail">
-	import smsApi from '@/api/dev/smsApi'
+import smsApi from '@/api/dev/smsApi'
 
-	// 默认是关闭状态
+// 默认是关闭状态
 	let visible = $ref(false)
 	const receiptInfo = ref()
 	// 表单数据

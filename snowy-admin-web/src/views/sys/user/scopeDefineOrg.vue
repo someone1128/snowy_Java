@@ -24,8 +24,9 @@
 </template>
 
 <script setup="props, context" name="userScopeDefineOrg">
-	import userApi from '@/api/sys/userApi'
-	const visible = ref(false)
+import userApi from '@/api/sys/userApi'
+
+const visible = ref(false)
 	let defaultExpandedKeys = ref([])
 	let checkedKeys = ref([])
 	const treeData = ref([])

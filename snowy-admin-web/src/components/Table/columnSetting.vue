@@ -24,9 +24,9 @@
 </template>
 
 <script>
-	import draggable from 'vuedraggable-es'
+import draggable from 'vuedraggable-es'
 
-	export default {
+export default {
 		components: {
 			draggable
 		},

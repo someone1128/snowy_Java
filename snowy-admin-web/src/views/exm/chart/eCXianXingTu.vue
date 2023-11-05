@@ -24,8 +24,7 @@
 </template>
 
 <script setup name="eCXianXingTu">
-	import BasicLineChart from '@/components/Chart/eCXianXingTu/BasicLineChart.vue'
-	import StackedLineChart from '@/components/Chart/eCXianXingTu/StackedLineChart.vue'
-	import StackedAreaChart from '@/components/Chart/eCXianXingTu/StackedAreaChart.vue'
-	import StepLine from '@/components/Chart/eCXianXingTu/StepLine.vue'
-</script>
+import BasicLineChart from '@/components/Chart/eCXianXingTu/BasicLineChart.vue'
+import StackedLineChart from '@/components/Chart/eCXianXingTu/StackedLineChart.vue'
+import StackedAreaChart from '@/components/Chart/eCXianXingTu/StackedAreaChart.vue'
+import StepLine from '@/components/Chart/eCXianXingTu/StepLine.vue'</script>

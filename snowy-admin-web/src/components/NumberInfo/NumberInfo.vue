@@ -17,9 +17,9 @@
 </template>
 
 <script setup name="NumberInfo">
-	import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons-vue'
+import {CaretDownOutlined, CaretUpOutlined} from '@ant-design/icons-vue'
 
-	const props = defineProps({
+const props = defineProps({
 		prefixCls: {
 			type: String,
 			default: 'ant-pro-number-info'

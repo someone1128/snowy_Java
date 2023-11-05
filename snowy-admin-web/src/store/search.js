@@ -1,5 +1,5 @@
 import '@/utils/objects'
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 
 export const searchStore = defineStore({
 	id: 'search',

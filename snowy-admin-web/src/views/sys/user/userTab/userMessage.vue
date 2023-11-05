@@ -34,12 +34,11 @@
 </template>
 
 <script setup name="userMessage">
-	import detail from './userMessage/detail.vue'
-	import userCenterApi from '@/api/sys/userCenterApi'
-	import tool from '@/utils/tool'
-	import { nextTick } from 'vue'
+import userCenterApi from '@/api/sys/userCenterApi'
+import tool from '@/utils/tool'
+import {nextTick} from 'vue'
 
-	const messageCategoryList = tool.dictList('MESSAGE_CATEGORY')
+const messageCategoryList = tool.dictList('MESSAGE_CATEGORY')
 	const selectedKeys = ref(new Array(messageCategoryList[0].value))
 	const table = ref()
 	const detailRef = ref()

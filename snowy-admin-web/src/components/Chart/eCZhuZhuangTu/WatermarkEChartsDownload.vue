@@ -2,10 +2,10 @@
 	<div id="WatermarkEChartsDownload"></div>
 </template>
 <script setup name="WatermarkEChartsDownload">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	const builderJson = {
+const builderJson = {
 		all: 10887,
 		charts: {
 			map: 3237,

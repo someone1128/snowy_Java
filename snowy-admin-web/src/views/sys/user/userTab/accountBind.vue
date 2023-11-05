@@ -26,10 +26,9 @@
 </template>
 
 <script setup>
-	import { message } from 'ant-design-vue'
-	import updatePassword from './bindForm/updatePassword.vue'
+import {message} from 'ant-design-vue'
 
-	const updatePasswordRef = ref()
+const updatePasswordRef = ref()
 	// 获取绑定的情况
 	const data = [
 		{ title: '密码强度', description: '当前密码强度', value: '弱', type: 'password', bindStatus: 0 },

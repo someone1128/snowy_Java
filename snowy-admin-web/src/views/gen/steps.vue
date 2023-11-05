@@ -48,14 +48,11 @@
 	</div>
 </template>
 <script setup name="genSteps">
-	import { message } from 'ant-design-vue'
-	import downloadUtil from '@/utils/downloadUtil'
-	import basic from './basic.vue'
-	import config from './config.vue'
-	import genPreview from './preview.vue'
-	import genBasicApi from '@/api/gen/genBasicApi'
+import {message} from 'ant-design-vue'
+import downloadUtil from '@/utils/downloadUtil'
+import genBasicApi from '@/api/gen/genBasicApi'
 
-	const emit = defineEmits({ closed: null })
+const emit = defineEmits({ closed: null })
 	const current = ref(0)
 	const recordData = ref()
 	const submitLoading = ref(false)

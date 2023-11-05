@@ -50,9 +50,9 @@
 </template>
 
 <script setup name="monitorAnalyse">
-	import monitorApi from '@/api/auth/monitorApi'
+import monitorApi from '@/api/auth/monitorApi'
 
-	// 预置空数据
+// 预置空数据
 	const analysisObj = ref({
 		currentSessionTotalCount: '0',
 		maxTokenCount: '0',

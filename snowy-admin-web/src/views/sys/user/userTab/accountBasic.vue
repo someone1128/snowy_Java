@@ -36,13 +36,13 @@
 </template>
 
 <script setup name="AccountBasic">
-	import { required } from '@/utils/formRules'
-	import userCenterApi from '@/api/sys/userCenterApi'
-	import tool from '@/utils/tool'
-	import { cloneDeep } from 'lodash-es'
-	import { globalStore } from '@/store'
+import {required} from '@/utils/formRules'
+import userCenterApi from '@/api/sys/userCenterApi'
+import tool from '@/utils/tool'
+import {cloneDeep} from 'lodash-es'
+import {globalStore} from '@/store'
 
-	const store = globalStore()
+const store = globalStore()
 
 	const formRef = ref()
 	let formData = ref({})

@@ -73,9 +73,10 @@
 </template>
 
 <script setup>
-	import monitorApi from '@/api/auth/monitorApi'
-	import { cloneDeep } from 'lodash-es'
-	const columns = [
+import monitorApi from '@/api/auth/monitorApi'
+import {cloneDeep} from 'lodash-es'
+
+const columns = [
 		{
 			title: '登录设备',
 			dataIndex: 'tokenDevice',

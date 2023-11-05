@@ -43,13 +43,13 @@
 </template>
 
 <script setup>
-	import router from '@/router'
-	import tool from '@/utils/tool'
-	import { globalStore } from '@/store'
-	import { watch } from 'vue'
-	import { storeToRefs } from 'pinia'
+import router from '@/router'
+import tool from '@/utils/tool'
+import {globalStore} from '@/store'
+import {watch} from 'vue'
+import {storeToRefs} from 'pinia'
 
-	const store = globalStore()
+const store = globalStore()
 
 	const { moduleUnfoldOpen, topHeaderThemeColorOpen } = storeToRefs(store)
 	const moduleBackColor = ref(topHeaderThemeColorOpen)

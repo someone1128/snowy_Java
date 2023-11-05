@@ -2,10 +2,10 @@
 	<div id="BarLabelRotation"></div>
 </template>
 <script setup name="BarLabelRotation">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	let option = {
+let option = {
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: {

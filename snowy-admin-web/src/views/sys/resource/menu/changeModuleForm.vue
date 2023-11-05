@@ -27,11 +27,9 @@
 </template>
 
 <script setup>
-	import { required } from '@/utils/formRules'
-	import tool from '@/utils/tool'
-	import menuApi from '@/api/sys/resource/menuApi'
-	import { getCurrentInstance } from 'vue'
-	// 默认是关闭状态
+import {required} from '@/utils/formRules'
+import menuApi from '@/api/sys/resource/menuApi'
+// 默认是关闭状态
 	let visible = $ref(false)
 	const emit = defineEmits({ successful: null })
 	const formRef = ref()

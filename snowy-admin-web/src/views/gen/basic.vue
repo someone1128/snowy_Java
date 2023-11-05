@@ -184,10 +184,11 @@
 </template>
 
 <script setup name="genBasic">
-	import { required } from '@/utils/formRules'
-	import tool from '@/utils/tool'
-	import genBasicApi from '@/api/gen/genBasicApi'
-	const formRef = ref()
+import {required} from '@/utils/formRules'
+import tool from '@/utils/tool'
+import genBasicApi from '@/api/gen/genBasicApi'
+
+const formRef = ref()
 	// 表单数据
 	const formData = ref({})
 	// 定义
@@ -275,14 +276,14 @@
 					})
 			} else {
 				formData.value = {
-					pluginName: 'snowy-plugin-biz',
+					pluginName: 'snowy-plugin-app',
 					packageName: 'vip.xiaonuo',
-					moduleName: 'biz',
+					moduleName: 'app',
 					sortCode: 99,
 					tablePrefix: 'Y',
 					generateType: 'ZIP',
 					formLayout: 'vertical',
-					gridWhether: 'N'
+					gridWhether: 'Y'
 				}
 			}
 		})

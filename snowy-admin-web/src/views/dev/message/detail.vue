@@ -37,8 +37,9 @@
 </template>
 
 <script setup name="messageDetail">
-	import messageApi from '@/api/dev/messageApi'
-	const receiveInfoList = ref([])
+import messageApi from '@/api/dev/messageApi'
+
+const receiveInfoList = ref([])
 
 	// 默认是关闭状态
 	let visible = $ref(false)

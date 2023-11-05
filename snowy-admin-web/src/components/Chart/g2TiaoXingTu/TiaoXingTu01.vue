@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-	import { onMounted } from 'vue'
-	import { Bar } from '@antv/g2plot'
+import {onMounted} from 'vue'
+import {Bar} from '@antv/g2plot'
 
-	const data = [
+const data = [
 		{ year: '1951 年', value: 38 },
 		{ year: '1952 年', value: 52 },
 		{ year: '1956 年', value: 61 },

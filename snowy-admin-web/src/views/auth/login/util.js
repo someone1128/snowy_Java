@@ -3,8 +3,8 @@ import userCenterApi from '@/api/sys/userCenterApi'
 import dictApi from '@/api/dev/dictApi'
 import router from '@/router'
 import tool from '@/utils/tool'
-import { message } from 'ant-design-vue'
-import { useGlobalStore } from '@/store'
+import {message} from 'ant-design-vue'
+import {useGlobalStore} from '@/store'
 
 export const afterLogin = async (loginToken) => {
 	tool.data.set('TOKEN', loginToken)

@@ -2,10 +2,10 @@
 	<div id="StepLine"></div>
 </template>
 <script setup name="StepLine">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	const option = {
+const option = {
 		title: {
 			text: ''
 		},

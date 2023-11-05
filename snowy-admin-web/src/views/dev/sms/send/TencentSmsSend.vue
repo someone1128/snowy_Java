@@ -35,10 +35,10 @@
 </template>
 
 <script setup name="TencentSmsSend">
-	import { required } from '@/utils/formRules'
-	import { message } from 'ant-design-vue'
-	import smsApi from '@/api/dev/smsApi'
-	// 定义emit事件
+import {required} from '@/utils/formRules'
+import {message} from 'ant-design-vue'
+import smsApi from '@/api/dev/smsApi'
+// 定义emit事件
 	const emit = defineEmits({ loadingStart: null, loadingEnd: null })
 	// 默认是关闭状态
 	let visible = $ref(false)

@@ -14,8 +14,6 @@ package vip.xiaonuo.sys.modular.role.result;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -42,8 +40,7 @@ public class SysRoleOwnMobileMenuResult {
      * @author xuyuxiang
      * @date 2022/4/28 23:19
      */
-    @Getter
-    @Setter
+    @Data
     public static class SysRoleOwnMobileMenu {
 
         /** 菜单id */

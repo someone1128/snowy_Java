@@ -20,10 +20,11 @@
 </template>
 
 <script setup name="userInfo">
-	import dayjs from 'dayjs'
-	import { onBeforeUnmount } from 'vue'
-	import tool from '@/utils/tool'
-	const userInfo = tool.data.get('USER_INFO')
+import dayjs from 'dayjs'
+import {onBeforeUnmount} from 'vue'
+import tool from '@/utils/tool'
+
+const userInfo = tool.data.get('USER_INFO')
 
 	const currentTime = ref(dayjs().format('YYYY年MM月DD日 HH时mm分ss秒'))
 	// 运行定时器，一秒获取一次

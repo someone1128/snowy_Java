@@ -14,11 +14,11 @@
 </template>
 
 <script setup name="shortcut">
-	import router from '@/router'
-	import userCenterApi from '@/api/sys/userCenterApi'
-	import shortcutCard from '@/components/ShortcutCard/index.vue'
-	import { onMounted } from 'vue'
-	const shortcutList = ref([])
+import router from '@/router'
+import userCenterApi from '@/api/sys/userCenterApi'
+import {onMounted} from 'vue'
+
+const shortcutList = ref([])
 
 	onMounted(() => {
 		// 进来后执行查询

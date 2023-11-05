@@ -12,8 +12,9 @@
 </template>
 
 <script setup name="Trend">
-	import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons-vue'
-	const props = defineProps({
+import {CaretDownOutlined, CaretUpOutlined} from '@ant-design/icons-vue'
+
+const props = defineProps({
 		prefixCls: {
 			type: String,
 			default: 'ant-pro-trend'

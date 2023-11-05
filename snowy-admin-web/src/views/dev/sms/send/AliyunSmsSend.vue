@@ -32,10 +32,10 @@
 </template>
 
 <script setup name="AliyunSmsSend">
-	import { message } from 'ant-design-vue'
-	import { required } from '@/utils/formRules'
-	import smsApi from '@/api/dev/smsApi'
-	// 定义emit事件
+import {message} from 'ant-design-vue'
+import {required} from '@/utils/formRules'
+import smsApi from '@/api/dev/smsApi'
+// 定义emit事件
 	const emit = defineEmits({ loadingStart: null, loadingEnd: null })
 	const formRef = ref()
 	// 表单数据，也就是默认给一些数据

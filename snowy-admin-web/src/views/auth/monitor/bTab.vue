@@ -22,9 +22,10 @@
 </template>
 
 <script setup name="monitorBTab">
-	import monitorApi from '@/api/auth/monitorApi'
-	import TokenInfoList from './tokenInfoList.vue'
-	const table = ref(null)
+import monitorApi from '@/api/auth/monitorApi'
+import TokenInfoList from './tokenInfoList.vue'
+
+const table = ref(null)
 	const tokenInfoList = ref()
 	const columns = [
 		{

@@ -5,5 +5,4 @@
 </template>
 
 <script setup name="eCShuXingTu">
-	import TreeWithPolylineEdge from '@/components/Chart/eCShuXingTu/TreeWithPolylineEdge.vue'
-</script>
+import TreeWithPolylineEdge from '@/components/Chart/eCShuXingTu/TreeWithPolylineEdge.vue'</script>

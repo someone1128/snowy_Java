@@ -24,8 +24,9 @@
 </template>
 
 <script setup="props, context" name="scopeDefineOrg">
-	import roleApi from '@/api/sys/roleApi'
-	const visible = ref(false)
+import roleApi from '@/api/sys/roleApi'
+
+const visible = ref(false)
 	let defaultExpandedKeys = ref([])
 	let checkedKeys = ref([])
 	const treeData = ref([])

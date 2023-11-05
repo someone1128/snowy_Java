@@ -2,11 +2,11 @@
 	<div id="ClusteringProcess"></div>
 </template>
 <script setup name="ClusteringProcess">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
-	import ecStat from 'echarts-stat'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
+import ecStat from 'echarts-stat'
 
-	onMounted(() => {
+onMounted(() => {
 		let Echarts = echarts.init(document.getElementById('ClusteringProcess'))
 
 		echarts.registerTransform(ecStat.transform.clustering)

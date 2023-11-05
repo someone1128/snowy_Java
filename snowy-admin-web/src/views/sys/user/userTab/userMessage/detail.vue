@@ -31,8 +31,9 @@
 </template>
 
 <script setup name="messageDetail">
-	import userCenterApi from '@/api/sys/userCenterApi'
-	const emits = defineEmits(['refresh'])
+import userCenterApi from '@/api/sys/userCenterApi'
+
+const emits = defineEmits(['refresh'])
 	const receiveInfoList = ref([])
 
 	// 默认是关闭状态

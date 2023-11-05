@@ -28,10 +28,10 @@
 </template>
 
 <script setup name="updatePassword">
-	import { required } from '@/utils/formRules'
-	import userCenterApi from '@/api/sys/userCenterApi'
+import {required} from '@/utils/formRules'
+import userCenterApi from '@/api/sys/userCenterApi'
 
-	// 定义emit事件
+// 定义emit事件
 	const emit = defineEmits({ successful: null })
 	// 默认是关闭状态
 	let visible = ref(false)

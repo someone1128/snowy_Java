@@ -49,11 +49,11 @@
 </template>
 
 <script setup name="bizPositionForm">
-	import { required } from '@/utils/formRules'
-	import bizPositionApi from '@/api/biz/bizPositionApi'
-	import tool from '@/utils/tool'
+import {required} from '@/utils/formRules'
+import bizPositionApi from '@/api/biz/bizPositionApi'
+import tool from '@/utils/tool'
 
-	// 定义emit事件
+// 定义emit事件
 	const emit = defineEmits({ successful: null })
 	// 默认是关闭状态
 	const visible = ref(false)

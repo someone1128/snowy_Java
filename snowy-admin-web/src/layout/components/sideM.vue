@@ -18,11 +18,11 @@
 </template>
 
 <script>
-	import NavMenu from './NavMenu.vue'
-	import { globalStore } from '@/store'
-	import { mapState } from 'pinia'
+import NavMenu from './NavMenu.vue'
+import {globalStore} from '@/store'
+import {mapState} from 'pinia'
 
-	export default {
+export default {
 		components: {
 			NavMenu
 		},

@@ -14,8 +14,6 @@ package vip.xiaonuo.auth.modular.monitor.result;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
@@ -103,8 +101,7 @@ public class AuthSessionPageResult {
      * @author xuyuxiang
      * @date 2022/7/28 15:04
      **/
-    @Getter
-    @Setter
+    @Data
     public static class TokenSignInfo {
 
         /** token值 */

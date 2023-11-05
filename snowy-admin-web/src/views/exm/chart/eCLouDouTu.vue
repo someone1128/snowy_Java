@@ -24,8 +24,7 @@
 </template>
 
 <script setup name="eCLouDouTu">
-	import FunnelChart from '@/components/Chart/eCLouDouTu/FunnelChart.vue'
-	import FunnelCompare from '@/components/Chart/eCLouDouTu/FunnelCompare.vue'
-	import CustomizedFunnel from '@/components/Chart/eCLouDouTu/CustomizedFunnel.vue'
-	import MultipleFunnels from '@/components/Chart/eCLouDouTu/MultipleFunnels.vue'
-</script>
+import FunnelChart from '@/components/Chart/eCLouDouTu/FunnelChart.vue'
+import FunnelCompare from '@/components/Chart/eCLouDouTu/FunnelCompare.vue'
+import CustomizedFunnel from '@/components/Chart/eCLouDouTu/CustomizedFunnel.vue'
+import MultipleFunnels from '@/components/Chart/eCLouDouTu/MultipleFunnels.vue'</script>

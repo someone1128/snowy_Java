@@ -21,9 +21,9 @@
 </template>
 
 <script setup name="fileDetail">
-	import fileApi from '@/api/dev/fileApi'
+import fileApi from '@/api/dev/fileApi'
 
-	// 默认是关闭状态
+// 默认是关闭状态
 	let visible = $ref(false)
 	const formRef = ref()
 	// 表单数据

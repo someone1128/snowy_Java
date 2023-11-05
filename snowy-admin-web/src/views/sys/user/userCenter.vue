@@ -63,19 +63,19 @@
 </template>
 
 <script setup name="userCenter">
-	import { onMounted } from 'vue'
-	import { useRoute } from 'vue-router'
-	import tool from '@/utils/tool'
-	import { globalStore } from '@/store'
-	import userCenterApi from '@/api/sys/userCenterApi'
-	import accountBasic from './userTab/accountBasic.vue'
-	import CropUpload from '@/components/CropUpload/index.vue'
-	import organizationChart from './userTab/organizationChart.vue'
-	import shortcutSetting from './userTab/shortcutSetting.vue'
-	import accountBind from './userTab/accountBind.vue'
-	import userMessage from './userTab/userMessage.vue'
+import {onMounted} from 'vue'
+import {useRoute} from 'vue-router'
+import tool from '@/utils/tool'
+import {globalStore} from '@/store'
+import userCenterApi from '@/api/sys/userCenterApi'
+import accountBasic from './userTab/accountBasic.vue'
+import CropUpload from '@/components/CropUpload/index.vue'
+import organizationChart from './userTab/organizationChart.vue'
+import shortcutSetting from './userTab/shortcutSetting.vue'
+import accountBind from './userTab/accountBind.vue'
+import userMessage from './userTab/userMessage.vue'
 
-	const global_store = globalStore()
+const global_store = globalStore()
 
 	const userInfo = computed(() => {
 		return global_store.userInfo

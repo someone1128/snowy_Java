@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-	import { onMounted } from 'vue'
-	import { Bar } from '@antv/g2plot'
+import {onMounted} from 'vue'
+import {Bar} from '@antv/g2plot'
 
-	const data = [
+const data = [
 		{
 			label: 'Mon.',
 			type: 'series1',

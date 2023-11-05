@@ -88,13 +88,13 @@
 </template>
 
 <script setup name="phoneFindForm">
-	import { message } from 'ant-design-vue'
-	import { nextTick } from 'vue'
-	import router from '@/router'
-	import { required, rules } from '@/utils/formRules'
-	import userCenterApi from '@/api/sys/userCenterApi'
-	import smCrypto from '@/utils/smCrypto'
-	const phoneLoginFormRef = ref()
+import {message} from 'ant-design-vue'
+import router from '@/router'
+import {required, rules} from '@/utils/formRules'
+import userCenterApi from '@/api/sys/userCenterApi'
+import smCrypto from '@/utils/smCrypto'
+
+const phoneLoginFormRef = ref()
 	const phoneFormData = ref({})
 	const islogin = ref(false)
 	let state = ref({

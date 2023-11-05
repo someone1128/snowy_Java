@@ -3,10 +3,10 @@
 </template>
 <!--ec官网：https://echarts.apache.org/zh/index.html-->
 <script setup name="ShangHaiIndex">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	// 上证指数的一些参数
+// 上证指数的一些参数
 	const upColor = '#ec0000'
 	const upBorderColor = '#8A0000'
 	const downColor = '#00da3c'

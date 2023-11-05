@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-	import { onMounted } from 'vue'
-	import { WordCloud } from '@antv/g2plot'
+import {onMounted} from 'vue'
+import {WordCloud} from '@antv/g2plot'
 
-	onMounted(() => {
+onMounted(() => {
 		fetch('https://gw.alipayobjects.com/os/antfincdn/jPKbal7r9r/mock.json')
 			.then((res) => res.json())
 			.then((data) => {

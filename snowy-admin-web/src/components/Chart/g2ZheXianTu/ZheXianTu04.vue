@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-	import { onMounted } from 'vue'
-	import { Line } from '@antv/g2plot'
+import {onMounted} from 'vue'
+import {Line} from '@antv/g2plot'
 
-	const seriesKey = 'series'
+const seriesKey = 'series'
 	const valueKey = 'value'
 	const processData = (data, yFields, meta) => {
 		const result = []

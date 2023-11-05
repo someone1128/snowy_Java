@@ -11,9 +11,9 @@
 </template>
 
 <script setup name="threeLogin">
-	import thirdApi from '@/api/auth/thirdApi'
+import thirdApi from '@/api/auth/thirdApi'
 
-	const getLoginRenderUrl = (platform) => {
+const getLoginRenderUrl = (platform) => {
 		const param = {
 			platform: platform
 		}

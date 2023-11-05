@@ -38,10 +38,10 @@
 </template>
 
 <script setup name="dictForm">
-	import { required } from '@/utils/formRules'
-	import bizDictApi from '@/api/biz/bizDictApi'
+import {required} from '@/utils/formRules'
+import bizDictApi from '@/api/biz/bizDictApi'
 
-	// 定义emit事件
+// 定义emit事件
 	const emit = defineEmits({ successful: null })
 	// 默认是关闭状态
 	const visible = ref(false)

@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-	import { onMounted } from 'vue'
-	import { Scatter } from '@antv/g2plot'
+import {onMounted} from 'vue'
+import {Scatter} from '@antv/g2plot'
 
-	onMounted(() => {
+onMounted(() => {
 		fetch('https://gw.alipayobjects.com/os/antfincdn/t81X1wXdoj/scatter-data.json')
 			.then((res) => res.json())
 			.then((data) => {

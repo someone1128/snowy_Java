@@ -14,8 +14,6 @@ package vip.xiaonuo.dev.modular.monitor.result;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 服务器监控结果
@@ -59,8 +57,7 @@ public class DevMonitorServerResult {
      * @author xuyuxiang
      * @date 2022/7/31 16:42
      */
-    @Getter
-    @Setter
+    @Data
     public static class DevMonitorCpuInfo {
 
         /** CPU名称 */
@@ -106,8 +103,7 @@ public class DevMonitorServerResult {
      * @author xuyuxiang
      * @date 2022/7/31 16:42
      */
-    @Getter
-    @Setter
+    @Data
     public static class DevMonitorMemoryInfo {
 
         /** 内存总量 */
@@ -133,8 +129,7 @@ public class DevMonitorServerResult {
      * @author xuyuxiang
      * @date 2022/7/31 16:42
      */
-    @Getter
-    @Setter
+    @Data
     public static class DevMonitorStorageInfo {
 
         /** 存储总量 */
@@ -160,8 +155,7 @@ public class DevMonitorServerResult {
      * @author xuyuxiang
      * @date 2022/7/31 16:42
      */
-    @Getter
-    @Setter
+    @Data
     public static class DevMonitorNetworkInfo {
 
         /** 上行速率 */
@@ -180,8 +174,7 @@ public class DevMonitorServerResult {
      * @author xuyuxiang
      * @date 2022/7/31 16:42
      */
-    @Getter
-    @Setter
+    @Data
     public static class DevMonitorServerInfo {
 
         /** 服务器名称 */
@@ -207,8 +200,7 @@ public class DevMonitorServerResult {
      * @author xuyuxiang
      * @date 2022/7/31 16:42
      */
-    @Getter
-    @Setter
+    @Data
     public static class DevMonitorJvmInfo {
 
         /** JVM名称 */

@@ -3,10 +3,10 @@
 </template>
 <!--ec官网：https://echarts.apache.org/zh/index.html-->
 <script setup name="DoughnutChartWithRoundedCorner">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	onMounted(() => {
+onMounted(() => {
 		let Echarts = echarts.init(document.getElementById('DoughnutChartWithRoundedCorner'))
 		const option = {
 			tooltip: {

@@ -24,8 +24,7 @@
 </template>
 
 <script setup name="eCZhuZhuangTu">
-	import BasicBar from '@/components/Chart/eCZhuZhuangTu/BasicBar.vue'
-	import BarLabelRotation from '@/components/Chart/eCZhuZhuangTu/BarLabelRotation.vue'
-	import BarChartWithNegativeValue from '@/components/Chart/eCZhuZhuangTu/BarChartWithNegativeValue.vue'
-	import WatermarkEChartsDownload from '@/components/Chart/eCZhuZhuangTu/WatermarkEChartsDownload.vue'
-</script>
+import BasicBar from '@/components/Chart/eCZhuZhuangTu/BasicBar.vue'
+import BarLabelRotation from '@/components/Chart/eCZhuZhuangTu/BarLabelRotation.vue'
+import BarChartWithNegativeValue from '@/components/Chart/eCZhuZhuangTu/BarChartWithNegativeValue.vue'
+import WatermarkEChartsDownload from '@/components/Chart/eCZhuZhuangTu/WatermarkEChartsDownload.vue'</script>

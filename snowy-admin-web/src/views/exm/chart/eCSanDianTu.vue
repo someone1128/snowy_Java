@@ -24,8 +24,7 @@
 </template>
 
 <script setup name="eCSanDianTu">
-	import BasicScatterChart from '@/components/Chart/eCSanDianTu/BasicScatterChart.vue'
-	import ClusteringProcess from '@/components/Chart/eCSanDianTu/ClusteringProcess.vue'
-	import EffectScatterChart from '@/components/Chart/eCSanDianTu/EffectScatterChart.vue'
-	import ScatterAqiColor from '@/components/Chart/eCSanDianTu/ScatterAqiColor.vue'
-</script>
+import BasicScatterChart from '@/components/Chart/eCSanDianTu/BasicScatterChart.vue'
+import ClusteringProcess from '@/components/Chart/eCSanDianTu/ClusteringProcess.vue'
+import EffectScatterChart from '@/components/Chart/eCSanDianTu/EffectScatterChart.vue'
+import ScatterAqiColor from '@/components/Chart/eCSanDianTu/ScatterAqiColor.vue'</script>

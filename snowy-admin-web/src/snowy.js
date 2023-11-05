@@ -1,7 +1,7 @@
 import * as antdvIcons from '@ant-design/icons-vue'
 import config from './config'
 import tool from './utils/tool'
-import { hasPerm } from './utils/permission/index'
+import {hasPerm} from './utils/permission/index'
 import errorHandler from './utils/errorHandler'
 import customIcons from './assets/icons/index.js'
 import 'highlight.js/styles/atom-one-dark.css'

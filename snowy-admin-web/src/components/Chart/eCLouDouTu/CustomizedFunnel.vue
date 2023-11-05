@@ -2,10 +2,10 @@
 	<div id="CustomizedFunnel"></div>
 </template>
 <script setup name="CustomizedFunnel">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	const option = {
+const option = {
 		title: {
 			text: ''
 		},

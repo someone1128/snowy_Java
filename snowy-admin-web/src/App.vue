@@ -5,10 +5,10 @@
 </template>
 
 <script setup name="App">
-	import i18n from '@/locales'
-	import { globalStore } from '@/store'
+import i18n from '@/locales'
+import {globalStore} from '@/store'
 
-	const store = globalStore()
+const store = globalStore()
 	store.initTheme()
 	const locale = i18n.global.messages.value[i18n.global.locale.value].lang
 </script>

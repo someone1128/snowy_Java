@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-	import { onMounted } from 'vue'
-	import { Column } from '@antv/g2plot'
+import {onMounted} from 'vue'
+import {Column} from '@antv/g2plot'
 
-	onMounted(() => {
+onMounted(() => {
 		fetch('https://gw.alipayobjects.com/os/antfincdn/8elHX%26irfq/stack-column-data.json')
 			.then((data) => data.json())
 			.then((data) => {

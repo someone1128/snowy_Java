@@ -57,8 +57,8 @@
 </template>
 
 <script setup name="uploadForm">
-	import fileApi from '@/api/dev/fileApi'
-	// 定义emit事件
+import fileApi from '@/api/dev/fileApi'
+// 定义emit事件
 	const emit = defineEmits({ successful: null })
 	// 默认是关闭状态
 	let visible = $ref(false)

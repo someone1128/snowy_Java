@@ -13,11 +13,12 @@
 </template>
 
 <script setup name="indexVisLog">
-	import router from '@/router'
-	import indexApi from '@/api/sys/indexApi'
-	import { onMounted } from 'vue'
-	import tool from '@/utils/tool'
-	const userInfo = tool.data.get('USER_INFO')
+import router from '@/router'
+import indexApi from '@/api/sys/indexApi'
+import {onMounted} from 'vue'
+import tool from '@/utils/tool'
+
+const userInfo = tool.data.get('USER_INFO')
 	const visLogList = ref([])
 	onMounted(() => {
 		// 进来后执行查询

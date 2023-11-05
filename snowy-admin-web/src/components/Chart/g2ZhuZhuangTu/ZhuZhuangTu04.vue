@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-	import { onMounted } from 'vue'
-	import { Column } from '@antv/g2plot'
+import {onMounted} from 'vue'
+import {Column} from '@antv/g2plot'
 
-	const data = [
+const data = [
 		{
 			country: 'Asia',
 			year: '1750',

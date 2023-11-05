@@ -54,21 +54,20 @@
 </template>
 
 <script setup name="layoutUserBar">
-	import { createVNode } from 'vue'
-	import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
-	import { Modal } from 'ant-design-vue'
-	import screenFull from 'screenfull'
-	import { message } from 'ant-design-vue'
-	import Setting from './setting.vue'
-	import router from '@/router'
-	import tool from '@/utils/tool'
-	import config from '@/config/index'
-	import loginApi from '@/api/auth/loginApi'
-	import DevUserMessage from './message.vue'
-	import PanelSearch from './panel-search/index.vue'
-	import { globalStore } from '@/store'
-	import { useI18n } from 'vue-i18n'
-	const { locale } = useI18n()
+import {createVNode} from 'vue'
+import {ExclamationCircleOutlined} from '@ant-design/icons-vue'
+import {message, Modal} from 'ant-design-vue'
+import screenFull from 'screenfull'
+import Setting from './setting.vue'
+import router from '@/router'
+import tool from '@/utils/tool'
+import config from '@/config/index'
+import loginApi from '@/api/auth/loginApi'
+import PanelSearch from './panel-search/index.vue'
+import {globalStore} from '@/store'
+import {useI18n} from 'vue-i18n'
+
+const { locale } = useI18n()
 
 	const lang = ref(new Array(tool.data.get('APP_LANG') || config.LANG))
 	const settingDialog = ref(false)

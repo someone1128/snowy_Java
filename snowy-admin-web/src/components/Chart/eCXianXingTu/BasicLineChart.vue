@@ -2,10 +2,10 @@
 	<div id="BasicLineChart"></div>
 </template>
 <script setup name="BasicLineChart">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	const option = {
+const option = {
 		xAxis: {
 			type: 'category',
 			data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']

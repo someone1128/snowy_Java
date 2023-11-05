@@ -68,12 +68,12 @@
 </template>
 
 <script setup name="smsLoginForm">
-	import { message } from 'ant-design-vue'
-	import { required, rules } from '@/utils/formRules'
-	import loginApi from '@/api/auth/loginApi'
-	import { afterLogin } from './util'
+import {message} from 'ant-design-vue'
+import {required, rules} from '@/utils/formRules'
+import loginApi from '@/api/auth/loginApi'
+import {afterLogin} from './util'
 
-	const phoneLoginFormRef = ref()
+const phoneLoginFormRef = ref()
 	const phoneFormData = ref({})
 	const loading = ref(false)
 	let state = ref({

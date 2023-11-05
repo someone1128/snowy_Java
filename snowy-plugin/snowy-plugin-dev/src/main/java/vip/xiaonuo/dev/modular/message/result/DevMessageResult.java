@@ -14,8 +14,6 @@ package vip.xiaonuo.dev.modular.message.result;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -58,8 +56,7 @@ public class DevMessageResult {
      * @author xuyuxiang
      * @date 2022/7/31 16:42
      */
-    @Getter
-    @Setter
+    @Data
     public static class DevReceiveInfo {
 
         /** 接收人ID */

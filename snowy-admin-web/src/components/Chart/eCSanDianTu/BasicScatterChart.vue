@@ -2,10 +2,10 @@
 	<div id="BasicScatterChart"></div>
 </template>
 <script setup name="BasicScatterChart">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	onMounted(() => {
+onMounted(() => {
 		let Echarts = echarts.init(document.getElementById('BasicScatterChart'))
 		const option = {
 			xAxis: {},

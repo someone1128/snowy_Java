@@ -14,8 +14,6 @@ package vip.xiaonuo.gen.modular.basic.result;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -44,8 +42,7 @@ public class GenBasicPreviewResult {
     @ApiModelProperty(value = "移动端代码结果集", position = 4)
     private List<GenBasicCodeResult> genBasicCodeMobileResultList;
 
-    @Getter
-    @Setter
+    @Data
     public static class GenBasicCodeResult {
 
         /** 代码文件名称 */

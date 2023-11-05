@@ -76,11 +76,11 @@
 </template>
 
 <script setup name="genConfig">
-	import tool from '@/utils/tool'
-	import genConfigApi from '@/api/gen/genConfigApi'
-	import { cloneDeep } from 'lodash-es'
+import tool from '@/utils/tool'
+import genConfigApi from '@/api/gen/genConfigApi'
+import {cloneDeep} from 'lodash-es'
 
-	const table = ref()
+const table = ref()
 	const recordData = ref()
 	const tableData = ref()
 

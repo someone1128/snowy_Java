@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-	import { onMounted } from 'vue'
-	import { Bullet } from '@antv/g2plot'
+import {onMounted} from 'vue'
+import {Bullet} from '@antv/g2plot'
 
-	const data = [
+const data = [
 		{
 			title: '满意度',
 			ranges: [40, 70, 100],

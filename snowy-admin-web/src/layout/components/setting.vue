@@ -88,13 +88,13 @@
 </template>
 
 <script>
-	import { colorList } from '@/config/settingConfig'
-	import { ThemeModeEnum } from '@/utils/enum'
-	import { globalStore } from '@/store'
-	import { mapState, mapStores } from 'pinia'
-	import tool from '@/utils/tool'
+import {colorList} from '@/config/settingConfig'
+import {ThemeModeEnum} from '@/utils/enum'
+import {globalStore} from '@/store'
+import {mapState, mapStores} from 'pinia'
+import tool from '@/utils/tool'
 
-	const toolDataNameMap = {
+const toolDataNameMap = {
 		menuIsCollapse: 'MENU_COLLAPSE',
 		sideUniqueOpen: 'SIDE_UNIQUE_OPEN',
 		layoutTagsOpen: 'LAYOUT_TAGS_OPEN',

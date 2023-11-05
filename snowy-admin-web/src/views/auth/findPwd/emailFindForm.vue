@@ -88,12 +88,13 @@
 </template>
 
 <script setup name="emailFindForm">
-	import { message } from 'ant-design-vue'
-	import router from '@/router'
-	import { required, rules } from '@/utils/formRules'
-	import userCenterApi from '@/api/sys/userCenterApi'
-	import smCrypto from '@/utils/smCrypto'
-	const emailResetFormRef = ref()
+import {message} from 'ant-design-vue'
+import router from '@/router'
+import {required, rules} from '@/utils/formRules'
+import userCenterApi from '@/api/sys/userCenterApi'
+import smCrypto from '@/utils/smCrypto'
+
+const emailResetFormRef = ref()
 	const emailFormData = ref({})
 	const islogin = ref(false)
 	let state = ref({

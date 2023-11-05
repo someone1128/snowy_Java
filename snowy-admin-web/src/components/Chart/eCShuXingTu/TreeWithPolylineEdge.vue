@@ -2,10 +2,10 @@
 	<div id="TreeWithPolylineEdge"></div>
 </template>
 <script setup name="TreeWithPolylineEdge">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	const data = {
+const data = {
 		name: 'flare',
 		children: [
 			{

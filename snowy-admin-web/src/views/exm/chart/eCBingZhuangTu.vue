@@ -24,8 +24,7 @@
 </template>
 
 <script setup name="eCBingZhuangTu">
-	import RefererOfAWebsite from '@/components/Chart/eCBingZhuangTu/RefererOfAWebsite.vue'
-	import DoughnutChartWithRoundedCorner from '@/components/Chart/eCBingZhuangTu/DoughnutChartWithRoundedCorner.vue'
-	import CustomizedPie from '@/components/Chart/eCBingZhuangTu/CustomizedPie.vue'
-	import NightingaleChart from '@/components/Chart/eCBingZhuangTu/NightingaleChart.vue'
-</script>
+import RefererOfAWebsite from '@/components/Chart/eCBingZhuangTu/RefererOfAWebsite.vue'
+import DoughnutChartWithRoundedCorner from '@/components/Chart/eCBingZhuangTu/DoughnutChartWithRoundedCorner.vue'
+import CustomizedPie from '@/components/Chart/eCBingZhuangTu/CustomizedPie.vue'
+import NightingaleChart from '@/components/Chart/eCBingZhuangTu/NightingaleChart.vue'</script>

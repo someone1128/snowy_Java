@@ -2,10 +2,10 @@
 	<div id="ScatterAqiColor"></div>
 </template>
 <script setup name="ScatterAqiColor">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	const dataBJ = [
+const dataBJ = [
 		[1, 55, 9, 56, 0.46, 18, 6, '良'],
 		[2, 25, 11, 21, 0.65, 34, 9, '优'],
 		[3, 56, 7, 63, 0.3, 14, 5, '良'],

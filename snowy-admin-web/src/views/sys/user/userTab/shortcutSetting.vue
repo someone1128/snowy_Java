@@ -16,11 +16,10 @@
 </template>
 
 <script setup name="shortcutSetting">
-	import userCenterApi from '@/api/sys/userCenterApi'
-	import { onMounted } from 'vue'
-	import menuTreeSelect from '@/components/TreeSelect/menuTreeSelect.vue'
+import userCenterApi from '@/api/sys/userCenterApi'
+import {onMounted} from 'vue'
 
-	const formRef = ref()
+const formRef = ref()
 	let formData = ref({})
 	const menuTreeSelectRef = ref()
 	const submitLoading = ref(false)

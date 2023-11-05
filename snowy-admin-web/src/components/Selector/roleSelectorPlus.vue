@@ -106,9 +106,9 @@
 </template>
 
 <script setup name="roleSelectorPlus">
-	import { message } from 'ant-design-vue'
-	import { remove, isEmpty } from 'lodash-es'
-	// 弹窗是否打开
+import {message} from 'ant-design-vue'
+import {isEmpty, remove} from 'lodash-es'
+// 弹窗是否打开
 	const visible = ref(false)
 	// 主表格common
 	const commons = [

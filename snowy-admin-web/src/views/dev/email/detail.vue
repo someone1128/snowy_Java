@@ -41,9 +41,9 @@
 </template>
 
 <script setup name="emailDetail">
-	import emailApi from '@/api/dev/emailApi'
+import emailApi from '@/api/dev/emailApi'
 
-	// 默认是关闭状态
+// 默认是关闭状态
 	let visible = $ref(false)
 	const formRef = ref()
 	// 表单数据

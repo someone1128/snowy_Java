@@ -2,10 +2,10 @@
 	<div id="BarChartWithNegativeValue"></div>
 </template>
 <script setup name="BarChartWithNegativeValue">
-	import { onMounted } from 'vue'
-	import * as echarts from 'echarts'
+import {onMounted} from 'vue'
+import * as echarts from 'echarts'
 
-	const labelRight = {
+const labelRight = {
 		position: 'right'
 	}
 

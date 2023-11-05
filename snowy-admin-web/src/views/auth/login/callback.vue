@@ -19,16 +19,16 @@
 </template>
 
 <script setup name="loginCallback">
-	import { message } from 'ant-design-vue'
-	import tool from '@/utils/tool'
-	import router from '@/router'
-	import thirdApi from '@/api/auth/thirdApi'
-	import loginApi from '@/api/auth/loginApi'
-	import userCenterApi from '@/api/sys/userCenterApi'
-	import dictApi from '@/api/dev/dictApi'
-	import { onMounted } from 'vue'
+import {message} from 'ant-design-vue'
+import tool from '@/utils/tool'
+import router from '@/router'
+import thirdApi from '@/api/auth/thirdApi'
+import loginApi from '@/api/auth/loginApi'
+import userCenterApi from '@/api/sys/userCenterApi'
+import dictApi from '@/api/dev/dictApi'
+import {onMounted} from 'vue'
 
-	onMounted(() => {
+onMounted(() => {
 		// 获取当前url
 		const url = new URL(window.location.href)
 		let argLength = 0

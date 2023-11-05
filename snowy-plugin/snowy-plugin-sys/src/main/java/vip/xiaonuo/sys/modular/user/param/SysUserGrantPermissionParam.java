@@ -14,8 +14,6 @@ package vip.xiaonuo.sys.modular.user.param;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -48,8 +46,7 @@ public class SysUserGrantPermissionParam {
      * @author xuyuxiang
      * @date 2022/4/28 23:19
      */
-    @Getter
-    @Setter
+    @Data
     public static class SysUserGrantPermission {
 
         /** 接口地址 */

@@ -14,8 +14,6 @@ package vip.xiaonuo.auth.core.pojo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
@@ -254,8 +252,7 @@ public abstract class SaBaseLoginUser {
      * @author xuyuxiang
      * @date 2022/8/15 13:57
      **/
-    @Getter
-    @Setter
+    @Data
     public static class DataScope {
 
         /** API接口 */

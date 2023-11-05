@@ -3,11 +3,11 @@
 </template>
 
 <script setup>
-	import logApi from '@/api/dev/logApi'
-	import { Column } from '@antv/g2plot'
-	import { onMounted } from 'vue'
+import logApi from '@/api/dev/logApi'
+import {Column} from '@antv/g2plot'
+import {onMounted} from 'vue'
 
-	onMounted(() => {
+onMounted(() => {
 		logApi.logOpBarChartData().then((data) => {
 			const stackedColumnPlot = new Column('columnChart', {
 				data,

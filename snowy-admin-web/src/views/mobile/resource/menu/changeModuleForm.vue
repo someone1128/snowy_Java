@@ -27,9 +27,9 @@
 </template>
 
 <script setup>
-	import { required } from '@/utils/formRules'
-	import mobileMenuApi from '@/api/mobile/resource/menuApi'
-	// 默认是关闭状态
+import {required} from '@/utils/formRules'
+import mobileMenuApi from '@/api/mobile/resource/menuApi'
+// 默认是关闭状态
 	let visible = $ref(false)
 	const emit = defineEmits({ successful: null })
 	const formRef = ref()

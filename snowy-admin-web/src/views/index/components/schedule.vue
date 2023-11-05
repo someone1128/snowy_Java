@@ -39,11 +39,12 @@
 </template>
 
 <script setup name="schedule">
-	import dayjs from 'dayjs'
-	import { required } from '@/utils/formRules'
-	import { onMounted } from 'vue'
-	import indexApi from '@/api/sys/indexApi'
-	const scheduleList = ref([])
+import dayjs from 'dayjs'
+import {required} from '@/utils/formRules'
+import {onMounted} from 'vue'
+import indexApi from '@/api/sys/indexApi'
+
+const scheduleList = ref([])
 	const calendarValue = ref(dayjs())
 
 	onMounted(() => {

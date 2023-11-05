@@ -97,14 +97,13 @@
 </template>
 
 <script setup name="sysConfig">
-	import { cloneDeep } from 'lodash-es'
-	import { required } from '@/utils/formRules'
-	import { message } from 'ant-design-vue'
-	import configApi from '@/api/dev/configApi'
-	import tool from '@/utils/tool'
-	import menuTreeSelect from '@/components/TreeSelect/menuTreeSelect.vue'
+import {cloneDeep} from 'lodash-es'
+import {required} from '@/utils/formRules'
+import {message} from 'ant-design-vue'
+import configApi from '@/api/dev/configApi'
+import tool from '@/utils/tool'
 
-	// 定义emit事件
+// 定义emit事件
 	const emit = defineEmits({ successful: null })
 	const formRef = ref()
 	// 表单数据，也就是默认给一些数据

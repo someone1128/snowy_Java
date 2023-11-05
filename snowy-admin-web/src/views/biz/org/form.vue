@@ -63,13 +63,12 @@
 </template>
 
 <script setup name="bizOrgForm">
-	import { required } from '@/utils/formRules'
-	import bizOrgApi from '@/api/biz/bizOrgApi'
-	import userCenterApi from '@/api/sys/userCenterApi'
-	import userSelectorPlus from '@/components/Selector/userSelectorPlus.vue'
-	import tool from '@/utils/tool'
+import {required} from '@/utils/formRules'
+import bizOrgApi from '@/api/biz/bizOrgApi'
+import userCenterApi from '@/api/sys/userCenterApi'
+import tool from '@/utils/tool'
 
-	// 定义emit事件
+// 定义emit事件
 	const emit = defineEmits({ successful: null })
 	// 默认是关闭状态
 	let visible = $ref(false)

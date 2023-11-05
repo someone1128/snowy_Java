@@ -1,7 +1,7 @@
 <template>
 	<a-row :gutter="10">
 		<a-col :span="16">
-			<userInfo class="mb-2" />
+			<UserInfo class="mb-2" />
 			<shortcut class="mb-2" />
 			<a-row :gutter="10">
 				<a-col :span="12">
@@ -19,4 +19,12 @@
 	</a-row>
 </template>
 
-<script name="indexHome" setup></script>
+<script setup name="indexHome">
+	import shortcutCard from '@/components/ShortcutCard/index.vue'
+	import userInfo from './components/userInfo.vue'
+	import shortcut from './components/shortcut.vue'
+	import schedule from './components/schedule.vue'
+	import miniMessage from './components/miniMessage.vue'
+	import visLog from './components/visLog.vue'
+	import opLog from './components/opLog.vue'
+</script>
